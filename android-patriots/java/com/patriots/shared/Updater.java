@@ -15,6 +15,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -26,10 +28,12 @@ public final class Updater {
     private final AtomicBoolean busy=new AtomicBoolean();
     private boolean pendingInstall;
     Updater(HomeActivity a){activity=a;}
-    static HttpURLConnection connect(String value)throws Exception {
+    static HttpURLConnection connect(String value)throws Exception {return connect(value,null);}
+    static HttpURLConnection connect(String value,String range)throws Exception {
         URL url=new URL(value);if(!"https".equals(url.getProtocol()))throw new SecurityException("HTTPS required");
         HttpURLConnection c=(HttpURLConnection)url.openConnection();c.setConnectTimeout(12000);c.setReadTimeout(30000);c.setRequestProperty("User-Agent","Patriots-Android-Updater");c.setRequestProperty("Accept","application/vnd.github+json");
-        if(c.getResponseCode()!=200){int code=c.getResponseCode();c.disconnect();throw new java.io.IOException("HTTP "+code);}
+        if(range!=null){c.setRequestProperty("Range",range);c.setRequestProperty("Accept","application/octet-stream");}
+        if(c.getResponseCode()!=(range==null?200:206)){int code=c.getResponseCode();c.disconnect();throw new java.io.IOException("HTTP "+code);}
         if(!"https".equals(c.getURL().getProtocol())){c.disconnect();throw new SecurityException("Unsafe redirect");}return c;
     }
     static byte[] bytes(String url,int limit)throws Exception {HttpURLConnection c=connect(url);try(InputStream in=c.getInputStream();ByteArrayOutputStream out=new ByteArrayOutputStream()){byte[] b=new byte[16384];int n;while((n=in.read(b))!=-1){if(out.size()+n>limit)throw new java.io.IOException("Response too large");out.write(b,0,n);}return out.toByteArray();}finally{c.disconnect();}}
@@ -60,11 +64,33 @@ public final class Updater {
                 }
                 if(!UpdatePolicy.digest(expected))throw new SecurityException("Invalid checksum");
                 String url=asset.getString("browser_download_url");if(!UpdatePolicy.assetUrl(url,activity.repository(),activity.apkName()))throw new SecurityException("Wrong update source");
-                MessageDigest hash=MessageDigest.getInstance("SHA-256");HttpURLConnection c=connect(url);long total=0;int previous=-1;
-                try(InputStream in=c.getInputStream();FileOutputStream out=new FileOutputStream(part)){
-                    byte[] b=new byte[65536];int n;while((n=in.read(b))!=-1){total+=n;if(total>size)throw new SecurityException("Unexpected APK size");hash.update(b,0,n);out.write(b,0,n);int percent=(int)(total*100/size);if(percent!=previous){previous=percent;activity.runOnUiThread(()->progress.setProgress(percent));}}
+                long total=0;int previous=-1;
+                if(part.exists()&&!part.delete())throw new java.io.IOException("Cannot reset update cache");
+                try(RandomAccessFile out=new RandomAccessFile(part,"rw")){
+                    while(total<size){
+                        boolean complete=false;
+                        for(int attempt=0;attempt<4&&!complete;attempt++){
+                            long start=total,end=Math.min(size-1,start+4L*1024*1024-1);HttpURLConnection c=null;
+                            try{
+                                c=connect(url,"bytes="+start+"-"+end);
+                                String range="bytes "+start+"-"+end+"/"+size;
+                                if(!range.equals(c.getHeaderField("Content-Range")))throw new SecurityException("Invalid update range");
+                                out.seek(start);
+                                try(InputStream in=c.getInputStream()){
+                                    byte[] b=new byte[65536];int n;
+                                    while((n=in.read(b))!=-1){if(total+n>end+1)throw new SecurityException("Unexpected range size");out.write(b,0,n);total+=n;int percent=(int)(total*100/size);if(percent!=previous){previous=percent;activity.runOnUiThread(()->progress.setProgress(percent));}}
+                                }
+                                if(total!=end+1)throw new java.io.IOException("Incomplete update range");
+                                complete=true;
+                            }catch(java.io.IOException e){if(attempt==3)throw e;android.util.Log.w("PatriotsUpdate","Retrying APK download at "+total,e);}
+                            finally{if(c!=null)c.disconnect();}
+                        }
+                    }
                     out.getFD().sync();
-                }finally{c.disconnect();}
+                }
+                activity.runOnUiThread(()->progress.setTitle(activity.t("Güncelleme doğrulanıyor","Verifying update")));
+                MessageDigest hash=MessageDigest.getInstance("SHA-256");
+                try(InputStream in=new FileInputStream(part)){byte[] b=new byte[65536];int n;while((n=in.read(b))!=-1)hash.update(b,0,n);}
                 if(total!=size||!hex(hash.digest()).equalsIgnoreCase(expected))throw new SecurityException("Update checksum mismatch");
                 verify(part,expectedVersion);
                 File ready=new File(activity.getCacheDir(),"patriots-update.apk");if(ready.exists()&&!ready.delete())throw new java.io.IOException("Cannot replace update cache");if(!part.renameTo(ready))throw new java.io.IOException("Cannot store verified update");

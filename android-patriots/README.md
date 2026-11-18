@@ -1,6 +1,6 @@
 # Patriots Android · Touch
 
-Android APK v1.0.0, Android 9/API 28 or newer. The distributed universal APK includes arm64-v8a, armeabi-v7a and an x86_64 build for emulators/compatible devices. Actual performance depends on the device and OpenGL driver.
+Android APK v1.0.1, Android 9/API 28 or newer. The distributed universal APK includes arm64-v8a, armeabi-v7a and an x86_64 build for emulators/compatible devices. Actual performance depends on the device and OpenGL driver.
 
 ## Play
 
@@ -26,18 +26,20 @@ $env:ANDROID_HOME='D:\Patriots_Android\sdk'
 $env:PATRIOTS_ANDROID_WORK='D:\Patriots_Android'
 $env:PATRIOTS_PC_PACKAGE='C:\Games\MGS Touch'
 $env:PATRIOTS_ANDROID_ABIS='arm64-v8a,armeabi-v7a,x86_64'
-python android-patriots/build.py 1.0.0
+python android-patriots/build.py 1.0.1
 ```
 
 The builder writes the APK and SHA256 to `outputs/Android/`, verifies APK signatures and 16 KB native-library alignment, and uses the stable private key in the work folder's `signing/`. **Back up that folder privately. Do not upload it.** The Android launcher/updater is MIT-licensed; native runtime component licenses remain as documented in the repository.
 
 ## Publish an update
 
-1. Build a higher version, e.g. `python android-patriots/build.py 1.0.1` using the same private key.
-2. Create a non-draft, non-prerelease GitHub release tagged `android-v1.0.1` in this repository. It need not become the latest PC release.
+1. Build a higher version, e.g. `python android-patriots/build.py 1.0.2` using the same private key.
+2. Create a non-draft, non-prerelease GitHub release tagged `android-v1.0.2` in this repository. It need not become the latest PC release.
 3. Upload `MGS_Touch_Patriots_Android.apk` plus its `.apk.sha256` sidecar. Keep the filename stable between updates.
 4. On next launcher startup, installed older versions offer the new APK. Game assets may be refreshed but personal save files/settings are not part of the update payload.
 
 ## Checks
 
 `UpdatePolicyTest.java` covers Android tag ordering, PC-channel exclusion, trusted asset URLs and checksum syntax. Compile/run it with `UpdatePolicy.java` using javac/java. Android device/emulator checks cover launcher, native boot, save preservation and package installation separately. APK signature/ZIP checks are build-time checks; they do not establish performance on every physical phone.
+
+Large APK downloads use bounded 4 MiB HTTP ranges and up to four connection attempts per range. A transient connection failure resumes from the bytes already written in the current download; final SHA256 and signature verification still cover the complete APK.
