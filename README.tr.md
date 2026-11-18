@@ -14,13 +14,13 @@
 
 ## Kurulum
 
-1. [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) bölümünden **MGS_Touch_Patriots_PC_v1.0.8.zip** dosyasını indir.
+1. [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) bölümünden **MGS_Touch_Patriots_PC_v1.1.0.zip** dosyasını indir.
 2. Arşivi yazılabilir bir klasöre tamamen çıkart. EXE ile yanındaki klasörler birlikte kalmalı.
 3. **Metal Gear Solid Touch.exe** dosyasını aç, dil ve ayarlarını seç, **OYNA** düğmesine bas.
 
 Hazır paketi oynamak için iPhone, iOS emülatörü, Python veya derleyici gerekmez. Launcher .NET Framework 4.x, oyun Windows x64 ve çalışan bir OpenGL sürücüsü kullanır. SDL3 pakettedir. Yerel denemeler Windows 10 Pro / Intel HD Graphics 620 üzerinde yapıldı; bütün bilgisayarlar için performans garantisi değildir.
 
-Mevcut kurulum için **MGS_Touch_Patriots_PC_v1.0.8_Guncelleme.zip** kullanılabilir. Önce `Saves/` klasörünü yedekle, sonra güncelleme dosyalarını mevcut oyun klasörünün üzerine çıkart. Güncelleme kişisel kayıt veya ayar dosyası içermez. Tam paket temiz kayıt klasörüyle ve hileler kapalı gelir.
+Mevcut kurulum için **MGS_Touch_Patriots_PC_v1.1.0_Guncelleme.zip** kullanılabilir. Önce `Saves/` klasörünü yedekle, sonra güncelleme dosyalarını mevcut oyun klasörünün üzerine çıkart. Güncelleme kişisel kayıt veya ayar dosyası içermez. Tam paket temiz kayıt klasörüyle ve hileler kapalı gelir.
 
 ## Neler var?
 
@@ -90,3 +90,7 @@ GitHub Actions kaynak sınırlarını, çeviri metadatasını ve WPF launcher de
 Özgün oyun: **Konami / Kojima Productions**. Decompilation ve platform temeli: **[etruj/MetalGearSolidTouch-Decompilation-](https://github.com/etruj/MetalGearSolidTouch-Decompilation-)** ve **[etruj/mgs-retouched](https://github.com/etruj/mgs-retouched)**. Windows entegrasyonu ve Türkçe çeviri: **[Patriots Çeviri](https://www.patriotsceviri.com.tr/)**.
 
 [NOTICE.md](NOTICE.md), [LICENSE](LICENSE) ve [bileşen lisansları](licenses/). Bağımsız bir hayran projesidir; resmî Konami sürümü değildir.
+
+## Yeni dil ekleme
+
+Çevirmene [161 metinlik launcher JSON’unu](localization/launcher/pt-BR.launcher.json) ve [549 metinlik oyun JSON’unu](localization/game/pt-BR.game.json) gönder. Yalnızca `text` alanları çevrilir; kimlikler ve işaretler korunur. DİLLER sekmesinden iki dosya ayrı ayrı veya birlikte ZIP olarak kurulabilir. [Çeviri rehberi](docs/TRANSLATING.tr.md). Portekizce şablon boştur; tamamlanan çeviri incelendikten sonra resmî dil olarak eklenecek.

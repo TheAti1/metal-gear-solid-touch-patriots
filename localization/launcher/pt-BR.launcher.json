@@ -1,0 +1,1304 @@
+{
+  "template_version": 1,
+  "source_sha256": "",
+  "language": "pt-BR",
+  "native_name": "Português (Brasil)",
+  "culture": "pt-BR",
+  "author": "",
+  "instructions": [
+    "Translate every text field using source as the English reference. All entries in these two files are translatable.",
+    "Preserve id, source, record_id, category and required_tokens. Keep placeholders, format specifiers and intentional line breaks.",
+    "Copy unchanged names into text. Empty text falls back to English. Language metadata is preset in the pt-BR files; you may add your credit to author."
+  ],
+  "format": "mgs-touch-launcher-language-v1",
+  "entries": [
+    {
+      "id": "ui_7b4738eddbb2d3f2bee9",
+      "source": "01 / PATRIOTS PC EDITION",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_3262f8ad409528b9b83e",
+      "source": "02 / VIDEO",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_edda2eacd4518d9bcaa0",
+      "source": "03 / INPUT",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a48db029af59f143fda8",
+      "source": "04 / AUDIO",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_af2a6616d17d27b9e0b1",
+      "source": "05 / LOCALIZATION",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c8e49390bcffa7971e0c",
+      "source": "06 / RICH PRESENCE",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_504df6e5ec2fa42c76d6",
+      "source": "07 / PROGRESS",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_5fc2d913bbb9b0780cfd",
+      "source": "08 / CREDITS",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_72b70ae3032dfe31f357",
+      "source": "ABOUT",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_859e89a729c204abec0e",
+      "source": "AUDIO",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c6c67de479d9a1df6f13",
+      "source": "About the project",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_71eb4b82861abd3b7155",
+      "source": "Activity cleared",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_e3f8e9b40805b792ccf1",
+      "source": "Activity published",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_4c472c42f13c51072067",
+      "source": "Adjust music and sound effects separately.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_470f5c65c181cb9e6f5e",
+      "source": "Aim sensitivity",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_cfd4d37b86cd3dd69384",
+      "source": "Applies on the next launch.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_419a6c580fbd9107238c",
+      "source": "Audio settings",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ef8dc5799581a515c85e",
+      "source": "BACK UP",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a95efa71fa8c8e960905",
+      "source": "Back / cancel",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_004a3bfdca46b5db2d24",
+      "source": "Backup created.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c6cfe6e4f129a34671d1",
+      "source": "Black",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_bfddfe4a529dc6a509e5",
+      "source": "Blurred background",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_8659fa7365c40d061ae8",
+      "source": "Border fill",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_0507fd82f5be89412c3d",
+      "source": "Built-in languages cannot be overwritten; use a different language code.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_e910f44e38d3a0d41585",
+      "source": "CONTROLS",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_7490a6b3978d4087e849",
+      "source": "Changes apply on the next launch",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_dee85212a3442a85f148",
+      "source": "Choose launcher and game languages independently; install translations as JSON or ZIP.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_66a35d5863dc7e1980b5",
+      "source": "Click a binding and press a key. Choose controller buttons from the list below.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_467948520a292568c8ab",
+      "source": "Close the game before installing a language pack.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_652c9794a224b7b5c228",
+      "source": "Close the game before this operation.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_bb501d7877eb7ddbd40b",
+      "source": "Community",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_22965568d22a14ee17af",
+      "source": "Connected",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_e7084c68d8b2e238aa0d",
+      "source": "Controller speed",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_799c269135742a36ae48",
+      "source": "Controls",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_16acb77352791d9d7f51",
+      "source": "Cursor: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_27cd427750d27e7f3cdb",
+      "source": "DISPLAY",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_94368e50fcd45dadb6c3",
+      "source": "Dark frame",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_8d719a9253b2a1824316",
+      "source": "Direct play",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_74498a118e0f89a85e6e",
+      "source": "Disallowed language-pack file: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_855e169eae0192872e2d",
+      "source": "Discord Rich Presence",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_207d1196bd3179016928",
+      "source": "Discord closed IPC",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_def6f26cb18f944829d5",
+      "source": "Discord disconnected",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_97b27b1eb6a19b51c1f5",
+      "source": "Discord error: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_7fc9a120e14e966ff3b1",
+      "source": "Discord handshake timed out",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ae4dd4887ab3d6c3f3a6",
+      "source": "Display settings",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_907b5e90a0fb353c8cdd",
+      "source": "Duplicate language component",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_9936be16641b85e57292",
+      "source": "Duplicate or unknown ID: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_8bd0408a6324b6dc3645",
+      "source": "EXPORT TEMPLATES",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_54227db227ef97e4e367",
+      "source": "Empty language pack",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c1fac1ad65bc30a1df3f",
+      "source": "English fallback",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_6bed10cc4f58fe9e0ec0",
+      "source": "F1 is reserved for in-game help.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_6c582b62e0e5aa056473",
+      "source": "Fast",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_4cf37cba496127ce5db0",
+      "source": "Folder location|*.folder",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ea4c1798a8f0e361429b",
+      "source": "Font changed: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_cd2533e008521f8d3af4",
+      "source": "Frame limit",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c461dbb2bab7d8bc64c0",
+      "source": "Fullscreen",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_6adee690161502f0d432",
+      "source": "GAME FOLDER",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_5c412a262086b9701cda",
+      "source": "Game",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_b97603cebf2da0559146",
+      "source": "Game closed · activity cleared",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c7df437ba345bd17fe5c",
+      "source": "Game closed.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_233497505603ce2f8df2",
+      "source": "Game language",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c708ebe6318dbc876cba",
+      "source": "Gameplay: move the mouse to aim, left click to fire, hold right click or Space for cover. Wheel or Q/E changes weapon. In menus, use the left stick / D-pad to select, the right stick to scroll text, confirm to proceed, back to cancel. Start pauses or resumes. Controller: right stick aims, RT fires, LT takes cover.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c44ccc849d4e97c84ce1",
+      "source": "High quality resampling",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_5adafbfc9f0bf615cf70",
+      "source": "IMPORT LANGUAGE PACK",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_f8b32f4e92bd84ce1fcd",
+      "source": "Installed",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_92f1bb765ec8d02f89cb",
+      "source": "Internal resolution",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_d1d5c3fa7b24e38743cc",
+      "source": "Invalid IPC frame",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_b9f59e285b959d0d5b77",
+      "source": "Invalid ZIP length",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_cb358c7e8be4b059884b",
+      "source": "Invalid language JSON",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c339a734c7fc0d8a84bb",
+      "source": "Invalid language culture code.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_66d6b979e46e824dd2d9",
+      "source": "Invalid language display name.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_4fd308fedf2ee21c0cbd",
+      "source": "Invalid language path",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_b7b8a2b7ae28497cd59b",
+      "source": "Invalid or overly long text: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_2316810a5de343dd59d1",
+      "source": "Keyboard",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_17d706768c86880ba2ad",
+      "source": "LANGUAGES",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_41c092203e1c1dae7adb",
+      "source": "LICENSES AND INFORMATION",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_bdfbf8049b984644c06c",
+      "source": "Language JSON is too large",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c4145f92a482ae059831",
+      "source": "Language ZIP too large",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a91cdf94106d314f2347",
+      "source": "Language pack installed.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_635dffb891db44e04449",
+      "source": "Language pack not found",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_79ffcd3e53d78f7b9f18",
+      "source": "Language packs|*.json;*.zip",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_512ca84d896e97b48fcd",
+      "source": "Language-pack format or game version does not match.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c063498e10ce5440e28c",
+      "source": "Languages and translation packs",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ccbad7b8e73039749b31",
+      "source": "Last save: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_22614ace1aef7766b6d6",
+      "source": "Launcher",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_565c0dafe6ccaf1a57cd",
+      "source": "Launcher and game language codes must match.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_7ef9b10faf300df1cb12",
+      "source": "M4 / zoom out",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_8134bad0fc2769379803",
+      "source": "MGS Touch localization.v1 JSON required",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_f0f0d49aab8d93d359aa",
+      "source": "Missing localization records",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ad56c1e487267b4073a5",
+      "source": "Missing translation template",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_66415815a5c1d521ed10",
+      "source": "Mouse, keyboard and controller support. Fullscreen with the original aspect ratio. Mission-aware Discord Rich Presence.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_6eb00b4b2614a144d41c",
+      "source": "Music",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_3ae7f3c120b2ef71ca57",
+      "source": "NUL text: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_53ef3dbb963fcdb3f06a",
+      "source": "No bot or account token is required.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_2691b8b2995fabce9143",
+      "source": "No save file yet.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_b24ce2bbd64ceb638e9c",
+      "source": "No save found.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a7248eeb45eb1ce247f8",
+      "source": "Normal",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_709276c8392f940bfd85",
+      "source": "OVERVIEW",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ca7981b46ecf2c1787b6",
+      "source": "Off",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_c409c66f71f2750e0262",
+      "source": "Official",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_50e39f32cf0d51abacd6",
+      "source": "Old Snake’s final mission.\nOn PC. Under your control.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_130011756125313c72f2",
+      "source": "On",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_0998faba4f69d8a8b455",
+      "source": "On: nearest. Off: smooth.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_45cc82c2d8f7c77e2724",
+      "source": "Open the game directly. Use --settings to return here.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_75a9310ff53a9cb744de",
+      "source": "Original atlas or font missing for HUD translation.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_7b26388467ccd71f15c4",
+      "source": "Original source changed: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_53f79ef1dc1b0b43434e",
+      "source": "PLAY  →",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_cada79aa448aab6014e6",
+      "source": "Pause / resume",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_f1cc1441bbbeb564e7b2",
+      "source": "Pause on focus loss",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_9fbd5f507be5563551f3",
+      "source": "Pixel filtering",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_4c172f251fb836f03f1a",
+      "source": "Press a key…",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_794eafb9087e3998fa55",
+      "source": "Progress is stored in the package’s Saves folder.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a3ace71a0fdac0645c19",
+      "source": "Protected text tokens changed: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ddfaee213e32bf057c7d",
+      "source": "RESTORE BACKUP",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_d90ed06bb721176627ec",
+      "source": "RETURN TO GAME ↗",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ee1e28bbe8cf08126984",
+      "source": "RPC error",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_afb118fcb16c3727d83b",
+      "source": "Reconnecting",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a5714a91f3976ad849cd",
+      "source": "Reduces screen tearing.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a4616a3b8f4a16027355",
+      "source": "Rendering scale of the original 320×480 framebuffer.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_b2ffdc9981b34dbf8c70",
+      "source": "Requires the Discord desktop app.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_78b3cc36bed863be576f",
+      "source": "Rumble",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ce9382c48a1b5577ec44",
+      "source": "SAVE FOLDER",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_170678745d063b2e7410",
+      "source": "SAVE SETTINGS",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_fa7343cfc13bec1fc2dd",
+      "source": "SAVES",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a00d6f52302d869f677b",
+      "source": "SVD / zoom in",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_e4f8e3ba498c6798e9e2",
+      "source": "Save management",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_bca77669cc3a8d30a125",
+      "source": "Scenes and menus rotate automatically.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_029320ad166c1807cd70",
+      "source": "Screenshot",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_74a7f53bad3999738fb6",
+      "source": "Settings saved",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_3950b40b7e3bc100e6c2",
+      "source": "Shake / special action",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_b07f5d4384e3c1b6e3ef",
+      "source": "Share mission information",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ef17b0f4be53ae6bd300",
+      "source": "Share mission, area, pause state and elapsed time in Discord.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_984e771b3cdd18cd67bc",
+      "source": "Skip introduction logos",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_4b2bebbf33aeb7aea11c",
+      "source": "Slow",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a7180005e20ceae0f62b",
+      "source": "Sound effects",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_f191444c92b9e6b54cfe",
+      "source": "Source text or protected metadata changed: ",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_d626d0d89cdb951d6e4a",
+      "source": "Source version mismatch",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_4eeefdbc8f41c8fe1d02",
+      "source": "Stick deadzone",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_01eca14596af15d18e03",
+      "source": "TACTICAL TOUCH ACTION",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_8744d4efc7c02d204936",
+      "source": "TRANSLATION FOLDER",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_3bec9a44330466ef4e1f",
+      "source": "Take cover (hold)",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_17d7a4f7ed53d25913cb",
+      "source": "The Windows host compiles locally recovered game code through wasm32 → C. Original game: Konami / Kojima Productions. Reverse engineering and platform foundation: etruj / mgs-retouched. PC integration and localization tools: Patriots.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_5e1e0c0bf9efa207e860",
+      "source": "The game executable is missing.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_fbd4ae800d5459b5d753",
+      "source": "The game keeps its own logic timing.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_3df8cfc7e909db53babd",
+      "source": "The game reported an error. See Saves/runtime.log.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_ab160e64789421388d33",
+      "source": "The original picture keeps its aspect ratio.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_0790194488737bc09a48",
+      "source": "The save must be 1024 bytes.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_91e8b15d7fcc5f602916",
+      "source": "The selected game language applies on the next launch.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_7e45361fb2ee58bae97e",
+      "source": "This key is assigned to another action.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_91a0cac016c1ed1489d5",
+      "source": "Too many language files",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_30910a55449b18ffb901",
+      "source": "Touch / fire / confirm",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_b80e6d3b3810b33f4aa6",
+      "source": "Translation templates exported.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_b5b34b51313471b36a1f",
+      "source": "Truncated ZIP",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_7bb55ab91b68d3b75bee",
+      "source": "Two JSONs are enough: launcher and game. Translate only text fields; preserve IDs and tokens. Blank text falls back to English. The original Turkish JSON format is also supported.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_a3fe4a19d6969dd48e20",
+      "source": "Unknown or duplicate text ID.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_7aa0907a0841c3a34a4f",
+      "source": "Unsupported language file.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_0a785e35860aa1c54695",
+      "source": "Uses cubic interpolation for the original audio samples.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_61448bb80ae0f1cf00ff",
+      "source": "Waiting for Discord desktop",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_1ffe21e318ad2ea9e91e",
+      "source": "When disabled, only general playing status is shown.",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_b5e3a6406a14f84a60ea",
+      "source": "● READY",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    },
+    {
+      "id": "ui_7ed493add8df7e619731",
+      "source": "● UNSAVED SETTINGS",
+      "text": "",
+      "category": "launcher",
+      "record_id": "",
+      "required_tokens": []
+    }
+  ]
+}

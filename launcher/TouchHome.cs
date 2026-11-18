@@ -17,10 +17,10 @@ public sealed partial class TouchWindow {
             new GradientStop(Color.FromArgb(165,17,27,20),.67),new GradientStop(Color.FromArgb(20,17,27,20),1)},new Point(0,0),new Point(1,0))};
         hero.Children.Add(shade);
         var copy=new StackPanel{Margin=new Thickness(28,31,24,20),Width=470,HorizontalAlignment=HorizontalAlignment.Left};
-        copy.Children.Add(Text("TACTICAL TOUCH ACTION",11,accent));
+        copy.Children.Add(Text(Loc.E("TACTICAL TOUCH ACTION"),11,accent));
         var title=Text("METAL GEAR SOLID\nTOUCH",40);title.FontFamily=new FontFamily("Bahnschrift SemiBold");title.LineHeight=46;title.Margin=new Thickness(0,16,0,14);copy.Children.Add(title);
         var subtitle=Text(L("Old Snake’in son görevi.\nPC’de, kendi kontrolünle.","Old Snake’s final mission.\nOn PC. Under your control."),15,muted);subtitle.LineHeight=23;copy.Children.Add(subtitle);
-        var edition=Text("WINDOWS  /  "+(settings.GameLanguage=="tr"?"TÜRKÇE":"ENGLISH"),11,accent);edition.Margin=new Thickness(0,24,0,0);copy.Children.Add(edition);hero.Children.Add(copy);
+        var edition=Text("WINDOWS  /  "+TouchLanguagePacks.Info(settings.GameLanguage).name.ToUpperInvariant(),11,accent);edition.Margin=new Thickness(0,24,0,0);copy.Children.Add(edition);hero.Children.Add(copy);
         body.Children.Add(new Border{Child=hero,CornerRadius=new CornerRadius(7),ClipToBounds=true,Margin=new Thickness(0,15,0,12),BorderBrush=line,BorderThickness=new Thickness(1)});
         Note(L("Fare, klavye ve gamepad desteği. Görüntü oranını koruyan tam ekran. Görev takibiyle Discord Rich Presence.","Mouse, keyboard and controller support. Fullscreen with the original aspect ratio. Mission-aware Discord Rich Presence."));
         Row(L("Tek tıkla başlat","Direct play"),L("EXE doğrudan oyunu açar. Ayarlar için --settings kullan.","Open the game directly. Use --settings to return here."),Toggle(settings.DirectPlay,v=>settings.DirectPlay=v));

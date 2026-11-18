@@ -13,6 +13,7 @@ internal static class DiscordProtocolTest {
     static Tuple<uint,string> Read(Stream s){var h=Exact(s,8);int n=BitConverter.ToInt32(h,4);if(n<0||n>1000000)throw new InvalidDataException();return Tuple.Create(BitConverter.ToUInt32(h,0),Encoding.UTF8.GetString(Exact(s,n)));}
     static void Send(Stream s,uint op,string text){byte[] b=Encoding.UTF8.GetBytes(text);s.Write(BitConverter.GetBytes(op),0,4);s.Write(BitConverter.GetBytes(b.Length),0,4);s.Write(b,0,b.Length);s.Flush();}
     public static int Run(){
+        string testLanguage=Environment.GetEnvironmentVariable("PATRIOTS_RPC_TEST_LANGUAGE")??"en";
         string pipeName="patriots-touch-test-"+Process.GetCurrentProcess().Id,statePath=Path.Combine(Files.Engine,"patriots_state.json");
         string settingsPath=Path.Combine(Files.Root,"settings.json");
         byte[] priorState=File.Exists(statePath)?File.ReadAllBytes(statePath):null,priorSettings=File.Exists(settingsPath)?File.ReadAllBytes(settingsPath):null;
@@ -35,12 +36,12 @@ internal static class DiscordProtocolTest {
                         if(Convert.ToString(d["cmd"])!="SET_ACTIVITY")continue;
                         var a=d["args"] as Dictionary<string,object>;
                         if(a["activity"]==null){cleared=true;observed.Add("cleared");}
-                        else{var data=a["activity"] as Dictionary<string,object>;string detail=Convert.ToString(data["details"]);if(!detail.Contains("Mission 1 / 20"))throw new Exception("Mission activity missing");activity=true;observed.Add("mission");}
+                        else{var data=a["activity"] as Dictionary<string,object>;string detail=Convert.ToString(data["details"]);if(!detail.Contains(TouchLanguagePacks.GameL("Görev ","Mission ",testLanguage)+"1 / 20")||Convert.ToString(data["state"])!=TouchLanguagePacks.GameL("Görevde","In mission",testLanguage))throw new Exception("Mission activity missing");activity=true;observed.Add("mission");}
                         if(!cleared)Send(server,1,"{\"cmd\":\"SET_ACTIVITY\",\"evt\":null,\"data\":{}}");
                     }
                     if(!activity||!heartbeat)throw new Exception("Missing activity or heartbeat");
                 });
-                using(var presence=new DiscordPresence(Process.GetCurrentProcess().Id,"en")){
+                using(var presence=new DiscordPresence(Process.GetCurrentProcess().Id,testLanguage)){
                     var timer=Stopwatch.StartNew();while(timer.ElapsedMilliseconds<5000){lock(observed){if(observed.Contains("mission")&&observed.Contains("heartbeat"))break;}Thread.Sleep(25);}
                 }
                 if(!task.Wait(6000))throw new TimeoutException("Discord protocol test timed out");

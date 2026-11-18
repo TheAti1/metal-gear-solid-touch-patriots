@@ -1,5 +1,13 @@
 # Changelog / Sürüm notları
 
+## 1.1.0 — 2026-11-18
+- Added generic community language IDs and independent launcher/game JSON or combined ZIP import, component coverage and template export.
+- Separated 161 launcher strings and 549 translatable game/runtime/HUD entries into stable contributor JSONs. Font names and other original technical records remain protected internally.
+- Added dynamic locale overlays and desktop hint/boss/Discord text lookup while retaining the original AOT game module and existing control behavior.
+- Added automatic bitmap LIFE-label localization from bundled English atlas references; other atlas pixels are preserved.
+- Added Brazilian Portuguese contributor templates, translation guides, a completed-JSON upgrade tool and isolated importer/source/Unicode/IPC checks. Portuguese is not a completed official language yet.
+- Kept the older Turkish JSON importer, shared saves, remapped keyboard/gamepad controls and original English/Turkish data.
+
 ## 1.0.8 — 2026-11-18
 - Post-game Survival unlock advice uses landscape orientation.
 - Controller confirm / RT / Enter target its original Next / İleri button.

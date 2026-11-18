@@ -64,7 +64,7 @@ Install CMake and Python 3.11+, Pillow, fonttools and lz4 as needed by the extra
 4. Run `install_pc_bridge.py`, then `build_wasm_windows.py`. Layout checks compare original ARM and wasm32 records before linking and generating C with wasm2c.
 5. Prepare `package/Arayuz/game.ico` from the launcher assets, then run `build_native_windows.py` **after** the wasm stage finishes. Never overwrite a game EXE while it is still being copied or tested.
 6. Build the launcher with `launcher/build.ps1 -PackageRoot D:\Patriots_MGS_Touch_PC\package`. Copy the localization catalogue / REX plugin to `package/Localization` and required language assets to `package/Oyun/languages`.
-7. Use the launcher JSON importer for the supplied Turkish catalogue. Preserve English assets and verify font coverage. `localization_tool.py` documents the extraction/import format.
+7. Use the language-pack importer for modern launcher/game JSONs; the supplied legacy Turkish catalogue is also supported. Preserve English assets and verify font coverage. `localization_tool.py` documents the extraction/import format.
 8. Start with a fresh save directory and run focused scene/input checks before producing a clean package. Include third-party notices and corresponding source.
 
 The `.ready` files support resuming stages; an absent prerequisite can make a script wait rather than guess. Read its log instead of launching several dependent build stages concurrently.
@@ -79,3 +79,9 @@ python tools/check_repository.py
 Native developer scripts accept `--script`, `--save-dir`, `--test-seconds`, `--windowed` and `--hidden-test`. Use isolated save copies for regression tests. Test scripts / verifiers under `tools/windows/` cover menus, remapping, camera, story/history scroll, hover, Mantis gestures, the final boss dodge and post-game advice.
 
 The post-game advice fixture initializes the original scene; it does not fabricate a boss victory. A full 20-mission playthrough or ARM-vs-native dynamic differential suite is not provided by these focused checks.
+
+## Community language infrastructure (1.1)
+
+The launcher build embeds the English launcher/game templates and frozen original source catalogue. `--test-language-packs` needs no original game and uses an isolated temporary directory. CI also runs `python tools/check_language_templates.py`.
+
+Native changes are confined to the Windows host locale/overlay/text path; the generated game module remains unchanged. Both `runtime/windows/main.c` and the copied build input `tools/windows/windows_main.c` must stay synchronized. A prepared package additionally carries standard PNG English atlas references under `Oyun/languages/en/English.lproj/` for the optional HUD label generator. Those are release data, not Git inputs. See [TRANSLATING.md](TRANSLATING.md).

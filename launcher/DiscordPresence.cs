@@ -55,23 +55,23 @@ public sealed class DiscordPresence : IDisposable
                 foreach(object item in (System.Collections.IEnumerable)doc["entries"]){var row=item as Dictionary<string,object>;if(row!=null)gameTexts[Convert.ToString(row["id"])]=Convert.ToString(row["text"]);}
             }catch{}
         }
-        string value;return gameTexts.TryGetValue(key,out value)?value.Trim(' ','-','\r','\n'):fallback;
+        string value;if(gameLanguage!="tr"&&gameLanguage!="en")return TouchLanguagePacks.GameString(key,fallback,gameLanguage).Trim(' ','-','\r','\n');return gameTexts.TryGetValue(key,out value)?value.Trim(' ','-','\r','\n'):fallback;
     }
     private string Activity(Preferences settings){
         bool en=gameLanguage=="en";
-        string state=en?"Starting game":"Oyun başlatılıyor",details="Metal Gear Solid Touch · Patriots";
+        string state=TouchLanguagePacks.GameL("Oyun başlatılıyor","Starting game",gameLanguage),details="Metal Gear Solid Touch · Patriots";
         try{
             string file=Path.Combine(Files.Engine,"patriots_state.json");
             if((DateTime.UtcNow-File.GetLastWriteTimeUtc(file)).TotalSeconds<8){
                 var d=json.Deserialize<Dictionary<string,object>>(File.ReadAllText(file,Encoding.UTF8));
                 if(Convert.ToInt32(d["pid"])==pid){
                     int flags=Convert.ToInt32(d["flags"]),mission=Convert.ToInt32(d["mission"]),scene=Convert.ToInt32(d["scene"]);
-                    state=(flags&2)!=0?(en?"Paused":"Duraklatıldı"):(flags&1)!=0?(en?"In mission":"Görevde"):(flags&8)!=0?(en?"Main menu":"Ana menü"):scene==6?(en?"Reading story":"Hikâye"):scene==5?(en?"Mission select":"Görev seçimi"):scene==17?(en?"Controls guide":"Kontrol kılavuzu"):(en?"Loading…":"Yükleniyor…");
+                    state=(flags&2)!=0?(TouchLanguagePacks.GameL("Duraklatıldı","Paused",gameLanguage)):(flags&1)!=0?(TouchLanguagePacks.GameL("Görevde","In mission",gameLanguage)):(flags&8)!=0?(TouchLanguagePacks.GameL("Ana menü","Main menu",gameLanguage)):scene==6?(TouchLanguagePacks.GameL("Hikâye","Reading story",gameLanguage)):scene==5?(TouchLanguagePacks.GameL("Görev seçimi","Mission select",gameLanguage)):scene==17?(TouchLanguagePacks.GameL("Kontrol kılavuzu","Controls guide",gameLanguage)):(TouchLanguagePacks.GameL("Yükleniyor…","Loading…",gameLanguage));
                     if(settings.DiscordRoom&&(flags&3)!=0&&mission>=1&&mission<=20){
                         var stages=json.Deserialize<Dictionary<string,object>>(File.ReadAllText(Path.Combine(Files.Root,"Localization","stages.json"),Encoding.UTF8));
                         var stage=stages[mission.ToString()] as Dictionary<string,object>;
                         string title=GameText((385+8*(mission-1)).ToString(),stage==null?"":Convert.ToString(stage["title"]));
-                        details=(en?"Mission ":"Görev ")+mission+" / 20 · "+title;
+                        details=(TouchLanguagePacks.GameL("Görev ","Mission ",gameLanguage))+mission+" / 20 · "+title;
                     }
                 }
             }

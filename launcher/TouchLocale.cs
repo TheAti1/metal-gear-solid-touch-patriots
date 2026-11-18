@@ -7,5 +7,5 @@ internal static class TouchLocale {
         {"Discord masaüstü uygulaması bekleniyor","Waiting for Discord desktop"},{"Kapalı","Off"},
         {"Bağlantı yeniden deneniyor","Reconnecting"},{"Oyun kapandı · etkinlik temizlendi","Game closed · activity cleared"}
     };
-    public static string Translate(string value,string language){string result;if(language=="en")return English.TryGetValue(value,out result)?result:value;foreach(var pair in English)if(pair.Value==value)return pair.Key;return value;}
+    public static string Translate(string value,string language){string result;if(language!="tr"){string source=English.TryGetValue(value,out result)?result:value;return language=="en"?source:TouchLanguagePacks.Translate(source,language);}foreach(var pair in English)if(pair.Value==value)return pair.Key;return value;}
 }

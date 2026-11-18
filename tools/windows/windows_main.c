@@ -50,6 +50,7 @@ static double last_status_write;
 static double stop_after, capture_at = 5;
 static char capture_file[1024];
 static char base_dir[1024], save_dir[1024], font_dir[1024];
+static char locale_id[36]="en";
 static int vsync = 1, max_fps = 120, fill_mode = 1, scale = 3;
 static float deadzone = 0.18f;
 static char test_script[1024];
@@ -67,13 +68,14 @@ static struct {const char *name;int action,button;} pad_bindings[]={
 static int action_for_pad(int button){for(unsigned i=0;i<sizeof pad_bindings/sizeof pad_bindings[0];i++)if(pad_bindings[i].button==button)return pad_bindings[i].action;return -1;}
 static int action_for_key(SDL_Scancode key){for(int i=0;i<ACT_COUNT;i++)if(bindings[i].key==key)return i;return -1;}
 typedef struct {char *source,*text;} RuntimeText;
-static RuntimeText runtime_texts[512];static int runtime_text_count;
+static RuntimeText runtime_texts[4096];static int runtime_text_count;
 static uint32_t file_be32(FILE *f){uint8_t b[4];return fread(b,1,4,f)==4?((uint32_t)b[0]<<24|b[1]<<16|b[2]<<8|b[3]):0;}
 static void load_runtime_texts(void){
-    if(strcmp(g_cfg.lang,"Turkish"))return;
+    if(!g_cfg.overlay_dir[0])return;
     char path[1200];snprintf(path,sizeof path,"%s/runtime_text.bin",g_cfg.overlay_dir);FILE *f=fopen(path,"rb");if(!f)return;
+    if(fseek(f,0,SEEK_END)||ftell(f)>12*1024*1024){fclose(f);return;}rewind(f);
     char magic[8];if(fread(magic,1,8,f)!=8||memcmp(magic,"PTXT0001",8)){fclose(f);return;}
-    uint32_t count=file_be32(f);if(count>512){fclose(f);return;}
+    uint32_t count=file_be32(f);if(count>4096){fclose(f);return;}
     for(uint32_t i=0;i<count;i++){
         char *fields[2]={0};int ok=1;
         for(int k=0;k<2;k++){uint32_t n=file_be32(f);if(!n||n>65536){ok=0;break;}fields[k]=calloc(n+1,1);if(!fields[k]||fread(fields[k],1,n,f)!=n){ok=0;break;}}
@@ -90,12 +92,26 @@ const char *pc_runtime_text(const char *s){
     }
     return s;
 }
+static const char *pc_text(const char *tr,const char *en){return !strcmp(g_cfg.lang,"Turkish")?tr:pc_runtime_text(en);}
+static void set_locale(const char *id){
+    size_t n=strlen(id);int valid=n>=2&&n<sizeof locale_id;
+    for(size_t i=0;i<n&&valid;i++){unsigned char c=id[i];valid=(c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c>='0'&&c<='9')||c=='-';}
+    if(!valid)id="en";snprintf(locale_id,sizeof locale_id,"%s",id);
+    for(char *c=locale_id;*c;c++)if(*c>='A'&&*c<='Z')*c+=32;
+    snprintf(g_cfg.lang,sizeof g_cfg.lang,"%s",!strcmp(locale_id,"tr")?"Turkish":"English");
+}
+static void configure_locale(void){
+    g_cfg.overlay_dir[0]=0;if(!strcmp(locale_id,"en"))return;
+    snprintf(g_cfg.overlay_dir,sizeof g_cfg.overlay_dir,"%slanguages/%s",base_dir,locale_id);
+    char path[1400];snprintf(path,sizeof path,"%s/%s.lproj/Localizable.strings",g_cfg.overlay_dir,g_cfg.lang);
+    FILE *file=fopen(path,"rb");if(file)fclose(file);else{hlog("Locale %s has no game table; using English",locale_id);g_cfg.overlay_dir[0]=0;set_locale("en");}
+}
 static void seen_device(int device){if(input_device!=device){input_device=device;hints_until=host_now()+5;}}
 static const char *pad_label(int button){
     static const char *xbox[]={"A","B","X","Y","Back","Guide","Start","LS","RS","LB","RB","Up","Down","Left","Right"};
     static const char *ps[]={"Cross","Circle","Square","Triangle","Share","PS","Options","L3","R3","L1","R1","Up","Down","Left","Right"};
     static const char *nintendo[]={"B","A","Y","X","Minus","Home","Plus","L Stick","R Stick","L","R","Up","Down","Left","Right"};
-    if(button<0||button>=15)return "Button";SDL_GamepadType type=pad?SDL_GetGamepadType(pad):SDL_GAMEPAD_TYPE_STANDARD;
+    if(button<0||button>=15)return pc_runtime_text("Button");SDL_GamepadType type=pad?SDL_GetGamepadType(pad):SDL_GAMEPAD_TYPE_STANDARD;
     if(type==SDL_GAMEPAD_TYPE_PS3||type==SDL_GAMEPAD_TYPE_PS4||type==SDL_GAMEPAD_TYPE_PS5)return ps[button];
     if(type>=SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_PRO&&type<=SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR)return nintendo[button];
     return xbox[button];
@@ -119,10 +135,10 @@ static void draw_doll_prompt(int ww,int by,int bh){
     ui_disc(cx+offset,cy,15,green);
     ui_text(input_device?"R":SDL_GetScancodeName(bindings[ACT_SHAKE].key),cx+offset,cy-8,14,1,1,(Col){.025f,.045f,.035f,fade},24);
     char title[200];
-    if(input_device)snprintf(title,sizeof title,"%s",tr?"R analoğunu sağa sola oynat":"Move the R stick left and right");
-    else snprintf(title,sizeof title,"%s  ·  %s",SDL_GetScancodeName(bindings[ACT_SHAKE].key),tr?"Kuklayı salla":"Shake the doll");
+    if(input_device)snprintf(title,sizeof title,"%s",pc_text("R analoğunu sağa sola oynat","Move the R stick left and right"));
+    else snprintf(title,sizeof title,"%s  ·  %s",SDL_GetScancodeName(bindings[ACT_SHAKE].key),pc_text("Kuklayı salla","Shake the doll"));
     ui_text(title,x+120,y+22,17,1,0,white,width-132);
-    ui_text(now-doll_shaken_at<.45?(tr?"Kukla sallanıyor...":"Shaking the doll..."):(tr?"Mantis kuklası elinde":"Mantis doll equipped"),x+120,y+52,14,0,0,green,width-132);
+    ui_text(now-doll_shaken_at<.45?(pc_text("Kukla sallanıyor...","Shaking the doll...")):(pc_text("Mantis kuklası elinde","Mantis doll equipped")),x+120,y+52,14,0,0,green,width-132);
 }
 static void desktop_overlay(int bx,int by,int bw,int bh){
     if(base_overlay)base_overlay(bx,by,bw,bh);int ww,wh;gfx_window_size(&ww,&wh);
@@ -133,41 +149,41 @@ static void desktop_overlay(int bx,int by,int bw,int bh){
     int tr=!strcmp(g_cfg.lang,"Turkish");float x=20,y=by+40,w=bx>270?(float)bx-40:350;
     if(w>350)w=350;if(y+262>wh)y=wh-280;
     ui_fill(x,y,w,248,(Col){.03f,.055f,.04f,.94f});ui_frame(x,y,w,248,1,(Col){.3f,.4f,.28f,.8f});
-    ui_text(input_device?"GAMEPAD":tr?"KLAVYE / FARE":"KEYBOARD / MOUSE",x+16,y+16,14,1,0,green,w-32);
+    ui_text(input_device?pc_runtime_text("GAMEPAD"):pc_text("KLAVYE / FARE","KEYBOARD / MOUSE"),x+16,y+16,14,1,0,green,w-32);
     char lines[5][320];
     if(input_device){SDL_GamepadType type=pad?SDL_GetGamepadType(pad):SDL_GAMEPAD_TYPE_STANDARD;const char *rt="RT",*lt="LT";if(type==SDL_GAMEPAD_TYPE_PS3||type==SDL_GAMEPAD_TYPE_PS4||type==SDL_GAMEPAD_TYPE_PS5){rt="R2";lt="L2";}else if(type>=SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_PRO&&type<=SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR){rt="ZR";lt="ZL";}
-        snprintf(lines[0],320,"%s  ·  %s",tr?"Sağ analog":"Right stick",tr?"Nişan / imleç":"Aim / cursor");
-        snprintf(lines[1],320,"%s / %s  ·  %s",rt,bound_pad(ACT_PRESS),tr?"Ateş / onay":"Fire / confirm");
-        snprintf(lines[2],320,"%s / %s  ·  %s",lt,bound_pad(ACT_COVER),tr?"Siper (basılı tut)":"Cover (hold)");
-        snprintf(lines[3],320,"%s / %s  ·  %s",bound_pad(ACT_ZOOM_OUT),bound_pad(ACT_ZOOM_IN),tr?"M4 / SVD":"M4 / SVD");
-        snprintf(lines[4],320,"%s  ·  %s",bound_pad(ACT_PAUSE),tr?"Duraklat":"Pause");
+        snprintf(lines[0],320,"%s  ·  %s",pc_text("Sağ analog","Right stick"),pc_text("Nişan / imleç","Aim / cursor"));
+        snprintf(lines[1],320,"%s / %s  ·  %s",rt,bound_pad(ACT_PRESS),pc_text("Ateş / onay","Fire / confirm"));
+        snprintf(lines[2],320,"%s / %s  ·  %s",lt,bound_pad(ACT_COVER),pc_text("Siper (basılı tut)","Cover (hold)"));
+        snprintf(lines[3],320,"%s / %s  ·  %s",bound_pad(ACT_ZOOM_OUT),bound_pad(ACT_ZOOM_IN),pc_text("M4 / SVD","M4 / SVD"));
+        snprintf(lines[4],320,"%s  ·  %s",bound_pad(ACT_PAUSE),pc_text("Duraklat","Pause"));
     }else{
-        snprintf(lines[0],320,"%s / %s %s %s %s  ·  %s",tr?"Fare":"Mouse",SDL_GetScancodeName(bindings[ACT_UP].key),SDL_GetScancodeName(bindings[ACT_LEFT].key),SDL_GetScancodeName(bindings[ACT_DOWN].key),SDL_GetScancodeName(bindings[ACT_RIGHT].key),tr?"Nişan":"Aim");
-        snprintf(lines[1],320,"%s / %s  ·  %s",tr?"Sol tık":"Left click",SDL_GetScancodeName(bindings[ACT_PRESS].key),tr?"Ateş / onay":"Fire / confirm");
-        snprintf(lines[2],320,"%s / %s  ·  %s",tr?"Sağ tık":"Right click",SDL_GetScancodeName(bindings[ACT_COVER].key),tr?"Siper":"Cover");
+        snprintf(lines[0],320,"%s / %s %s %s %s  ·  %s",pc_text("Fare","Mouse"),SDL_GetScancodeName(bindings[ACT_UP].key),SDL_GetScancodeName(bindings[ACT_LEFT].key),SDL_GetScancodeName(bindings[ACT_DOWN].key),SDL_GetScancodeName(bindings[ACT_RIGHT].key),pc_text("Nişan","Aim"));
+        snprintf(lines[1],320,"%s / %s  ·  %s",pc_text("Sol tık","Left click"),SDL_GetScancodeName(bindings[ACT_PRESS].key),pc_text("Ateş / onay","Fire / confirm"));
+        snprintf(lines[2],320,"%s / %s  ·  %s",pc_text("Sağ tık","Right click"),SDL_GetScancodeName(bindings[ACT_COVER].key),pc_text("Siper","Cover"));
         snprintf(lines[3],320,"%s / %s  ·  M4 / SVD",SDL_GetScancodeName(bindings[ACT_ZOOM_OUT].key),SDL_GetScancodeName(bindings[ACT_ZOOM_IN].key));
-        snprintf(lines[4],320,"%s  ·  %s",SDL_GetScancodeName(bindings[ACT_PAUSE].key),tr?"Duraklat":"Pause");
+        snprintf(lines[4],320,"%s  ·  %s",SDL_GetScancodeName(bindings[ACT_PAUSE].key),pc_text("Duraklat","Pause"));
     }
     if(!pc_active){
-        snprintf(lines[0],320,"%s  ·  %s",input_device?(tr?"Sol analog / yön tuşları":"Left stick / D-pad"):(tr?"Yön tuşları / WASD":"Arrow keys / WASD"),tr?"Seç":"Select");
-        snprintf(lines[1],320,"%s  ·  %s",input_device?bound_pad(ACT_PRESS):SDL_GetScancodeName(bindings[ACT_PRESS].key),tr?"Onayla / ileri":"Confirm / next");
-        snprintf(lines[2],320,"%s  ·  %s",input_device?bound_pad(ACT_BACK):SDL_GetScancodeName(bindings[ACT_PAUSE].key),tr?"Geri / iptal":"Back / cancel");
-        snprintf(lines[3],320,"%s  ·  %s",input_device?bound_pad(ACT_PAUSE):SDL_GetScancodeName(bindings[ACT_PAUSE].key),tr?"Duraklat / devam":"Pause / resume");
-        snprintf(lines[4],320,"%s",input_device?(tr?"Sağ analog  ·  Metni kaydır":"Right stick  ·  Scroll text"):(tr?"Tekerlek / PgUp / PgDn  ·  Metni kaydır":"Wheel / PgUp / PgDn  ·  Scroll text"));
+        snprintf(lines[0],320,"%s  ·  %s",input_device?(pc_text("Sol analog / yön tuşları","Left stick / D-pad")):(pc_text("Yön tuşları / WASD","Arrow keys / WASD")),pc_text("Seç","Select"));
+        snprintf(lines[1],320,"%s  ·  %s",input_device?bound_pad(ACT_PRESS):SDL_GetScancodeName(bindings[ACT_PRESS].key),pc_text("Onayla / ileri","Confirm / next"));
+        snprintf(lines[2],320,"%s  ·  %s",input_device?bound_pad(ACT_BACK):SDL_GetScancodeName(bindings[ACT_PAUSE].key),pc_text("Geri / iptal","Back / cancel"));
+        snprintf(lines[3],320,"%s  ·  %s",input_device?bound_pad(ACT_PAUSE):SDL_GetScancodeName(bindings[ACT_PAUSE].key),pc_text("Duraklat / devam","Pause / resume"));
+        snprintf(lines[4],320,"%s",input_device?(pc_text("Sağ analog  ·  Metni kaydır","Right stick  ·  Scroll text")):(pc_text("Tekerlek / PgUp / PgDn  ·  Metni kaydır","Wheel / PgUp / PgDn  ·  Scroll text")));
     }
     if(pc_active&&game_weapon==6){
-        snprintf(lines[0],320,"%s",tr?"Mantis kuklası elinde":"Mantis doll equipped");
-        snprintf(lines[1],320,"%s",input_device?(tr?"R analoğunu sağa sola oynat":"Move the R stick left and right"):(tr?"Sallama tuşuna bas":"Press the shake key"));
-        snprintf(lines[2],320,"%s  ·  %s",input_device?bound_pad(ACT_SHAKE):SDL_GetScancodeName(bindings[ACT_SHAKE].key),tr?"Salla / kuklayı kullan":"Shake / use doll");
-        snprintf(lines[3],320,"%s",tr?"Bossun savunması açıldığında kullan":"Use when the boss is vulnerable");
-        snprintf(lines[4],320,"%s",tr?"Sallayarak tekrar kullan":"Shake again to repeat");
+        snprintf(lines[0],320,"%s",pc_text("Mantis kuklası elinde","Mantis doll equipped"));
+        snprintf(lines[1],320,"%s",input_device?(pc_text("R analoğunu sağa sola oynat","Move the R stick left and right")):(pc_text("Sallama tuşuna bas","Press the shake key")));
+        snprintf(lines[2],320,"%s  ·  %s",input_device?bound_pad(ACT_SHAKE):SDL_GetScancodeName(bindings[ACT_SHAKE].key),pc_text("Salla / kuklayı kullan","Shake / use doll"));
+        snprintf(lines[3],320,"%s",pc_text("Bossun savunması açıldığında kullan","Use when the boss is vulnerable"));
+        snprintf(lines[4],320,"%s",pc_text("Sallayarak tekrar kullan","Shake again to repeat"));
     }
     if(pc_active&&game_mission==20&&input_device){
-        snprintf(lines[0],320,"%s",tr?"Sağ analog sağ / sol  ·  Kaçın":"Right stick left / right  ·  Dodge");
-        snprintf(lines[3],320,"%s",tr?"Tekrar kaçınmak için analoğu ortala":"Centre the stick before dodging again");
+        snprintf(lines[0],320,"%s",pc_text("Sağ analog sağ / sol  ·  Kaçın","Right stick left / right  ·  Dodge"));
+        snprintf(lines[3],320,"%s",pc_text("Tekrar kaçınmak için analoğu ortala","Centre the stick before dodging again"));
     }
     for(int i=0;i<5;i++)ui_text(lines[i],x+16,y+53+i*29,14,0,0,white,w-32);
-    ui_text(tr?"F1  ·  Yardımı göster / gizle":"F1  ·  Show / hide controls",x+16,y+215,12,0,0,dim,w-32);ui_end();
+    ui_text(pc_text("F1  ·  Yardımı göster / gizle","F1  ·  Show / hide controls"),x+16,y+215,12,0,0,dim,w-32);ui_end();
 }
 int desktop_open_settings(void){
     /* In-game Patriots links open the website; settings stay in the launcher
@@ -309,7 +325,7 @@ static void load_config(void) {
     while(fgets(line,sizeof line,f)) {
         char *eq=strchr(line,'='); if(!eq || line[0]=='#' || line[0]==';')continue;
         *eq++=0; eq[strcspn(eq,"\r\n")]=0;
-        if(!strcmp(line,"language"))snprintf(g_cfg.lang,sizeof g_cfg.lang,"%s",!strcmp(eq,"tr")?"Turkish":"English");
+        if(!strcmp(line,"language"))set_locale(eq);
         else if(!strcmp(line,"fullscreen"))fullscreen=atoi(eq)!=0;
         else if(!strcmp(line,"vsync"))vsync=atoi(eq)!=0;
         else if(!strcmp(line,"max_fps"))max_fps=atoi(eq);
@@ -491,13 +507,13 @@ int main(int argc,char **argv) {
         else if(!strcmp(argv[i],"--capture-at") && i+1<argc)capture_at=atof(argv[++i]);
         else if(!strcmp(argv[i],"--script") && i+1<argc)snprintf(test_script,sizeof test_script,"%s",argv[++i]);
         else if(!strcmp(argv[i],"--save-dir") && i+1<argc)snprintf(save_dir,sizeof save_dir,"%s",argv[++i]);
-        else if(!strcmp(argv[i],"--language") && i+1<argc)snprintf(g_cfg.lang,sizeof g_cfg.lang,"%s",!strcmp(argv[++i],"tr")?"Turkish":"English");
+        else if(!strcmp(argv[i],"--language") && i+1<argc)set_locale(argv[++i]);
     }
     qa_mode=stop_after>0||test_script[0];
     snprintf(g_cfg.docs_dir,sizeof g_cfg.docs_dir,"%s",save_dir);_mkdir(save_dir);load_test_script();
-    if(strcmp(g_cfg.lang,"Turkish"))g_cfg.overlay_dir[0]=0;
+    configure_locale();
     char p[1200];path_join(p,sizeof p,save_dir,"runtime.log");logfile=fopen(p,"wb");
-    hlog("Patriots MGS Touch Windows AOT host; language=%s",g_cfg.lang);
+    hlog("Patriots MGS Touch Windows AOT host; language=%s; locale=%s",g_cfg.lang,locale_id);
     load_runtime_texts();
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION,2);SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION,1);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,0);

@@ -4,13 +4,13 @@
 
 # Metal Gear Solid Touch · Patriots PC
 
-A Windows x64 AOT port of the **iOS version**, with a bilingual launcher, mouse / keyboard / controller support and Discord Rich Presence.
+A Windows x64 AOT port of the **iOS version**, with a multilingual launcher, mouse / keyboard / controller support and Discord Rich Presence.
 
 ![Windows](https://img.shields.io/badge/platform-Windows_10%2F11-0078D6)
-![Release](https://img.shields.io/badge/release-1.0.8-637D38)
+![Release](https://img.shields.io/badge/release-1.1.0-637D38)
 ![Languages](https://img.shields.io/badge/languages-English_%7C_Türkçe-637D38)
 
-**[Türkçe](README.tr.md) · [Download](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) · [Controls](docs/CONTROLS.md) · [Build](docs/BUILD.md) · [Changelog](CHANGELOG.md)**
+**[Türkçe](README.tr.md) · [Download](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) · [Controls](docs/CONTROLS.md) · [Build](docs/BUILD.md) · [Changelog](CHANGELOG.md) · [Translate](docs/TRANSLATING.md)**
 
 <img src="docs/screenshots/en/home.png" width="960" alt="English Patriots launcher">
 
@@ -18,19 +18,19 @@ A Windows x64 AOT port of the **iOS version**, with a bilingual launcher, mouse 
 
 ## Play
 
-1. Download **MGS_Touch_Patriots_PC_v1.0.8.zip** from [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest).
+1. Download **MGS_Touch_Patriots_PC_v1.1.0.zip** from [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest).
 2. Extract the whole archive to a writable folder. Keep its folders together.
 3. Open **Metal Gear Solid Touch.exe**, select your language and settings, then click **PLAY / OYNA**.
 
 No iPhone, iOS emulator, Python, Ghidra or compiler is required to play the prepared Windows package. The game needs Windows x64, .NET Framework 4.x for the launcher and a working OpenGL driver. SDL3 is included. The local test system was Windows 10 Pro with Intel HD Graphics 620; this is not a performance guarantee for every PC.
 
-Existing players can use **MGS_Touch_Patriots_PC_v1.0.8_Guncelleme.zip** over their existing installation. Back up `Saves/` first. The update contains no personal save or settings files. A full download starts with clean saves and cheats disabled.
+Existing players can use **MGS_Touch_Patriots_PC_v1.1.0_Guncelleme.zip** over their existing installation. Back up `Saves/` first. The update contains no personal save or settings files. A full download starts with clean saves and cheats disabled.
 
 ## Features
 
 | Area | Included |
 |---|---|
-| Languages | English / Turkish launcher and game, chosen independently |
+| Languages | English / Turkish launcher and game, plus imported community JSONs; launcher/game chosen independently |
 | Launcher | Display, audio, input mapping, language import, save backups and Discord settings |
 | Desktop input | Relative mouse aiming, configurable keyboard and SDL gamepads |
 | Menus | Semantic selection, confirm/back, hover colors, pause/resume and retry |
@@ -42,6 +42,10 @@ Existing players can use **MGS_Touch_Patriots_PC_v1.0.8_Guncelleme.zip** over th
 The launcher hides while the game is running and returns when it closes. Opening the launcher again focuses the running game. In-game Patriots buttons open the Patriots website.
 
 The original game uses 2D backgrounds and a fixed presentation. Border fills preserve the intended proportions; **this release does not add genuine 16:9 world geometry**.
+
+## Help translate
+
+Send the contributor just **[the 161-entry launcher JSON](localization/launcher/pt-BR.launcher.json)** and **[the 549-entry game JSON](localization/game/pt-BR.game.json)**. Edit only `text` and preserve tokens. Import each file from **LANGUAGES**, or ZIP `launcher.json` and `game.json` at the root. [Full guide](docs/TRANSLATING.md). Brazilian Portuguese files are blank templates; official support follows review of the actual completed translation.
 
 ## Default controls
 
