@@ -1,0 +1,18 @@
+name: Android update policy
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Verify version channel and trusted download policy
+        run: |
+          mkdir -p /tmp/patriots-policy
+          javac -encoding UTF-8 -d /tmp/patriots-policy android-patriots/java/com/patriots/shared/UpdatePolicy.java android-patriots/java/com/patriots/shared/UpdatePolicyTest.java
+          java -cp /tmp/patriots-policy com.patriots.shared.UpdatePolicyTest

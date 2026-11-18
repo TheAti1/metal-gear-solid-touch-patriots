@@ -12,6 +12,13 @@
 
 </div>
 
+## Android
+
+**[Download Android APK](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/tag/android-v1.0.0) · [Android build / update guide](android-patriots/README.md)**
+
+Android 9+, ARM64 / ARMv7 / x86_64; oyun dosyaları APK içinde, Türkçe / İngilizce seçimi ve açılışta güncelleme kontrolü. Android sürümleri PC sürümlerinden ayrı bir kanalda yayımlanır.
+
+
 ## Kurulum
 
 1. [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) bölümünden **MGS_Touch_Patriots_PC_v1.1.0.zip** dosyasını indir.
