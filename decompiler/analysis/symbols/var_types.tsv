@@ -1,0 +1,3 @@
+func	variable	type	reason
+0x286cc	fVar7	int	drawEnemyWaitMeter loop counter: original compares it as an integer (cmp r5, r8 at 0x2877a); Ghidra merged it with a float, so the C compared it with float == (flush-to-zero makes small ints equal to 0)
+0x286cc	fVar8	int	same variable after the first retype: Ghidra re-merged it under a new name; the second retype holds (loop is integer again)

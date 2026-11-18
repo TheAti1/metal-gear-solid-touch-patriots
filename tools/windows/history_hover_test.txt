@@ -1,0 +1,44 @@
+6 stick 0 0
+7.2 hover 160 300
+7.4 viewprobe hover_start
+7.5 capture D:/Patriots_MGS_Touch_PC/QA/main-hover-green.png
+7.8 hover 160 240
+8 viewprobe hover_none
+8.2 capture D:/Patriots_MGS_Touch_PC/QA/main-hover-none.png
+9 tap 160 340
+12 viewprobe special_menu
+13 pad 0 1
+13.2 pad 0 0
+15 viewprobe history_list
+16 pad 0 1
+16.2 pad 0 0
+19 viewprobe history_picture
+19.2 capture D:/Patriots_MGS_Touch_PC/QA/history-picture-upright.png
+20 pad 0 1
+20.2 pad 0 0
+22 viewprobe history_text
+22.1 scrollprobe history_top
+22.2 capture D:/Patriots_MGS_Touch_PC/QA/history-top.png
+22.5 rstick 1
+24 rstick 0
+24.1 scrollprobe history_down
+24.2 capture D:/Patriots_MGS_Touch_PC/QA/history-down.png
+25 wheel 2
+25.2 scrollprobe wheel_up
+26 wheel -3
+26.2 scrollprobe wheel_down
+27.5 rstick -1
+29 rstick 0
+29.2 scrollprobe history_up
+30 pad 1 1
+30.2 pad 1 0
+32 viewprobe back_picture
+33 pad 1 1
+33.2 pad 1 0
+35 viewprobe back_history_list
+36 pad 1 1
+36.2 pad 1 0
+38 viewprobe back_special
+38.5 pad 1 1
+38.7 pad 1 0
+40 viewprobe back_main

@@ -1,0 +1,845 @@
+__TEXT pages resident: 59/104 (56.7%)
+functions on resident pages: 805/1388
+
+  Classes/MGSTAppDelegate.mm  (128)
+      0x0045f0  -[CrashLandingAppDelegate alertView
+      0x0045fc  -[CrashLandingAppDelegate ReturnDiaLogResult]
+      0x004614  -[CrashLandingAppDelegate GetFigue
+      0x004634  -[CrashLandingAppDelegate Fade_Control]
+      0x0046c8  -[CrashLandingAppDelegate Fade_Set
+      0x004728  -[CrashLandingAppDelegate sh_getExplosionRectScale
+      0x004744  -[CrashLandingAppDelegate Title_AnimControl]
+      0x004910  -[CrashLandingAppDelegate GetMenuNum
+      0x004964  -[CrashLandingAppDelegate get_WPNum
+      0x00498c  -[CrashLandingAppDelegate getMovieURL
+      0x004990  -[CrashLandingAppDelegate drebin_is_announce
+      0x004a00  -[CrashLandingAppDelegate Get_StoryBgmNo
+      0x004a0c  -[CrashLandingAppDelegate title_manual_is_back]
+      0x004a38  -[CrashLandingAppDelegate title_manual_is_next]
+      0x004a64  -[CrashLandingAppDelegate title_manual_is_inspect]
+      0x004a90  -[CrashLandingAppDelegate checkMoji
+      0x004b0a  -[CrashLandingAppDelegate checkKana
+      0x004b40  -[CrashLandingAppDelegate checkAlphabet
+      0x004bd6  -[CrashLandingAppDelegate GetAnimColor
+      0x004bec  -[CrashLandingAppDelegate GetAnimColorBlink
+      0x004c44  -[CrashLandingAppDelegate GetAnimColorBack]
+      0x004c8c  -[CrashLandingAppDelegate updateAnimeColor]
+      0x004ce8  -[CrashLandingAppDelegate drebin_drawAnnounce_side]
+      0x004eac  -[CrashLandingAppDelegate drebin_drawAnnounce]
+      0x006164  -[CrashLandingAppDelegate GetAnimColorNext
+      0x0061b4  -[CrashLandingAppDelegate GetAnimColorBlink]
+      0x0061c8  -[CrashLandingAppDelegate title_drawLogo]
+      0x0062c0  -[CrashLandingAppDelegate wordWrap
+      0x00635c  -[CrashLandingAppDelegate wordWrapCheck
+      0x0063a0  -[CrashLandingAppDelegate title_manual_main]
+      0x0064c4  -[CrashLandingAppDelegate title_manual_release]
+      0x006514  -[CrashLandingAppDelegate Credit_Release]
+      0x006568  -[CrashLandingAppDelegate title_radio_main]
+      0x0065b4  -[CrashLandingAppDelegate title_movie_main]
+      0x006600  -[CrashLandingAppDelegate title_history_main]
+      0x006724  -[CrashLandingAppDelegate GetStoryText
+      0x006750  -[CrashLandingAppDelegate story_release]
+      0x0067f4  -[CrashLandingAppDelegate drebin_announce_release]
+      0x006858  -[CrashLandingAppDelegate drebin_is_announce
+      0x006874  -[CrashLandingAppDelegate getWPName
+      0x0068bc  -[CrashLandingAppDelegate title_bg_move]
+      0x0069e8  -[CrashLandingAppDelegate title_shoot_stage_select]
+      0x006a34  -[CrashLandingAppDelegate title_shoot_mode_select]
+      0x006a80  -[CrashLandingAppDelegate title_main]
+      0x006acc  -[CrashLandingAppDelegate sh_procDrum]
+      0x006bcc  -[CrashLandingAppDelegate sh_checkHitDrum
+      0x006e00  -[CrashLandingAppDelegate sh_hitCheckWithExplosion]
+      0x00812c  -[CrashLandingAppDelegate LocalizeString
+      0x0081d8  -[CrashLandingAppDelegate accelerometer
+      0x0084f4  -[CrashLandingAppDelegate initDiaLog
+      0x008560  -[CrashLandingAppDelegate applicationWillTerminate
+      0x008580  -[CrashLandingAppDelegate initAccelero]
+      0x00864c  __ZL7compareP11objc_objectS0_Pv
+      0x00867c  -[CrashLandingAppDelegate getStringWidth
+      0x00871c  -[CrashLandingAppDelegate GetTouch_Purchase]
+      0x008794  -[CrashLandingAppDelegate Get_TitleTouch_Logo]
+      0x0087ec  -[CrashLandingAppDelegate Get_TitleTouch_Help]
+      0x008844  -[CrashLandingAppDelegate Get_TitleTouch_Back]
+      0x00889c  -[CrashLandingAppDelegate setMimicObjects]
+      0x0089b4  -[CrashLandingAppDelegate setStageObjects]
+      0x008b14  -[CrashLandingAppDelegate sh_drawFadeForChangingBG]
+      0x008ed4  -[CrashLandingAppDelegate sh_drawInterface]
+      0x009f10  -[CrashLandingAppDelegate title_drawHelp]
+      0x00a154  -[CrashLandingAppDelegate title_manual_set_inspect
+      0x00a1a8  -[CrashLandingAppDelegate drebin_announce_skip]
+      0x00a20c  -[CrashLandingAppDelegate dealloc]
+      0x00a2c0  -[CrashLandingAppDelegate renderScene]
+      0x00a458  -[CrashLandingAppDelegate applicationWillResignActive
+      0x00a488  -[CrashLandingAppDelegate applicationDidBecomeActive
+      0x00a4cc  -[CrashLandingAppDelegate applicationDidReceiveMemoryWarning
+      0x00a4dc  -[CrashLandingAppDelegate ReturnStageGame
+      0x00a730  -[CrashLandingAppDelegate playMovieAtURL
+      0x00a7c8  -[CrashLandingAppDelegate startGameBGM]
+      0x00a808  -[CrashLandingAppDelegate myMovieFinishedCallback
+      0x00a8a4  -[CrashLandingAppDelegate sh_drawResult]
+      0x00a9f0  -[CrashLandingAppDelegate title_manual_view_main]
+      0x00ac7c  -[CrashLandingAppDelegate Credit_Main]
+      0x00ae70  -[CrashLandingAppDelegate title_history_view_main]
+      0x00c790  -[CrashLandingAppDelegate drebin_drawBackground]
+      0x00c988  -[CrashLandingAppDelegate drebin_buy]
+      0x00cc84  -[CrashLandingAppDelegate Load]
+      0x00cf34  -[CrashLandingAppDelegate ALRL_Load
+      0x00d00c  -[CrashLandingAppDelegate sh_initgame]
+      0x00d32c  -[CrashLandingAppDelegate drebin_DataLoad]
+      0x00d894  -[CrashLandingAppDelegate title_loadMenuData]
+      0x00dcc0  -[CrashLandingAppDelegate loadStageData]
+      0x00f008  -[CrashLandingAppDelegate option_release]
+      0x00f248  -[CrashLandingAppDelegate drebin_release]
+      0x00f4cc  -[CrashLandingAppDelegate title_release]
+      0x00f724  -[CrashLandingAppDelegate releaseStageData]
+      0x00f8ec  -[CrashLandingAppDelegate ReleasePack]
+      0x00f9c8  -[CrashLandingAppDelegate LoadSet
+      0x00faac  -[CrashLandingAppDelegate LoadSet
+      0x00fc04  -[CrashLandingAppDelegate Menu_Touch
+      0x0104f4  -[CrashLandingAppDelegate title_option_main]
+      0x010700  -[CrashLandingAppDelegate GetAutoLineFeedText
+      0x010798  -[CrashLandingAppDelegate Hyphenation
+      0x010898  -[CrashLandingAppDelegate AutoLineFeed
+      0x0109a0  -[CrashLandingAppDelegate bottomNGwordCheck
+      0x010a20  -[CrashLandingAppDelegate topNGwordCheck
+      0x010a94  -[CrashLandingAppDelegate sh_drawMain]
+      0x010d14  +[CrashLandingAppDelegate initialize]
+      0x010da0  __Z25audioInterruptionCallbackPvm
+      0x010ddc  -[CrashLandingAppDelegate Get_StringLinestr
+      0x010eac  -[CrashLandingAppDelegate Get_StringLineNum
+      0x010f2c  -[CrashLandingAppDelegate GameScene]
+      0x013468  -[CrashLandingAppDelegate title_manual_load
+      0x0136b0  -[CrashLandingAppDelegate Credit_Load]
+      0x0137dc  -[CrashLandingAppDelegate option_load]
+      0x0142cc  -[CrashLandingAppDelegate title_history_release]
+      0x0143dc  -[CrashLandingAppDelegate title_history_load
+      0x014640  -[CrashLandingAppDelegate story_load]
+      0x014ca4  -[CrashLandingAppDelegate drebin_announce_load]
+      0x014f60  -[CrashLandingAppDelegate Drebin_AnimControl]
+      0x0152cc  -[CrashLandingAppDelegate Drebin_Touch]
+      0x0158fc  -[CrashLandingAppDelegate drebin_load]
+      0x016c68  -[CrashLandingAppDelegate Change_scene
+      0x016e78  -[CrashLandingAppDelegate title_load]
+      0x0183f8  -[CrashLandingAppDelegate createTexWithText
+      0x018494  -[CrashLandingAppDelegate game_start_load]
+      0x018808  -[CrashLandingAppDelegate LoadChange]
+      0x018eb4  -[CrashLandingAppDelegate sh_load]
+      0x019f1c  -[CrashLandingAppDelegate sh_procResult]
+      0x01a5a8  -[CrashLandingAppDelegate applicationDidFinishLaunching
+      0x01aca4  -[CrashLandingAppDelegate sh_drawResult_Clear]
+      0x01e24c  -[CrashLandingAppDelegate Draw_Fade]
+      0x01e384  -[CrashLandingAppDelegate title_drawBackground]
+      0x01e568  -[CrashLandingAppDelegate DrawGame]
+  Classes/Enemies/EnemyBase.mm  (86)
+      0x02c76c  -[EnemyBase activate]
+      0x02c7cc  -[EnemyBase inactivate]
+      0x02c7dc  -[EnemyBase appearPoint]
+      0x02c7ec  -[EnemyBase type]
+      0x02c7fc  -[EnemyBase getDistance]
+      0x02c80c  -[EnemyBase getEnemyData]
+      0x02c818  -[EnemyBase getHp]
+      0x02c828  -[EnemyBase getPosX]
+      0x02c838  -[EnemyBase getPosY]
+      0x02c848  -[EnemyBase getPosZ]
+      0x02c858  -[EnemyBase onlyItem]
+      0x02c868  -[EnemyBase ignoreShortCut]
+      0x02c87c  -[EnemyBase isActivatable]
+      0x02c894  -[EnemyBase lifespan]
+      0x02c8a0  -[EnemyBase clearFactor]
+      0x02c8b4  -[EnemyBase limit]
+      0x02c8c0  -[EnemyBase respawnTime]
+      0x02c8d4  -[EnemyBase canTakeover]
+      0x02c8f0  -[EnemyBase didHitMissile]
+      0x02c8fc  -[EnemyBase hitMissile
+      0x02c908  -[EnemyBase isActiveCollision]
+      0x02c92c  -[EnemyBase setAiControl
+      0x02c944  -[EnemyBase updateMoveAttack]
+      0x02c946  -[EnemyBase updateMoveAttack2]
+      0x02c948  -[EnemyBase updateLifeAct]
+      0x02c94a  -[EnemyBase updateSelfDestruction]
+      0x02c94c  -[EnemyBase updateSpecialAttack]
+      0x02c94e  -[EnemyBase updateDataMove]
+      0x02c950  -[EnemyBase updateAppearancePreProcess]
+      0x02c952  -[EnemyBase updateAttackPreProcess]
+      0x02c954  -[EnemyBase updateMovePreProcess]
+      0x02c956  -[EnemyBase updateMovePostProcess]
+      0x02c984  -[EnemyBase initAttack]
+      0x02c986  -[EnemyBase initMove]
+      0x02c9d0  -[EnemyBase initMoveAttack]
+      0x02c9d2  -[EnemyBase initMoveAttack2]
+      0x02c9d4  -[EnemyBase initMoveEnd]
+      0x02c9d6  -[EnemyBase initLifeAct]
+      0x02c9d8  -[EnemyBase initSelfDestruction]
+      0x02c9da  -[EnemyBase initSpecialAttack]
+      0x02c9dc  -[EnemyBase initDataMove]
+      0x02c9de  -[EnemyBase initDie]
+      0x02c9e0  -[EnemyBase move]
+      0x02cb1c  -[EnemyBase initPosition
+      0x02cb90  -[EnemyBase updateAnimationFrame]
+      0x02cbec  -[EnemyBase changeAnimation]
+      0x02cc3c  -[EnemyBase getEnemyScale]
+      0x02cc7c  -[EnemyBase subDamage
+      0x02ccd4  -[EnemyBase checkCollisionWithBullet
+      0x02cf74  -[EnemyBase setAnimation
+      0x02cf90  -[EnemyBase setAnimation
+      0x02cfac  -[EnemyBase setAnimation
+      0x02d03c  -[EnemyBase updateAnimation]
+      0x02d0d4  -[EnemyBase checkCollisionWithPlayer]
+      0x02d18c  -[EnemyBase resetEnemyBase]
+      0x02d368  -[EnemyBase attackGun
+      0x02d3e0  -[EnemyBase attack]
+      0x02d410  -[EnemyBase initAppearance]
+      0x02d458  -[EnemyBase updateAttackPostProcess]
+      0x02d47c  -[EnemyBase updateAttackProcess]
+      0x02d490  -[EnemyBase updateAppearancePostProcess]
+      0x02d4a4  -[EnemyBase updateAppearanceProcess]
+      0x02d558  -[EnemyBase updateDie]
+      0x02d658  -[EnemyBase updateMoveEnd]
+      0x02d6a4  -[EnemyBase updateMove]
+      0x02d704  -[EnemyBase updateAttack]
+      0x02d7c8  -[EnemyBase updateAppearance]
+      0x02d830  -[EnemyBase setNextAction]
+      0x02d86c  -[EnemyBase checkCollisionWithEnemy
+      0x02da5c  -[EnemyBase checkCollisionWithExplosion
+      0x02dc3c  -[EnemyBase checkCollisionWithBullet_Dmg
+      0x02dcfc  -[EnemyBase takeover
+      0x02dd28  -[EnemyBase renderGauge]
+      0x02dda8  -[EnemyBase render]
+      0x02de10  -[EnemyBase update
+      0x02dedc  -[EnemyBase reset]
+      0x02def0  -[EnemyBase initWithParameter
+      0x02df9c  -[EnemyBase setGunMuzzleFlash]
+      0x02e20c  -[EnemyBase imageRect
+      0x02e2c4  -[EnemyBase dealloc]
+      0x02e2e8  -[EnemyBase calculateDamage
+      0x02e3d4  -[EnemyBase deadSound
+      0x02e41c  -[EnemyBase attackSound]
+      0x02e46c  -[EnemyBase updateMoveProcess]
+      0x02e52c  -[EnemyBase caluclateDamageWithExplosion
+      0x02e5d0  -[EnemyBase getDamage
+  Classes/Effect.mm  (66)
+      0x023b90  +[Effect initDrawData
+      0x023bf4  +[Effect setEffDrawPos
+      0x023c30  +[Effect setEffDrawPos
+      0x023c42  +[Effect setEffAnimeData
+      0x023c64  +[Effect setEffAnimeImage
+      0x023c68  +[Effect setEffAnimeState
+      0x023c6c  +[Effect procEffAnimeData
+      0x023cca  +[Effect setEffect
+      0x023d48  +[Effect procEffect
+      0x023e04  +[Effect OffSetXY
+      0x023e98  +[Effect setEnemyWaitMeterColor
+      0x023fcc  +[Effect stopEffDataSE
+      0x023fe4  +[Effect getEffData
+      0x023ffc  +[Effect initExpLink]
+      0x024020  +[Effect setExpLink
+      0x024044  +[Effect checkExpLink
+      0x024078  +[Effect addExpLink
+      0x0240dc  +[Effect getExpScale
+      0x0240f4  +[Effect clearExplode
+      0x02411c  +[Effect initSpecialDamage]
+      0x024138  +[Effect getSpecialDamageData
+      0x024150  +[Effect initGroundHit]
+      0x02416c  +[Effect procGroundHit]
+      0x02419c  +[Effect initEnemyEffect
+      0x0241a2  +[Effect procEnemyEffect
+      0x0241c4  +[Effect procEnemyEffect
+      0x0241e8  +[Effect procEnemyEffect
+      0x024210  +[Effect setEnemyEffect
+      0x024264  +[Effect setEnemyEffect
+      0x024294  +[Effect setEnemyEffect
+      0x0242c4  +[Effect procSpecialDamage]
+      0x024324  +[Effect setEffItem
+      0x024450  +[Effect setExplode
+      0x0244b8  +[Effect drawEffData
+      0x0244e0  +[Effect setEffData
+      0x024514  +[Effect initEffData]
+      0x0245c4  +[Effect drawWaitEffect
+      0x024ae4  +[Effect setWaitEffect
+      0x024bc8  +[Effect procEffEnemyHP
+      0x024c24  +[Effect setEffEnemyHP
+      0x024c8c  +[Effect drawEffEnemyChar
+      0x024cb0  +[Effect setEffEnemyChar
+      0x025490  +[Effect procEffAnime
+      0x0254e4  +[Effect setEffAnime
+      0x025534  +[Effect release]
+      0x025574  +[Effect reset]
+      0x0255ac  +[Effect initWithParameter
+      0x025684  +[Effect procEffEnemyChar
+      0x025974  +[Effect drawEffItemIcon
+      0x025cdc  +[Effect setEffData
+      0x0265e0  +[Effect drawEffAnime
+      0x026814  +[Effect drawEnemyEffectSlide
+      0x026a68  +[Effect drawEnemyEffectWindBlast
+      0x026cc0  +[Effect drawEnemyEffectLand
+      0x026f58  +[Effect drawEnemyEffectJump
+      0x027134  +[Effect drawEffItem
+      0x02738c  +[Effect drawEffEnemyHP
+      0x0276f0  +[Effect drawEffEnemyChar
+      0x027dec  +[Effect procEffItem
+      0x027ff0  +[Effect porcWaitEffect
+      0x02815c  +[Effect drawGroundHit]
+      0x028480  +[Effect drawSpecialDamage
+      0x0286cc  +[Effect drawEnemyWaitMeter
+      0x028978  +[Effect procEffData]
+      0x028a70  +[Effect setSpecialDamage
+      0x028ab8  +[Effect setGroundHit
+  Classes/Enemies/EnemyManager.mm  (36)
+      0x02aa88  __ZL4compPKvS0_
+      0x02aa94  +[EnemyManager checkMissionComplete]
+      0x02aaa0  +[EnemyManager checkFlags
+      0x02aab4  +[EnemyManager clearFlags
+      0x02aac4  +[EnemyManager setFlags
+      0x02aad4  +[EnemyManager npc]
+      0x02aae0  +[EnemyManager clearItemFlag
+      0x02ab34  +[EnemyManager itemFlag]
+      0x02ab40  +[EnemyManager removeItem
+      0x02abb0  +[EnemyManager setItem
+      0x02ac24  +[EnemyManager getRate
+      0x02aca0  +[EnemyManager takeover]
+      0x02adac  +[EnemyManager updateAppearData
+      0x02aec8  +[EnemyManager shortCutTime
+      0x02afc4  +[EnemyManager clearCheck
+      0x02b0c0  +[EnemyManager updatePattern]
+      0x02b1f4  +[EnemyManager updateRespawnRequest]
+      0x02b304  +[EnemyManager updateSpawnRequest]
+      0x02b608  +[EnemyManager release]
+      0x02b668  +[EnemyManager getItem
+      0x02b68c  +[EnemyManager addWeapon
+      0x02b6bc  +[EnemyManager enemyAtIndex
+      0x02b6d8  +[EnemyManager add
+      0x02b6f4  +[EnemyManager renderItemIcon]
+      0x02b710  +[EnemyManager update
+      0x02b848  +[EnemyManager initWithParameter
+      0x02ba40  +[EnemyManager searchWeapon
+      0x02baf4  +[EnemyManager checkOverlappedEnemy
+      0x02bc98  +[EnemyManager enemyOfType
+      0x02bd4c  +[EnemyManager renderGauge]
+      0x02be08  +[EnemyManager render]
+      0x02beac  +[EnemyManager reset]
+      0x02c0a8  +[EnemyManager updateEachCharacter
+      0x02c574  +[EnemyManager setItem
+      0x02c618  +[EnemyManager checkItem
+      0x02c710  +[EnemyManager checkNPC
+  Classes/Enemies/Gekko.mm  (36)
+      0x030004  +[Gekko getCount]
+      0x030010  +[Gekko setCount
+      0x03001c  +[Gekko incCount]
+      0x03002c  +[Gekko decCount]
+      0x030040  +[Gekko getMovablePoints]
+      0x03004c  +[Gekko initMovablePoints]
+      0x03005c  +[Gekko setMovablePoint
+      0x030094  +[Gekko clearMovablePoint
+      0x0300d0  +[Gekko getMoveRateFarCoefficient]
+      0x0300dc  +[Gekko getMoveRateMiddleCoefficient]
+      0x0300e8  +[Gekko getMoveRateNearCoefficient]
+      0x0300f4  +[Gekko getMoveBaseRateFar]
+      0x030100  +[Gekko getMoveBaseRateMiddle]
+      0x03010c  +[Gekko getMoveBaseRateNear]
+      0x030118  -[Gekko appearPoint]
+      0x030124  -[Gekko initMove]
+      0x030190  -[Gekko getEnemyScale]
+      0x0301d4  -[Gekko updateAnimationFrame]
+      0x03021c  -[Gekko updateMoveRate]
+      0x030308  -[Gekko resetMoveRate]
+      0x030374  -[Gekko resetGekko]
+      0x030424  -[Gekko updateDie]
+      0x0304ac  -[Gekko initAppearance]
+      0x03056c  -[Gekko activate]
+      0x03079c  -[Gekko render]
+      0x0307fc  -[Gekko update
+      0x030858  -[Gekko reset]
+      0x03088c  -[Gekko initWithParameter
+      0x03092c  +[Gekko resetMoveRateCoefficient]
+      0x0309b4  -[Gekko getMovePoint]
+      0x030af8  -[Gekko attackSound]
+      0x030b24  -[Gekko updateMove]
+      0x030c94  -[Gekko updateAttack]
+      0x0310ac  -[Gekko caluclateDamageWithExplosion
+      0x031138  -[Gekko calculateDamage
+      0x031500  -[Gekko changeAnimation]
+  Classes/Enemies/Mantis.mm  (36)
+      0x04c824  -[Mantis getEnemyScale]
+      0x04c834  -[Mantis setStageChange]
+      0x04c860  -[Mantis setPosAttack]
+      0x04c8d0  -[Mantis resetSummon]
+      0x04c8f4  -[Mantis initPosition
+      0x04c97c  -[Mantis caluclateDamageWithExplosion
+      0x04c9a0  -[Mantis checkCollisionWithBullet_Dmg
+      0x04ca08  -[Mantis render]
+      0x04ca44  -[Mantis updateAnimationFrame]
+      0x04ca80  -[Mantis updateAnimation]
+      0x04caf8  -[Mantis update
+      0x04cb7c  -[Mantis checkIfDollIsFallen
+      0x04cbc0  -[Mantis checkIfDollIsFallen]
+      0x04cbf0  -[Mantis resurrectDoll
+      0x04cc2c  -[Mantis pickUpDoll
+      0x04cc80  -[Mantis attackReaver]
+      0x04cdc4  -[Mantis attackReaverWarp]
+      0x04ce24  -[Mantis attackReaverInit]
+      0x04ce90  -[Mantis getKarambitNumber]
+      0x04ceb8  -[Mantis getWarpInterval]
+      0x04cee0  -[Mantis summonManager]
+      0x04cfc8  -[Mantis setPosHome]
+      0x04d014  -[Mantis calculateDamage
+      0x04d098  -[Mantis updateLifeAct]
+      0x04d1b0  -[Mantis updateSpecialAttack]
+      0x04d7f0  -[Mantis updateMove]
+      0x04dc64  -[Mantis updateAttack]
+      0x04e0cc  -[Mantis updateAppearance]
+      0x04e278  -[Mantis setNextAction]
+      0x04e380  -[Mantis reset]
+      0x04e3b4  -[Mantis dealloc]
+      0x04e434  -[Mantis initWithParameter
+      0x04e574  -[Mantis activate]
+      0x04e5f4  -[Mantis setPosAppear]
+      0x04e694  -[Mantis resetBoss]
+      0x04e830  -[Mantis Se3DSet
+  Classes/Enemies/Liquid.mm  (32)
+      0x04e8a4  -[Liquid renderGauge]
+      0x04e8a6  -[Liquid activate]
+      0x04e8aa  -[Liquid getEnemyScale]
+      0x04e8b4  -[Liquid isAttackEx]
+      0x04e8d0  -[Liquid attackStep]
+      0x04e8dc  -[Liquid isFlagZoom]
+      0x04e8f4  -[Liquid isFlagDemo]
+      0x04e900  -[Liquid getAttackPhase]
+      0x04e978  -[Liquid updateMoveEnd]
+      0x04e99c  -[Liquid updateMoveAttack2]
+      0x04e9c0  -[Liquid update
+      0x04ea10  -[Liquid dealloc]
+      0x04ea34  -[Liquid setAttackSE]
+      0x04eaf4  -[Liquid getDamage
+      0x04eb6c  -[Liquid updateMoveAttack]
+      0x04ec18  -[Liquid updateMove]
+      0x04ecf0  -[Liquid updateAttack]
+      0x04f0a0  -[Liquid updateAppearance]
+      0x04f1bc  -[Liquid render]
+      0x04f240  -[Liquid updateAnimation]
+      0x04f2a4  -[Liquid reset]
+      0x04f2d8  -[Liquid initWithParameter
+      0x04f31c  -[Liquid setAttack
+      0x04f7f4  -[Liquid getTypeAttack]
+      0x04f874  -[Liquid resetBoss]
+      0x04fa38  -[Liquid calculateDamage
+      0x04fdac  -[Liquid checkCollisionWithBullet_Dmg
+      0x04ff88  -[Liquid setNextAction]
+      0x050064  -[Liquid updateSpecialAttack]
+      0x0501e8  -[Liquid Se3DSet
+      0x050290  -[Liquid isAttack
+      0x050358  -[Liquid updateDie]
+  Classes/DWGraphics.mm  (31)
+      0x0220d4  -[DWGraphics setColor
+      0x02214c  -[DWGraphics setColor
+      0x0221a8  -[DWGraphics setColor
+      0x0221d8  -[DWGraphics GetdrawString
+      0x0221e8  +[DWGraphics getColorIndex
+      0x022270  +[DWGraphics getPaletteRGB
+      0x022274  -[DWGraphics dealloc]
+      0x022298  -[DWGraphics finalize]
+      0x0222bc  -[DWGraphics init]
+      0x022334  +[DWGraphics getPaletteB
+      0x022348  +[DWGraphics getPaletteG
+      0x022360  +[DWGraphics getPaletteR
+      0x022378  +[DWGraphics getColorRGB
+      0x0223f8  +[DWGraphics getColorB
+      0x022414  +[DWGraphics getColorG
+      0x022434  +[DWGraphics getColorR
+      0x022454  -[DWGraphics DelLoad]
+      0x0224a4  -[DWGraphics delfillRect
+      0x0224c4  -[DWGraphics LoadfillRect
+      0x022558  -[DWGraphics delString
+      0x022584  -[DWGraphics LoadString
+      0x022644  -[DWGraphics fillRect
+      0x0226a4  -[DWGraphics drawString
+      0x022704  +[DWGraphics Set_TexEnvf_Color_NoFade
+      0x02276c  +[DWGraphics Retrun_TexEnvf_Color]
+      0x0227d4  +[DWGraphics Add_TexEnvf_Color
+      0x022910  +[DWGraphics Set_TexEnvf_Color
+      0x022978  +[DWGraphics loadBitmapData
+      0x022a80  +[DWGraphics releaseBitmapData
+      0x022a9a  -[DWGraphics Loadset
+      0x022c18  -[DWGraphics DrawLoad
+  Classes/GResult.mm  (28)
+      0x0504dc  __ZN7GResult15convertHPnormalEif
+      0x05050c  __ZN7GResult14convertHPlargeEif
+      0x05052c  __ZN7GResult10addFireCntEi
+      0x050548  __ZN7GResult10subFireCntEii
+      0x050560  __ZN7GResult9addHitCntEi
+      0x050584  __ZN7GResult12addAvoidTimeEi
+      0x050594  __ZN7GResult10addHealCntEv
+      0x0505a4  __ZN7GResult13addItemUseCntEv
+      0x0505b4  __ZN7GResult13addNpcKillCntEv
+      0x0505c4  __ZN7GResult12addDamageCntEv
+      0x0505d4  __ZN7GResult14addHeadShotCntEv
+      0x0505e4  __ZN7GResult7setCodeEi
+      0x0505f0  __ZN7GResult7getCodeEv
+      0x0505fc  __ZN7GResult15getTotalFireCntEv
+      0x050610  __ZN7GResult15calculateHitPerEv
+      0x050668  __ZN7GResult11setSurvivalEh
+      0x050674  __ZN7GResult21unlockDrebinWallPaperEii
+      0x050748  __ZN7GResult22Init_Survival_continueEv
+      0x050780  __ZN7GResult22Load_Survival_continueEPi
+      0x0508f0  __ZN7GResult13getRankFromDPEii
+      0x0509b4  __ZN7GResult17survivalLastCheckEv
+      0x0509d8  __ZN7GResult12GetRank_HeadEv
+      0x050a58  __ZN7GResult19GetDorebinPoint_HitEf
+      0x050b1c  __ZN7GResult20GetDorebinPoint_LifeEi
+      0x050c18  __ZN7GResult20GetDorebinPoint_TimeEiPi
+      0x050d10  __ZN7GResult16getSurvivalBonusEv
+      0x050d50  __ZN7GResult13calculateCodeEi
+      0x050f34  __ZN7GResult29Result_Save_Survival_continueEi
+  Classes/../Classes/Texture2D.m  (27)
+      0x002704  -[Texture2D setClamp
+      0x002710  -[Texture2D maxT]
+      0x00271c  -[Texture2D maxS]
+      0x002728  -[Texture2D name]
+      0x002734  -[Texture2D pixelFormat]
+      0x002740  -[Texture2D contentSize]
+      0x002754  -[Texture2D(Drawing) getImgW]
+      0x002798  -[Texture2D(Drawing) getImgH]
+      0x0027dc  -[Texture2D(Text) initWithString
+      0x002828  -[Texture2D(Image) initWithImageA8Filename
+      0x0028fc  -[Texture2D(Image) initWithImageFilename
+      0x0029f8  -[Texture2D description]
+      0x002a90  -[Texture2D initWithData
+      0x002c34  +[Texture2D initialize]
+      0x002ca0  -[Texture2D dealloc]
+      0x002cdc  -[Texture2D(Drawing) drawInRectRot
+      0x002dfc  -[Texture2D(Drawing) drawInRect
+      0x002f0c  -[Texture2D(Drawing) drawInRect
+      0x003370  -[Texture2D(Drawing) drawInRect
+      0x0033fc  -[Texture2D(Drawing) drawAtPoint
+      0x0034b8  -[Texture2D(Drawing) drawAtPoint
+      0x00359c  -[Texture2D(Rect) initWithCircle
+      0x0036bc  -[Texture2D(Rect) initWithRect
+      0x0037dc  -[Texture2D(Image) initWithImageA8
+      0x003ad4  -[Texture2D(Image) initWithImage
+      0x003df8  -[Texture2D(Text) initWithString
+      0x004088  -[Texture2D(Text) initWithString
+  Classes/TextureManager.m  (25)
+      0x028c88  +[TextureManager getTexture
+      0x028c94  +[TextureManager getTexturePtr
+      0x028ca4  +[TextureManager setClip
+      0x028d68  +[TextureManager setImgClip
+      0x028d98  +[TextureManager clearImgClip]
+      0x028da4  +[TextureManager setClip2
+      0x028e54  +[TextureManager drawClipImage
+      0x028f70  +[TextureManager drawImageClipWithID
+      0x028fa0  +[TextureManager drawImageWithID
+      0x028fd0  +[TextureManager drawImageWithID
+      0x028ffc  +[TextureManager drawImageWithID
+      0x02902c  +[TextureManager drawTexture
+      0x029058  +[TextureManager drawImage
+      0x02907c  +[TextureManager drawImage
+      0x0290a0  +[TextureManager releaseTexture
+      0x0290c4  +[TextureManager loadRectTexture
+      0x029118  +[TextureManager loadTextureAsA8
+      0x029150  +[TextureManager loadTexture
+      0x029188  +[TextureManager initialize]
+      0x0291f8  +[TextureManager StringdrawImage2
+      0x029244  +[TextureManager drawAnimeImage
+      0x02938c  +[TextureManager drawImage
+      0x0294a8  +[TextureManager StringdrawImage
+      0x0295d4  +[TextureManager drawImage2
+      0x029868  +[TextureManager drawImageClip
+  Classes/Enemies/Canard.mm  (22)
+      0x02e600  -[Canard initMoveEnd]
+      0x02e640  -[Canard move]
+      0x02e744  -[Canard initHovering]
+      0x02e76c  -[Canard resetCanard]
+      0x02e794  -[Canard getEnemyScale]
+      0x02e97c  -[Canard updateDie]
+      0x02e9d4  -[Canard updateMoveEnd]
+      0x02eacc  -[Canard updateAttackPostProcess]
+      0x02eb5c  -[Canard updateAttackProcess]
+      0x02ebd4  -[Canard updateAttack]
+      0x02ec08  -[Canard dealloc]
+      0x02ec44  -[Canard render]
+      0x02ec88  -[Canard update
+      0x02eccc  -[Canard reset]
+      0x02ed00  -[Canard initWithParameter
+      0x02ede4  -[Canard calculateDamage
+      0x02ef44  -[Canard attackSound]
+      0x02ef50  -[Canard initAppearance]
+      0x02f05c  -[Canard updateAppearancePostProcess]
+      0x02f1ac  -[Canard updateMoveAttack2]
+      0x02f4f8  -[Canard updateHovering]
+      0x02f6f4  -[Canard setVelocity
+  AudioSupport/GSoundCtrl.mm  (21)
+      0x0233d4  __ZN10GSoundCtrl9TurnOffSeEv
+      0x0233f8  __ZN10GSoundCtrl8TurnOnSeEv
+      0x023420  __ZN10GSoundCtrl11CloseOptionEv
+      0x023448  __ZN10GSoundCtrl10OpenOptionEv
+      0x023470  __ZN10GSoundCtrl12VibrationSetEv
+      0x023494  __ZN10GSoundCtrl7BgmStopEv
+      0x0234e0  __ZN10GSoundCtrl6BgmSetEih
+      0x02353c  __ZN10GSoundCtrl6SeStopEi
+      0x0235ac  __ZN10GSoundCtrl13LoopSeStopAllEv
+      0x0235d6  __ZN10GSoundCtrl11ChangeScaleEv
+      0x0235fc  __ZN10GSoundCtrl5SeSetEi
+      0x023674  __ZN10GSoundCtrl7Se3DSetEiffff
+      0x0238fc  __ZN10GSoundCtrl15releaseBufferSeEi
+      0x023908  __ZN10GSoundCtrl12loadBufferSeEi
+      0x023914  __ZN10GSoundCtrl6resumeEv
+      0x023934  __ZN10GSoundCtrl7suspendEv
+      0x023954  __ZN10GSoundCtrl15EndInterruptionEh
+      0x023a6c  __ZN10GSoundCtrl4initEv
+      0x023ab8  __ZN10GSoundCtrl3dieEv
+      0x023ac2  __ZN10GSoundCtrl6updateEv
+      0x023b44  __ZN10GSoundCtrl17BeginInterruptionEv
+  SoundLibrary/AQSound.mm  (20)
+      0x01f734  __ZN7AQSound4initEv
+      0x01f73c  __ZN7AQSound7releaseEv
+      0x01f74a  __ZN7AQSound17queueStatusChangeEPvP16OpaqueAudioQueuem
+      0x01f74c  __ZN7AQSound8setPitchEf
+      0x01f750  __ZN7AQSound11setPositionEfff
+      0x01f754  __ZN7AQSound16setRolloffFactorEf
+      0x01f758  __ZN7AQSound11setDistanceEf
+      0x01f75c  __ZN7AQSound15setDistanceGainEff
+      0x01f760  __ZN7AQSound13set2DSettingsEv
+      0x01f764  __ZN7AQSound12updateStreamEv
+      0x01f768  __ZN7AQSound9isPlayingERb
+      0x01f772  __ZN7AQSound9setVolumeEf
+      0x01f798  __ZN7AQSound4stopEv
+      0x01f7d0  __ZN7AQSound5pauseEb
+      0x01f800  __ZN7AQSound4playEv
+      0x01f840  __ZN7AQSound11readPacketsEPmS0_P16AudioQueueBuffer
+      0x01f924  __ZN7AQSound13queueCallbackEPvP16OpaqueAudioQueueP16AudioQueueBuffer
+      0x01f9fc  __ZN7AQSound5resetEv
+      0x01fa70  __ZN7AQSound5readyEP10SoundLabel
+      0x01fd70  __ZN7AQSoundC1Ev
+  SoundLibrary/ALSound.mm  (18)
+      0x01f238  __ZN7ALSound12updateStreamEv
+      0x01f24c  __ZN7ALSound9isPlayingERb
+      0x01f284  __ZN7ALSound13set2DSettingsEv
+      0x01f2e4  __ZN7ALSound11setPositionEfff
+      0x01f334  __ZN7ALSound15setDistanceGainEff
+      0x01f38c  __ZN7ALSound11setDistanceEf
+      0x01f3c0  __ZN7ALSound16setRolloffFactorEf
+      0x01f3f4  __ZN7ALSound8setPitchEf
+      0x01f418  __ZN7ALSound9setVolumeEf
+      0x01f43c  __ZN7ALSound4stopEv
+      0x01f456  __ZN7ALSound5resetEv
+      0x01f4a0  __ZN7ALSound5pauseEb
+      0x01f4c8  __ZN7ALSound4playEv
+      0x01f4f4  __ZN7ALSound7releaseEv
+      0x01f52c  __ZN7ALSound4initEv
+      0x01f574  __Z23_alBufferDataStaticProciiPvii
+      0x01f5c4  __ZN7ALSound5readyEP10SoundLabel
+      0x01f728  __ZN7ALSoundC1Ev
+  Classes/Camera.mm  (18)
+      0x037638  +[Camera shake
+      0x037698  +[Camera getDrawPosX_pl
+      0x0376cc  +[Camera getDrawPosY_pl
+      0x037700  +[Camera getPosX]
+      0x03770c  +[Camera getPosY]
+      0x037718  +[Camera getDrawScale]
+      0x037724  +[Camera getDrawAdjX]
+      0x037730  +[Camera getDrawAdjY]
+      0x03773c  +[Camera getShakePower]
+      0x037748  +[Camera getShakeX]
+      0x037754  +[Camera getShakeY]
+      0x037760  +[Camera getPosBaseX]
+      0x03776c  +[Camera getPosBaseY]
+      0x037778  +[Camera getDrawPosY
+      0x0377d4  +[Camera getDrawPosX
+      0x037830  +[Camera release]
+      0x037844  +[Camera init]
+      0x03794c  +[Camera proc]
+  Classes/Enemies/PoweredSuit.mm  (17)
+      0x02f8bc  +[PoweredSuit resetLoopSE]
+      0x02f8cc  +[PoweredSuit setLoopSE
+      0x02f91c  +[PoweredSuit stopLoopSE
+      0x02f97c  +[PoweredSuit checkLoopSE
+      0x02f9c4  -[PoweredSuit resetPoweredSuit]
+      0x02fa0c  -[PoweredSuit updateAttack]
+      0x02fab4  -[PoweredSuit render]
+      0x02faf8  -[PoweredSuit update
+      0x02fb3c  -[PoweredSuit reset]
+      0x02fb70  -[PoweredSuit initWithParameter
+      0x02fbbc  -[PoweredSuit calculateDamage
+      0x02fc20  -[PoweredSuit initAppearance]
+      0x02fc68  -[PoweredSuit updateAppearanceProcess]
+      0x02fe68  -[PoweredSuit updateDie]
+      0x02fed0  -[PoweredSuit updateAttackPostProcess]
+      0x02ff80  -[PoweredSuit attackSound]
+      0x02fff8  -[PoweredSuit deadSound
+  Classes/Enemies/Octopus.mm  (17)
+      0x0318ec  +[Octopus resetPattern]
+      0x031910  +[Octopus resetChangeBGCount]
+      0x03191c  +[Octopus incChangeBGCount]
+      0x03192c  +[Octopus getChangeBGCount]
+      0x031938  -[Octopus updateAnimationFrame]
+      0x03197c  -[Octopus updateDie]
+      0x0319e4  -[Octopus checkCollisionWithBullet_Dmg
+      0x031a34  -[Octopus checkCollisionWithBullet
+      0x031a84  -[Octopus resetOctopus]
+      0x031b38  -[Octopus updateMove]
+      0x031c34  -[Octopus initMove]
+      0x031c48  -[Octopus updateAppearanceProcess]
+      0x031d70  -[Octopus updateAppearance]
+      0x031de0  -[Octopus dealloc]
+      0x031e7c  -[Octopus update
+      0x031fa4  -[Octopus reset]
+      0x031fd8  -[Octopus initWithParameter
+  SoundLibrary/Sound.mm  (15)
+      0x01fd7c  __ZN5SoundC2Ev
+      0x01fda0  __ZN5SoundC1Ev
+      0x01fdaa  __ZN5Sound5resetEv
+      0x01fde0  __ZN5Sound12updateStatusEv
+      0x01fe16  __ZN5Sound9isPlayingEv
+      0x01fe38  __ZN5Sound13set2DSettingsEv
+      0x01fe60  __ZN5Sound9setVolumeEf
+      0x01fe98  __ZN5Sound12setMixVolumeEf
+      0x01fea8  __ZN5Sound12updateVolumeEv
+      0x01ff50  __ZN5Sound7setFadeEfib
+      0x01ffc4  __ZN5Sound4stopEi
+      0x020024  __ZN5Sound3dieEv
+      0x02004e  __ZN5Sound6play2DEi
+      0x0200d4  __ZN5Sound5readyEP10SoundLabel
+      0x020334  __ZN5Sound6play3DEffffi
+  Classes/DWUtilities.m  (13)
+      0x022e0c  +[DWUtilities getPartsNun
+      0x022e20  +[DWUtilities getPartsData
+      0x022e40  +[DWUtilities getItemNun
+      0x022e80  +[DWUtilities getItemData
+      0x022ed4  +[DWUtilities rlDataAtIndex
+      0x022ee4  +[DWUtilities getKomaData
+      0x022f5c  +[DWUtilities getMaxFrame
+      0x022f84  +[DWUtilities getPackImageWH
+      0x02302c  +[DWUtilities readAnimeData
+      0x023190  +[DWUtilities readRectData
+      0x023314  +[DWUtilities releaseAnimeData
+      0x023364  +[DWUtilities releaseRectData
+      0x0233b4  +[DWUtilities readShort
+  SoundLibrary/SoundManager.mm  (12)
+      0x0205d8  __ZN12SoundManager12masterVolumeEv
+      0x0205f0  __ZN12SoundManager24releaseBufferWithSoundIDEi
+      0x020608  __ZN12SoundManager21loadBufferWithSoundIDEi
+      0x020620  __ZN12SoundManager14categoryVolumeEi
+      0x020640  __ZN12SoundManager27attributeVolumeFromCategoryEi
+      0x020660  __ZN12SoundManager18setAttributeVolumeEifi
+      0x020684  __ZN12SoundManager15setMasterVolumeEfi
+      0x0206a0  __ZN12SoundManager11play3DSoundEiffffi
+      0x0206d0  __ZN12SoundManager11play2DSoundEii
+      0x0206ec  __ZN12SoundManager6updateEv
+      0x020700  __ZN12SoundManager3dieEv
+      0x020734  __ZN12SoundManager4initEfb
+  Classes/Enemies/PMC.mm  (12)
+      0x029bfc  -[PMC switchToPMC_A]
+      0x029c5c  -[PMC switchToPMC_B]
+      0x029cbc  -[PMC changeAnimation]
+      0x029d40  -[PMC updateDie]
+      0x029db8  -[PMC updateAttackPostProcess]
+      0x029e10  -[PMC updateAttackProcess]
+      0x029e88  -[PMC dealloc]
+      0x029ec4  -[PMC activate]
+      0x029ef8  -[PMC initWithParameter
+      0x029f9c  -[PMC updateAttackPreProcess]
+      0x02a008  -[PMC initAppearance]
+      0x02a0a0  -[PMC checkPMC_B]
+  Classes/Enemies/NPC.mm  (12)
+      0x02a128  -[NPC getEnemyScale]
+      0x02a138  -[NPC copyEnemyInfo
+      0x02a298  -[NPC render]
+      0x02a2e8  -[NPC initWithParameter
+      0x02a36c  -[NPC changeAnimation]
+      0x02a3d0  -[NPC checkCollisionWithBullet
+      0x02a420  -[NPC renderGauge]
+      0x02a458  -[NPC reset]
+      0x02a4d4  -[NPC update
+      0x02a724  -[NPC activate]
+      0x02a7cc  -[NPC checkCollisionWithExplosion
+      0x02a8a4  -[NPC checkCollisionWithBullet_Dmg
+  Classes/GSaveCtrl.mm  (10)
+      0x0299b0  __ZN9GSaveCtrl7LoadIntEi
+      0x0299e4  __ZN9GSaveCtrl7SaveIntEii
+      0x029a0c  __ZN9GSaveCtrl9LoadShortEi
+      0x029a24  __ZN9GSaveCtrl9SaveShortEis
+      0x029a3c  __Z14writeByteArrayP7__sFILEPci
+      0x029a4c  __Z13readByteArrayP7__sFILEPci
+      0x029a5c  __Z11getFileSizeP7__sFILE
+      0x029a88  __ZN9GSaveCtrl23applicationDataFromFileEPKc
+      0x029b18  __ZN9GSaveCtrl20writeApplicationDataEPKc
+      0x029b84  __ZN9GSaveCtrl7initAllEv
+  SoundLibrary/SoundResourceManager.mm  (8)
+      0x0209b0  __ZN20SoundResourceManager5labelEi
+      0x0209c8  __ZN20SoundResourceManager8categoryEi
+      0x0209de  __ZN20SoundResourceManager15attributeVolumeEi
+      0x0209f4  __ZN20SoundResourceManager17stopPlayingObjectEiiPP5Sound
+      0x020a28  __ZN20SoundResourceManager24releaseBufferWithSoundIDEiPP5Sound
+      0x020a5c  __ZN20SoundResourceManager13loadBufferAllEv
+      0x020a80  __ZN20SoundResourceManager21loadBufferWithSoundIDEi
+      0x020aa0  __ZN20SoundResourceManager7analyzeEv
+  Classes/Enemies/RayMissile.mm  (8)
+      0x055b74  -[RayMissile init]
+      0x055c50  -[RayMissile isShot]
+      0x055c5c  -[RayMissile isBomb]
+      0x055c68  -[RayMissile isEnd]
+      0x055c74  -[RayMissile set
+      0x056114  -[RayMissile checkCollisionWithBullet_Dmg
+      0x056380  -[RayMissile render]
+      0x05698c  -[RayMissile update]
+  Classes/DWWebView.m  (7)
+      0x004378  -[DWWebView dealloc]
+      0x00439c  -[DWWebView webView
+      0x004420  -[DWWebView webViewDidFinishLoad
+      0x004448  -[DWWebView webViewDidStartLoad
+      0x004470  -[DWWebView closeWebView]
+      0x004484  -[DWWebView openWebView
+      0x0044f8  -[DWWebView initWithFrame
+  Classes/Enemies/Railgun.mm  (7)
+      0x055084  -[Railgun shot]
+      0x0550a0  -[Railgun cancel]
+      0x0550c8  -[Railgun isShot]
+      0x0550d4  -[Railgun isEnd]
+      0x055110  -[Railgun render]
+      0x055554  -[Railgun set
+      0x055920  -[Railgun update]
+  Classes/Enemies/RayWeapon.mm  (7)
+      0x05a004  -[RayWeapon init]
+      0x05a094  -[RayWeapon set
+      0x05a0e8  -[RayWeapon update]
+      0x05a114  -[RayWeapon isActive]
+      0x05a120  -[RayWeapon end]
+      0x05a138  -[RayWeapon set
+      0x05a158  -[RayWeapon render]
+  Classes/game_msg.mm  (6)
+      0x037270  +[GameMsg init]
+      0x0372a8  +[GameMsg setAdviceContinueBgNum
+      0x0372b4  +[GameMsg isAdviceOfExtraSurvival
+      0x0372f0  +[GameMsg isAdviceContinuePermitOfStage
+      0x037414  +[GameMsg numAdviceOfStage
+      0x0374f8  +[GameMsg numAdviceContinueOfStage
+  Classes/DWconnect.m  (5)
+      0x00425c  +[DWconnect DataConnect]
+      0x00425e  +[DWconnect ConvertDataNSNumber
+      0x0042a4  +[DWconnect ConvertDataNSArray
+      0x0042ec  +[DWconnect DataRead
+      0x004330  +[DWconnect DWWebTo
+  SoundLibrary/SoundLabel.mm  (5)
+      0x0203dc  __ZN10SoundLabel13releaseBufferEv
+      0x020400  __ZN10SoundLabel3dieEv
+      0x02040a  __ZN10SoundLabel10loadBufferEv
+      0x02051c  __ZN10SoundLabel10dataBufferEv
+      0x020534  __ZN10SoundLabel4initEPKcS1_iiiifiiiiii
+  SoundLibrary/SoundMisc.mm  (4)
+      0x0207a4  __ZN9SoundMisc20calculateByteForTimeER27AudioStreamBasicDescriptionmdPmS2_
+      0x020848  __ZN9SoundMisc12loadFileDataEP17OpaqueAudioFileIDRPvm
+      0x020884  __ZN9SoundMisc16loadFileDataInfoEP17OpaqueAudioFileIDR27AudioStreamBasicDescriptionRy
+      0x0208d4  __ZN9SoundMisc8openFileEPKcS1_RP17OpaqueAudioFileID
+  Classes/Enemies/Ray.mm  (4)
+      0x04c030  -[Ray drawFall]
+      0x04c324  -[Ray drawJump]
+      0x04c580  -[Ray drawAppear]
+      0x04c77c  -[Ray Se3DSet
+  Classes/Enemies/HavenSoldier.mm  (3)
+      0x02a984  -[HavenSoldier deadSound
+      0x02a9d0  -[HavenSoldier attackSound]
+      0x02aa24  -[HavenSoldier calculateDamage
+  SoundLibrary/tablereader.mm  (2)
+      0x022014  +[TableReader maxLineNum
+      0x02206c  +[TableReader lineData
+  main.m  (1)
+      0x002628  _main

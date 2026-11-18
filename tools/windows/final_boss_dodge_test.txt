@@ -1,0 +1,46 @@
+6 rightstick 0 0
+8 pad 0 1
+8.2 pad 0 0
+11 select 24
+12 pad 0 1
+12.2 pad 0 0
+20 pad 0 1
+20.2 pad 0 0
+23 pad 0 1
+23.2 pad 0 0
+26 pad 0 1
+26.2 pad 0 0
+29 pad 0 1
+29.2 pad 0 0
+30 rightstick 1 0
+31 pad 0 1
+31.2 pad 0 0
+33 rightstick 1 0
+33.2 dodgeprobe held_after_loading
+34 rightstick 0 0
+35 rightstick -1 0
+35.15 dodgeprobe left
+35.2 capture D:/Patriots_MGS_Touch_PC/QA/final-boss-left.png
+36 rightstick -1 0
+37 dodgeprobe held_left
+38 rightstick 0 0
+38.2 rightstick 1 0
+38.35 dodgeprobe right
+38.4 capture D:/Patriots_MGS_Touch_PC/QA/final-boss-right.png
+40 rightstick 1 0
+41 dodgeprobe held_right
+42 pad 6 1
+42.2 pad 6 0
+42.4 rightstick 0 0
+43 rightstick 1 0
+43.2 navprobe paused
+44 pad 0 1
+44.2 pad 0 0
+45 rightstick 1 0
+45.2 dodgeprobe held_after_pause
+46 rightstick 0 0
+46.3 rightstick 1 0
+46.45 dodgeprobe resumed_right
+47 rightstick 0 0
+47.2 rightstick 0 1
+47.5 dodgeprobe vertical

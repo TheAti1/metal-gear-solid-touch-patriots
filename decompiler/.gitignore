@@ -1,0 +1,28 @@
+# Everything derived from the IPA or from third parties. None of it is ours to redistribute.
+out/
+work/
+recovered/
+analysis/ghidra/
+build/
+*.ipa
+# emulator: upstream sources, Apple firmware, captured game memory
+oracle/qemu-ios/
+oracle/usbmuxd-qemu/
+oracle/firmware/
+oracle/downloads/
+oracle/state/
+oracle/reports/
+__pycache__/
+# regenerated locally from your IPA by reproduce.sh: raw symbol/STABS dumps and
+# game text - keep them out of any fork you publish
+analysis/symbols/stabs_raw.txt
+analysis/symbols/symtab_full.txt
+analysis/symbols/code_symbols.txt
+analysis/symbols/object_files.txt
+analysis/symbols/source_files.txt
+analysis/symbols/source_tree_map.md
+analysis/symbols/cpp_symbols_demangled.txt
+analysis/notes/switch8_raw.tsv
+analysis/notes/switch_resolved.tsv
+analysis/verification/coverage_unconsumed.tsv
+analysis/verification/ground_truth.json

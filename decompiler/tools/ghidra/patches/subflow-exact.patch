@@ -1,0 +1,79 @@
+--- a/Ghidra/Features/Decompiler/src/decompile/cpp/subflow.hh	2026-10-08 19:00:47.331017034 -0400
++++ b/Ghidra/Features/Decompiler/src/decompile/cpp/subflow.hh	2026-10-08 19:00:47.344386416 -0400
+@@ -375,6 +375,7 @@
+   const FloatFormat *format;	///< The floating-point format of the logical value
+   vector<TransformVar *> worklist;	///< Current list of placeholders that still need to be traced
+   map<PcodeOp *,int4> maxPrecisionMap;	///< Maximum precision flowing into a particular floating-point op
++  set<PcodeOp *> roundingOps;	///< mgstouch: rounding ops (+,-,*,/,sqrt,int2float) in the logical flow
+   int4 maxPrecision(Varnode *vn);	///< Calculate maximum floating-point precision reaching a given Varnode
+   bool exceedsPrecision(PcodeOp *op);	///< Determine if the given op exceeds our \b precision
+   TransformVar *setReplacement(Varnode *vn);
+--- a/Ghidra/Features/Decompiler/src/decompile/cpp/subflow.cc	2026-10-08 19:00:47.330894968 -0400
++++ b/Ghidra/Features/Decompiler/src/decompile/cpp/subflow.cc	2026-10-08 19:00:47.345438128 -0400
+@@ -3124,7 +3124,13 @@
+     if (form2 == (const FloatFormat *)0)
+       return (TransformVar *)0;	// Unsupported constant format
+     // Return the converted form of the constant
+-    return newConstant(precision, 0, format->convertEncoding(vn->getOffset(),form2));
++    uintb conv = format->convertEncoding(vn->getOffset(),form2);
++    // mgstouch: only narrow a constant that is exactly representable in the
++    // smaller format; otherwise the rewrite changes the computed value
++    // (e.g. float*0.7 done in double, then truncated). Abort the transform.
++    if (form2->convertEncoding(conv,format) != vn->getOffset())
++      return (TransformVar *)0;
++    return newConstant(precision, 0, conv);
+   }
+ 
+   if (vn->isFree())
+@@ -3181,6 +3187,7 @@
+     case CPUI_FLOAT_DIV:
+       if (exceedsPrecision(op))
+   	return false;
++      roundingOps.insert(op);	// mgstouch
+       // fall through
+     case CPUI_MULTIEQUAL:
+     case CPUI_COPY:
+@@ -3191,6 +3198,7 @@
+     case CPUI_FLOAT_ABS:
+     case CPUI_FLOAT_SQRT:
+     {
++      if (op->code() == CPUI_FLOAT_SQRT) roundingOps.insert(op);	// mgstouch
+       TransformOp *rop = newOpReplace(op->numInput(), op->code(), op);
+       TransformVar *outrvn = setReplacement(outvn);
+       if (outrvn == (TransformVar *)0) return false;
+@@ -3265,6 +3273,7 @@
+   case CPUI_FLOAT_DIV:
+     if (exceedsPrecision(op))
+       return false;
++    roundingOps.insert(op);	// mgstouch
+     // fallthru
+   case CPUI_COPY:
+   case CPUI_FLOAT_CEIL:
+@@ -3275,6 +3284,7 @@
+   case CPUI_FLOAT_SQRT:
+   case CPUI_MULTIEQUAL:
+   {
++    if (op->code() == CPUI_FLOAT_SQRT) roundingOps.insert(op);	// mgstouch
+     TransformOp *rop = rvn->getDef();
+     if (rop == (TransformOp *)0) {
+       rop = newOpReplace(op->numInput(), op->code(), op);
+@@ -3296,6 +3306,7 @@
+     Varnode *vn = op->getIn(0);
+     if (!vn->isConstant() && vn->isFree())
+       return false;
++    roundingOps.insert(op);	// mgstouch: int->float rounds above 2^24
+     TransformOp *rop = newOpReplace(1, CPUI_FLOAT_INT2FLOAT, op);
+     opSetOutput(rop, rvn);
+     TransformVar *newvar = getPreexistingVarnode(vn);
+@@ -3393,6 +3404,11 @@
+ 
+   if (!retval) return false;
+   if (terminatorCount == 0) return false;	// Must see at least 1 terminator
++  // mgstouch: narrowing a double-precision flow to float is exact only when
++  // the flow contains at most ONE rounding operation (double has >= 2p+2 bits,
++  // so (float)(a op b) == a op_float b). With two or more, the original
++  // rounds once at the end while the narrowed flow rounds at every step.
++  if (roundingOps.size() > 1) return false;
+   return true;
+ }
+ 

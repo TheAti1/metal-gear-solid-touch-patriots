@@ -1,0 +1,41 @@
+6 stick 0 0
+8 pad 0 1
+8.2 pad 0 0
+11 select 22
+12 pad 0 1
+12.2 pad 0 0
+20 pad 0 1
+20.2 pad 0 0
+23 pad 0 1
+23.2 pad 0 0
+26 pad 0 1
+26.2 pad 0 0
+29 pad 0 1
+29.2 pad 0 0
+31 pad 0 1
+31.2 pad 0 0
+35 probe mission_18
+35.2 qa_hold_doll
+38 bossprobe equipped
+38.2 capture D:/Patriots_MGS_Touch_PC/QA/mantis-analog-prompt.png
+39 doll_stick -1
+39.3 bossprobe one_side
+39.4 doll_stick 1
+39.55 bossprobe shaking
+39.6 capture D:/Patriots_MGS_Touch_PC/QA/mantis-analog-moving.png
+40.2 doll_stick 0
+41 bossprobe rested
+41.2 doll_stick 1
+41.5 doll_stick -1
+41.65 bossprobe shaking_again
+42 doll_stick 0
+43 arm_retry 1
+44 qa_die
+47 navprobe death
+50 viewprobe result_confirmed
+50.2 pad 0 1
+50.4 pad 0 0
+52 pad 0 1
+52.2 pad 0 0
+54 probe retry_playable
+54.2 capture D:/Patriots_MGS_Touch_PC/QA/mantis-retry-playable.png

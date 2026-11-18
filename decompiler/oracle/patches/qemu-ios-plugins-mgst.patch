@@ -1,0 +1,1237 @@
+diff --git a/contrib/plugins/drcov_mgst.c b/contrib/plugins/drcov_mgst.c
+new file mode 100644
+index 0000000..176dc1a
+--- /dev/null
++++ b/contrib/plugins/drcov_mgst.c
+@@ -0,0 +1,533 @@
++/*
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ * Based on contrib/plugins/drcov.c, Copyright (C) 2021, Ivanov Arkady
++ * <arkadiy.ivanov@ispras.ru>, GNU GPL version 2 or later (see COPYING).
++ * Modifications for MGS Touch verification: (C) 2026 mgstouch contributors, same licence.
++ *
++ * drcov_mgst - a per-process variant of contrib/plugins/drcov.c.
++ *
++ * WHY: drcov.c records every translated block's virtual address globally,
++ * with no notion of which guest PROCESS executed it. Under qemu-system-arm
++ * (this project's whole use case - an emulated iPod touch running XNU with
++ * many processes sharing one un-ASLR'd address space) that makes its output
++ * meaningless on its own: the same VA can belong to the kernel, SpringBoard,
++ * or MGSTUS depending on which was scheduled at that instant - exactly the
++ * TTBR0-identity trap this project's mgst_probe.py was built to avoid (see
++ * its module docstring and analysis/notes / LOG.md's repeated "process
++ * identity is proven, not assumed, on every read" rule).
++ *
++ * FIX: before a block counts as covered, run the same identity check that
++ * mgst_probe.py's check_context() uses: compare the 32-byte Mach-O header at
++ * guest VA 0x1000 against the reference binary's own bytes. The read goes
++ * through qemu_plugin_read_memory_vaddr(), which walks the CURRENT vCPU
++ * context, i.e. whichever process is scheduled at that exact execution.
++ *
++ * COST (v1 of this plugin got it wrong - LOG 2026-09-28 STEP 5): checking on
++ * EVERY execution of EVERY block, system-wide, under a global mutex, slowed
++ * the guest so much that MGST hit iOS's 20 s launch watchdog (0x8badf00d)
++ * on 3/3 launches. v2 cuts that cost two ways, without weakening the check:
++ *   1. Only blocks whose VA is inside [base, end) get an exec callback at
++ *      all. Kernel, dyld and dylib code (0x2fe..., 0x3..., 0xc...) run at
++ *      full TCG speed.
++ *   2. Identity is decided ONCE per translated block, on its first
++ *      execution, then cached in the block. This is sound because QEMU
++ *      keys TBs by PHYSICAL page: a TB built from SpringBoard's page at VA
++ *      0x2abc is never reused when MGSTUS runs 0x2abc; MGSTUS gets its own
++ *      TB. A write to a code page invalidates its TBs, so a recycled page
++ *      gets fresh, unchecked TBs too.
++ *
++ * Output is standard drcov v2 (Lighthouse/Dragon Dance/bncov-importable).
++ * There is a single synthetic module (id 0) at [base, end), and each BB
++ * start is an OFFSET from base, as drcov specifies. Upstream drcov.c writes
++ * absolute PCs instead. tools/mgst_coverage.py decodes the file back to
++ * absolute VAs (= Ghidra VAs, no ASLR on iOS 3) and rolls it up per
++ * function, so the project's own numbers never depend on an importer's
++ * image-base convention. qemu_plugin_path_to_binary() et al are
++ * linux-user-only APIs and don't apply here.
++ *
++ * Args (both required):
++ *   ref=<path>        MGSTUS binary whose first 32 bytes are the reference
++ *                      header (same file MGST_REF_EXE would point at)
++ *   filename=<path>    output .drcov trace
++ * Optional:
++ *   base=<hex>         __TEXT vmaddr for the module-table row (default 0x1000)
++ *   end=<hex>          end of the covered range (default 0x100000)
++ *
++ *   calls=<path>       ALSO record, as TSV (decoded by tools/mgst_calls.py):
++ *                      - "edge": every distinct MGST->MGST block transition
++ *                        (source = last insn of the previous MGST block,
++ *                        dest = next MGST block). Foreign code in between is
++ *                        invisible, so a call through objc_msgSend or a dylib
++ *                        shows up as call site -> IMP/return site. This is the
++ *                        dynamic CFG: indirect-call and jumptable targets.
++ *                      - "msg": every distinct (call site, receiver class,
++ *                        selector) at BL/BLX to the objc_msgSend,
++ *                        objc_msgSendSuper2 and objc_msgSend_stret stubs, with
++ *                        the class name read from the objc4 runtime structs
++ *                        and the selector string read from guest memory.
++ *   msgsend=<hex>,super2=<hex>,stret=<hex>  stub VAs (defaults: v2.3.0)
++ *
++ * Usage (see tools/mgst_coverage.py for the host-side wrapper):
++ *   qemu-system-arm ... -plugin contrib/plugins/libdrcov_mgst.so,ref=...,filename=...
++ */
++#include <errno.h>
++#include <inttypes.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <glib.h>
++
++#include <qemu-plugin.h>
++
++QEMU_PLUGIN_EXPORT int qemu_plugin_version = QEMU_PLUGIN_VERSION;
++
++static char header[] = "DRCOV VERSION: 2\n"
++                "DRCOV FLAVOR: drcov-64\n"
++                "Module Table: version 2, count 1\n"
++                "Columns: id, base, end, entry, path\n";
++
++static FILE *fp;
++static const char *file_name = "file.drcov.trace";
++static const char *ref_path;
++static const char *module_path = "MGSTUS";
++static uint64_t mod_base = 0x1000;
++static uint64_t mod_end = 0x100000;
++static uint8_t ref_header[32];
++static bool have_ref;
++static GMutex lock;
++
++/* Per-TB identity verdict, decided on first execution (see header). */
++enum { BB_UNKNOWN = 0, BB_MGST = 1, BB_OTHER = 2 };
++
++typedef struct {
++    uint32_t start;      /* absolute VA; written as start - mod_base */
++    uint16_t size;
++    uint16_t mod_id;
++    int      state;      /* BB_* */
++    uint32_t last_insn;  /* VA of the block's last instruction (edge source) */
++    uint32_t last_succ;  /* last recorded successor: skips the hash when hot */
++} bb_entry_t;
++
++/* ---- calls= : dynamic CFG + objc_msgSend capture ---------------------- */
++static const char *calls_name;
++static uint64_t stub_msgsend = 0x5add0, stub_super2 = 0x5addc, stub_stret = 0x5ade8;
++static bb_entry_t *prev_bb;
++static GHashTable *edges;        /* (src<<32|dst) -> count of cache misses */
++static GHashTable *msgs;         /* msg_key_t* -> msg_val_t* */
++static struct qemu_plugin_register *reg_r[3];
++
++enum { K_MSGSEND = 0, K_SUPER2 = 1, K_STRET = 2 };
++static const char *kind_name[] = { "msgSend", "msgSendSuper2", "msgSend_stret" };
++
++typedef struct { uint32_t site, cls, sel; } msg_key_t;
++typedef struct { uint64_t count; int kind; int meta; char *cname; char *sname; } msg_val_t;
++typedef struct { uint32_t site; int kind; bb_entry_t *bb; msg_key_t last; } site_t;
++
++static guint msg_hash(gconstpointer p)
++{
++    const msg_key_t *k = p;
++    return k->site * 2654435761u ^ k->cls * 40503u ^ k->sel;
++}
++
++static gboolean msg_equal(gconstpointer a, gconstpointer b)
++{
++    return memcmp(a, b, sizeof(msg_key_t)) == 0;
++}
++
++static GPtrArray *blocks;
++
++/* Running counters, printed to stderr at exit - cheap sanity check that the
++ * identity gate is actually discriminating rather than passing everything
++ * or nothing (either of which would silently produce a useless trace). */
++static uint64_t checks_total, checks_matched, tbs_in_range, tbs_skipped;
++
++static bool current_context_is_mgst(void)
++{
++    static GByteArray *buf;
++    if (!buf) {
++        buf = g_byte_array_new();
++    }
++    checks_total++;
++    if (!qemu_plugin_read_memory_vaddr(0x1000, buf, sizeof(ref_header))) {
++        /* VA 0x1000 unmapped for whatever is current right now - cannot be
++         * MGST (its own __TEXT would be mapped there if it were running). */
++        return false;
++    }
++    bool match = buf->len == sizeof(ref_header) &&
++                 memcmp(buf->data, ref_header, sizeof(ref_header)) == 0;
++    if (match) {
++        checks_matched++;
++    }
++    return match;
++}
++
++static bool rd32(uint32_t va, uint32_t *out)
++{
++    static GByteArray *b;
++    if (!b) {
++        b = g_byte_array_new();
++    }
++    if (!qemu_plugin_read_memory_vaddr(va, b, 4) || b->len < 4) {
++        return false;
++    }
++    memcpy(out, b->data, 4);
++    return true;
++}
++
++static char *rdstr(uint32_t va)
++{
++    static GByteArray *b;
++    if (!b) {
++        b = g_byte_array_new();
++    }
++    if (!va || !qemu_plugin_read_memory_vaddr(va, b, 96)) {
++        return g_strdup("?");
++    }
++    return g_strndup((const char *)b->data, strnlen((const char *)b->data, 96));
++}
++
++/* objc4-437 (iOS 3): class_t {isa, super, cache, vtable, data}; data is a
++ * class_rw_t {flags, version, ro, ...} once realized (RW_REALIZED = 1<<31),
++ * else the class_ro_t itself {flags, start, size, ivarLayout, name, ...}. */
++static char *class_name(uint32_t cls, int *meta)
++{
++    uint32_t data, flags, ro, name;
++    *meta = -1;
++    if (!cls || !rd32(cls + 16, &data)) {
++        return g_strdup(cls ? "?" : "nil");
++    }
++    data &= ~3u;
++    if (!rd32(data, &flags)) {
++        return g_strdup("?");
++    }
++    ro = data;
++    if ((flags & 0x80000000u) && !rd32(data + 8, &ro)) {
++        return g_strdup("?");
++    }
++    if (!rd32(ro, &flags) || !rd32(ro + 16, &name)) {
++        return g_strdup("?");
++    }
++    *meta = flags & 1;
++    return rdstr(name);
++}
++
++static void vcpu_init(qemu_plugin_id_t id, unsigned int cpu_index)
++{
++    g_autoptr(GArray) regs = qemu_plugin_get_registers();
++    static const char *want[] = { "r0", "r1", "r2" };
++    for (guint i = 0; i < regs->len; i++) {
++        qemu_plugin_reg_descriptor *d = &g_array_index(regs, qemu_plugin_reg_descriptor, i);
++        for (int k = 0; k < 3; k++) {
++            if (g_strcmp0(d->name, want[k]) == 0) {
++                reg_r[k] = d->handle;
++            }
++        }
++    }
++    if (!reg_r[0] || !reg_r[1] || !reg_r[2]) {
++        fprintf(stderr, "drcov_mgst: r0-r2 not found in the register list; msg capture off\n");
++    }
++}
++
++static uint32_t reg32(int k)
++{
++    static GByteArray *b;
++    if (!b) {
++        b = g_byte_array_new();
++    }
++    g_byte_array_set_size(b, 0);
++    if (!reg_r[k] || qemu_plugin_read_register(reg_r[k], b) < 4) {
++        return 0;
++    }
++    uint32_t v;
++    memcpy(&v, b->data, 4);
++    return v;
++}
++
++static void msg_exec(unsigned int cpu_index, void *udata)
++{
++    site_t *st = udata;
++    if (st->bb->state != BB_MGST) {
++        return;
++    }
++    uint32_t recv, sel, cls = 0;
++    if (st->kind == K_MSGSEND) {
++        recv = reg32(0); sel = reg32(1);
++        if (recv) {
++            rd32(recv, &cls);
++        }
++    } else if (st->kind == K_SUPER2) {
++        /* r0 = struct objc_super { receiver, class }: lookup starts at
++         * class->superclass, so record the class the compiler named. */
++        uint32_t sup = reg32(0);
++        sel = reg32(1);
++        rd32(sup + 4, &cls);
++    } else {
++        recv = reg32(1); sel = reg32(2);
++        if (recv) {
++            rd32(recv, &cls);
++        }
++    }
++    msg_key_t k = { st->site, cls, sel };
++    if (memcmp(&k, &st->last, sizeof(k)) == 0) {
++        return;
++    }
++    st->last = k;
++    msg_val_t *v = g_hash_table_lookup(msgs, &k);
++    if (!v) {
++        v = g_new0(msg_val_t, 1);
++        v->kind = st->kind;
++        v->cname = class_name(cls, &v->meta);
++        v->sname = rdstr(sel);
++        g_hash_table_insert(msgs, g_memdup2(&k, sizeof(k)), v);
++    }
++    v->count++;
++}
++
++static void write_calls(void)
++{
++    FILE *f = fopen(calls_name, "w");
++    GHashTableIter it;
++    gpointer key, val;
++    if (!f) {
++        fprintf(stderr, "drcov_mgst: cannot write calls=%s\n", calls_name);
++        return;
++    }
++    fprintf(f, "# drcov_mgst calls v1: edge src dst misses | msg site kind isa meta class selector misses\n");
++    g_hash_table_iter_init(&it, edges);
++    while (g_hash_table_iter_next(&it, &key, &val)) {
++        uint64_t e = (uint64_t)(uintptr_t)key;
++        fprintf(f, "edge\t0x%x\t0x%x\t%" PRIu64 "\n", (uint32_t)(e >> 32),
++                (uint32_t)e, (uint64_t)(uintptr_t)val);
++    }
++    g_hash_table_iter_init(&it, msgs);
++    while (g_hash_table_iter_next(&it, &key, &val)) {
++        msg_key_t *k = key;
++        msg_val_t *v = val;
++        fprintf(f, "msg\t0x%x\t%s\t0x%x\t%d\t%s\t%s\t%" PRIu64 "\n", k->site,
++                kind_name[v->kind], k->cls, v->meta, v->cname, v->sname, v->count);
++    }
++    fclose(f);
++    fprintf(stderr, "drcov_mgst: %u edge(s), %u msgSend tuple(s) written to %s\n",
++            g_hash_table_size(edges), g_hash_table_size(msgs), calls_name);
++}
++
++static void printf_header(unsigned long count)
++{
++    fprintf(fp, "%s", header);
++    fprintf(fp, "0, 0x%" PRIx64 ", 0x%" PRIx64 ", 0x%" PRIx64 ", %s\n",
++            mod_base, mod_end, mod_base, module_path);
++    fprintf(fp, "BB Table: %ld bbs\n", count);
++}
++
++static void printf_char_array32(uint32_t data)
++{
++    fwrite((const uint8_t *)&data, sizeof(char), sizeof(data), fp);
++}
++
++static void printf_char_array16(uint16_t data)
++{
++    fwrite((const uint8_t *)&data, sizeof(char), sizeof(data), fp);
++}
++
++static void printf_el(gpointer data, gpointer user_data)
++{
++    bb_entry_t *bb = (bb_entry_t *)data;
++    if (bb->state == BB_MGST) {
++        printf_char_array32((uint32_t)(bb->start - mod_base));
++        printf_char_array16(bb->size);
++        printf_char_array16(bb->mod_id);
++    }
++    g_free(bb);
++}
++
++static void count_block(gpointer data, gpointer user_data)
++{
++    unsigned long *count = (unsigned long *) user_data;
++    bb_entry_t *bb = (bb_entry_t *)data;
++    if (bb->state == BB_MGST) {
++        *count = *count + 1;
++    }
++}
++
++static void plugin_exit(qemu_plugin_id_t id, void *p)
++{
++    unsigned long count = 0;
++    g_mutex_lock(&lock);
++    g_ptr_array_foreach(blocks, count_block, &count);
++
++    if (calls_name) {
++        write_calls();   /* before printf_el frees the blocks */
++    }
++    printf_header(count);
++    g_ptr_array_foreach(blocks, printf_el, NULL);
++
++    g_ptr_array_free(blocks, true);
++    fclose(fp);
++    g_mutex_unlock(&lock);
++
++    fprintf(stderr, "drcov_mgst: %lu covered block(s) written to %s; "
++            "%" PRIu64 " TB(s) in range, %" PRIu64 " out of range (no "
++            "callback); identity check ran %" PRIu64 " time(s), matched "
++            "MGSTUS %" PRIu64 " (%.1f%%)\n",
++            count, file_name, tbs_in_range, tbs_skipped,
++            checks_total, checks_matched,
++            checks_total ? 100.0 * checks_matched / checks_total : 0.0);
++}
++
++static void vcpu_tb_exec(unsigned int cpu_index, void *udata)
++{
++    bb_entry_t *bb = (bb_entry_t *) udata;
++    /* Fast path: verdict already cached. The guest has ONE vCPU (ARM1176),
++     * so TB execution is serialised and needs no lock here. */
++    if (bb->state == BB_UNKNOWN) {
++        bb->state = current_context_is_mgst() ? BB_MGST : BB_OTHER;
++    }
++    if (!calls_name || bb->state != BB_MGST) {
++        return;
++    }
++    if (prev_bb && prev_bb->last_succ != bb->start) {
++        gpointer key = (gpointer)(uintptr_t)(((uint64_t)prev_bb->last_insn << 32) | bb->start);
++        uintptr_t n = (uintptr_t)g_hash_table_lookup(edges, key);
++        g_hash_table_insert(edges, key, (gpointer)(n + 1));
++        prev_bb->last_succ = bb->start;
++    }
++    prev_bb = bb;
++}
++
++static void vcpu_tb_trans(qemu_plugin_id_t id, struct qemu_plugin_tb *tb)
++{
++    uint64_t pc = qemu_plugin_tb_vaddr(tb);
++    size_t n = qemu_plugin_tb_n_insns(tb);
++
++    if (pc < mod_base || pc >= mod_end) {
++        tbs_skipped++;
++        return;   /* not MGSTUS's range: no entry, no callback, full speed */
++    }
++
++    g_mutex_lock(&lock);
++    tbs_in_range++;
++
++    bb_entry_t *bb = g_new0(bb_entry_t, 1);
++    for (int i = 0; i < n; i++) {
++        bb->size += qemu_plugin_insn_size(qemu_plugin_tb_get_insn(tb, i));
++    }
++
++    bb->start = pc;
++    bb->mod_id = 0;
++    bb->state = BB_UNKNOWN;
++    bb->last_insn = (uint32_t)qemu_plugin_insn_vaddr(qemu_plugin_tb_get_insn(tb, n - 1));
++    g_ptr_array_add(blocks, bb);
++
++    g_mutex_unlock(&lock);
++    /* current_context_is_mgst() only reads guest MEMORY through the vaddr
++     * helper, not CPU registers, so QEMU_PLUGIN_CB_NO_REGS is correct. */
++    qemu_plugin_register_vcpu_tb_exec_cb(tb, vcpu_tb_exec,
++                                         QEMU_PLUGIN_CB_NO_REGS,
++                                         (void *)bb);
++    if (!calls_name || !reg_r[0]) {
++        return;
++    }
++    /* Thumb-1 BL/BLX pair (ARMv6 has no other 32-bit Thumb encodings). */
++    for (size_t i = 0; i < n; i++) {
++        struct qemu_plugin_insn *insn = qemu_plugin_tb_get_insn(tb, i);
++        uint16_t h[2];
++        if (qemu_plugin_insn_size(insn) != 4 || qemu_plugin_insn_data(insn, h, 4) != 4) {
++            continue;
++        }
++        if ((h[0] & 0xf800) != 0xf000 ||
++            ((h[1] & 0xf800) != 0xf800 && (h[1] & 0xf800) != 0xe800)) {
++            continue;
++        }
++        uint64_t ipc = qemu_plugin_insn_vaddr(insn);
++        int32_t off = ((h[0] & 0x7ff) << 12) | ((h[1] & 0x7ff) << 1);
++        if (off & 0x400000) {
++            off -= 0x800000;
++        }
++        uint64_t tgt = ipc + 4 + off;
++        if ((h[1] & 0xf800) == 0xe800) {
++            tgt &= ~3ull;
++        }
++        int kind = tgt == stub_msgsend ? K_MSGSEND : tgt == stub_super2 ? K_SUPER2 :
++                   tgt == stub_stret ? K_STRET : -1;
++        if (kind < 0) {
++            continue;
++        }
++        site_t *st = g_new0(site_t, 1);
++        st->site = (uint32_t)ipc;
++        st->kind = kind;
++        st->bb = bb;
++        st->last.site = 0xffffffff;
++        qemu_plugin_register_vcpu_insn_exec_cb(insn, msg_exec, QEMU_PLUGIN_CB_R_REGS, st);
++    }
++}
++
++static bool load_ref_header(const char *path)
++{
++    FILE *f = fopen(path, "rb");
++    if (!f) {
++        fprintf(stderr, "drcov_mgst: cannot open ref=%s: %s\n",
++                path, strerror(errno));
++        return false;
++    }
++    size_t got = fread(ref_header, 1, sizeof(ref_header), f);
++    fclose(f);
++    if (got != sizeof(ref_header)) {
++        fprintf(stderr, "drcov_mgst: ref=%s too short (%zu bytes)\n",
++                path, got);
++        return false;
++    }
++    return true;
++}
++
++QEMU_PLUGIN_EXPORT
++int qemu_plugin_install(qemu_plugin_id_t id, const qemu_info_t *info,
++                        int argc, char **argv)
++{
++    for (int i = 0; i < argc; i++) {
++        g_auto(GStrv) tokens = g_strsplit(argv[i], "=", 2);
++        if (g_strcmp0(tokens[0], "filename") == 0) {
++            file_name = g_strdup(tokens[1]);
++        } else if (g_strcmp0(tokens[0], "ref") == 0) {
++            ref_path = g_strdup(tokens[1]);
++        } else if (g_strcmp0(tokens[0], "base") == 0) {
++            mod_base = g_ascii_strtoull(tokens[1], NULL, 16);
++        } else if (g_strcmp0(tokens[0], "end") == 0) {
++            mod_end = g_ascii_strtoull(tokens[1], NULL, 16);
++        } else if (g_strcmp0(tokens[0], "calls") == 0) {
++            calls_name = g_strdup(tokens[1]);
++        } else if (g_strcmp0(tokens[0], "msgsend") == 0) {
++            stub_msgsend = g_ascii_strtoull(tokens[1], NULL, 16);
++        } else if (g_strcmp0(tokens[0], "super2") == 0) {
++            stub_super2 = g_ascii_strtoull(tokens[1], NULL, 16);
++        } else if (g_strcmp0(tokens[0], "stret") == 0) {
++            stub_stret = g_ascii_strtoull(tokens[1], NULL, 16);
++        }
++    }
++
++    if (!ref_path) {
++        fprintf(stderr, "drcov_mgst: missing required ref=<path to MGSTUS>\n");
++        return -1;
++    }
++    have_ref = load_ref_header(ref_path);
++    if (!have_ref) {
++        return -1;
++    }
++
++    fp = fopen(file_name, "wb");
++    if (!fp) {
++        fprintf(stderr, "drcov_mgst: cannot open filename=%s: %s\n",
++                file_name, strerror(errno));
++        return -1;
++    }
++    blocks = g_ptr_array_sized_new(4096);
++    if (calls_name) {
++        edges = g_hash_table_new(g_direct_hash, g_direct_equal);
++        msgs = g_hash_table_new(msg_hash, msg_equal);
++        qemu_plugin_register_vcpu_init_cb(id, vcpu_init);
++    }
++
++    qemu_plugin_register_vcpu_tb_trans_cb(id, vcpu_tb_trans);
++    qemu_plugin_register_atexit_cb(id, plugin_exit, NULL);
++
++    return 0;
++}
+diff --git a/contrib/plugins/meson.build b/contrib/plugins/meson.build
+index fa8a426..f12796e 100644
+--- a/contrib/plugins/meson.build
++++ b/contrib/plugins/meson.build
+@@ -1,5 +1,6 @@
+-contrib_plugins = ['bbv', 'cache', 'cflow', 'drcov', 'execlog', 'hotblocks',
+-                   'hotpages', 'howvec', 'hwprofile', 'ips', 'stoptrigger']
++contrib_plugins = ['bbv', 'cache', 'cflow', 'drcov', 'drcov_mgst', 'execlog', 'snap_mgst',
++                   'hotblocks', 'hotpages', 'howvec', 'hwprofile', 'ips',
++                   'stoptrigger']
+ if host_os != 'windows'
+   # lockstep uses socket.h
+   contrib_plugins += 'lockstep'
+diff --git a/contrib/plugins/snap_mgst.c b/contrib/plugins/snap_mgst.c
+new file mode 100644
+index 0000000..37044d4
+--- /dev/null
++++ b/contrib/plugins/snap_mgst.c
+@@ -0,0 +1,679 @@
++/*
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ * (C) 2026 mgstouch contributors. A QEMU TCG plugin, GNU GPL version 2 or later (see COPYING).
++ *
++ * snap_mgst - full-speed entry-state capture for offline differential tests
++ * (PLAN Phase 4b V3; LOG 2026-10-07 STEP 5).
++ *
++ * WHY: tools/mgst_difftest.py tested a function by pausing the guest over gdb
++ * at its entry and faulting pages in on demand. Every test stopped the guest,
++ * which during stage loads rebooted iOS (LOG 2026-09-30, NEXT-STEP 1). This
++ * plugin never stops the guest. At sampled entries of MGSTUS functions it
++ * records the registers and then, until that call returns, a copy of every
++ * page the call touches at the moment of its FIRST touch (data via memory
++ * callbacks, code via executed blocks). A sample is therefore a coherent,
++ * self-contained state for that exact call: tests run later, offline.
++ *
++ * It also records which bytes the real call wrote (a bitmap per written page)
++ * and those pages' final contents, so an offline replay of the ORIGINAL code
++ * can be checked against what really happened (capture self-validation).
++ *
++ * Gating (same identity rule as drcov_mgst.c):
++ *   - process: Mach-O header at VA 0x1000 == the reference MGSTUS header;
++ *     re-checked on every kernel->user transition while recording (a context
++ *     switch can only happen through the kernel).
++ *   - thread: TPIDRURO equal to the sampled thread's AND SP inside a window
++ *     below the sample's entry SP. Other threads' accesses are not recorded.
++ *   - kernel blocks (VA >= 0xc0000000, incl. the commpage) are never recorded.
++ *
++ * Cost when not recording: one inline compare per block (conditional
++ * callbacks on a scoreboard flag) plus a memory callback that returns at once
++ * on user-space loads/stores (no conditional memory callback exists in the
++ * plugin API). Measured on the first run; see LOG.
++ *
++ * Device memory is NEVER read: qemu_plugin_read_memory_vaddr() goes through
++ * cpu_memory_rw_debug(), which dispatches MMIO reads to the device model with
++ * their side effects (FIFO pops, clear-on-read status). The first version
++ * read such pages and MGST crashed in OpenAL two minutes into Mission 1
++ * (LOG 2026-10-07). A page whose access is I/O (qemu_plugin_hwaddr_is_io) is
++ * recorded with flag 8 and no content; a replay treats it as a boundary.
++ *
++ * A sample ends when a block at its return address (LR at entry) executes
++ * with SP back at the entry SP. Abort reasons: block/page limit, an outer
++ * sample returned first (unwound), or QEMU exit.
++ *
++ * Args:
++ *   ref=<MGSTUS>        reference binary (header identity)          required
++ *   funcs=<file>        function entry VAs, one hex per line        required
++ *   out=<dir>           writes pages.bin + samples.bin              required
++ *   maxs=<n>            samples per function per run (default 6)
++ *   sched=<a,b,...>     hit numbers to sample (default 1,2,3,10,100,1000,10000,100000)
++ *   maxtbs=<n>          abort a sample after n blocks (default 30000000)
++ *   maxpages=<n>        abort a sample after n pages (default 24576 = 96 MiB)
++ *   window=<hex>        thread SP window below entry SP (default 0x40000)
++ *
++ * DUMP MODE (dumpfn=<hex>, LOG 2026-10-08, PLAN 4b route step 3): no
++ * per-call recording at all - no memory or block callbacks, only an entry
++ * callback on the trigger function, so the game runs at full speed. At its
++ * entry (MGSTUS identity) every `dumpevery`-th hit, or when the file
++ * `dumpreq` exists (removed after), the plugin records the entry registers
++ * and EVERY readable page of the process ([0x1000, dumptop)), status 4
++ * (snapshot) in the same samples.bin / pages.bin. A full-process snapshot
++ * is the starting point of the offline frame driver (tools/mgst_snap.py).
++ *   dumpfn=<hex> dumpevery=<n> (0 = only on request) dumpmax=<n> (50)
++ *   dumpreq=<path> (default <out>/dump.request) dumptop=<hex> (0x40000000)
++ *
++ * Format (little endian), decoded by tools/mgst_snap.py:
++ *   pages.bin   4096-byte pages, deduplicated by content; index = position
++ *   samples.bin records:
++ *     u32 magic 'SMP1', u32 record_len, u32 fn, u32 hit, u32 status,
++ *     u64 tbs, u32 regs[16], u32 cpsr, u32 fpscr, u32 fpexc, u32 tpidruro,
++ *     u64 d[16], u32 n_pages, u32 n_dirty,
++ *     n_pages x { u32 va, u32 idx, u32 flags }   flags: 1 code, 2 first touch
++ *                                                was a store (snapshot taken
++ *                                                after it), 4 unreadable,
++ *                                                8 device I/O (never read)
++ *     n_dirty x { u32 va, u32 final_idx, u8 bitmap[512] }
++ *   status: 0 ok, 1 limit, 2 unwound, 3 exit, 4 full-process snapshot
++ */
++#include <inttypes.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <glib.h>
++
++#include <qemu-plugin.h>
++
++QEMU_PLUGIN_EXPORT int qemu_plugin_version = QEMU_PLUGIN_VERSION;
++
++#define PAGE      4096u
++#define PMASK     (~(PAGE - 1))
++#define KERNEL_VA 0xc0000000u
++#define MAXD      8
++
++enum { ST_OK = 0, ST_LIMIT = 1, ST_UNWOUND = 2, ST_EXIT = 3, ST_SNAPSHOT = 4 };
++enum { PF_CODE = 1, PF_STOREFIRST = 2, PF_UNREADABLE = 4, PF_IO = 8 };
++enum { BB_UNKNOWN = 0, BB_MGST = 1, BB_OTHER = 2 };
++
++static const char *ref_path, *funcs_path, *out_dir;
++static uint8_t ref_header[32];
++static uint32_t maxs = 6, maxpages = 24576, window = 0x40000;
++static uint64_t maxtbs = 30000000;
++static uint32_t sched[16] = { 1, 2, 3, 10, 100, 1000, 10000, 100000 };
++static int nsched = 8;
++
++static FILE *pages_fp, *samples_fp;
++static GHashTable *store;        /* page_key_t* -> idx+1 */
++static uint32_t n_store;
++static uint64_t n_store_hits;
++
++typedef struct { uint64_t h1, h2; } page_key_t;
++
++typedef struct {
++    uint32_t va, idx, flags;
++    uint8_t *dirty;              /* 512-byte bitmap once written */
++} spage_t;
++
++typedef struct {
++    uint32_t fn, hit, ret, entry_sp, tid;
++    uint32_t regs[16], cpsr, fpscr, fpexc;
++    uint64_t d[16];
++    uint64_t tbs;
++    GHashTable *pages;           /* page va -> spage_t* */
++    spage_t *last;               /* one-entry lookup cache */
++    uint32_t n_dirty;
++} sample_t;
++
++typedef struct { uint32_t count, taken; } fnstat_t;
++typedef struct { uint32_t fn; int state; fnstat_t *st; } entry_tb_t;
++typedef struct { uint32_t va, size; bool kernel; } tbinfo_t;
++
++static GHashTable *fns;          /* fn va -> fnstat_t* */
++static sample_t *act[MAXD];
++static int depth;
++static bool in_thread, prev_kernel;
++static struct qemu_plugin_scoreboard *score;
++static qemu_plugin_u64 recording;
++
++static struct qemu_plugin_register *h_r[16], *h_cpsr, *h_fpscr, *h_fpexc, *h_tid, *h_d[16];
++static uint64_t n_started, n_ok, n_abort[4], n_skipped_depth, n_skipped_thread, n_io;
++static uint32_t dump_fn, dump_every, dump_max = 50, dump_top = 0x40000000, n_dumps;
++static const char *dump_req;
++static uint64_t dump_hits;
++
++/* ---------------------------------------------------------------- helpers */
++static uint64_t rdreg(struct qemu_plugin_register *h)
++{
++    static GByteArray *b;
++    uint64_t v = 0;
++    if (!b) {
++        b = g_byte_array_new();
++    }
++    if (!h) {
++        return 0;
++    }
++    g_byte_array_set_size(b, 0);
++    int n = qemu_plugin_read_register(h, b);
++    if (n > 0) {
++        memcpy(&v, b->data, MIN(n, 8));
++    }
++    return v;
++}
++
++static bool context_is_mgst(void)
++{
++    static GByteArray *b;
++    if (!b) {
++        b = g_byte_array_new();
++    }
++    if (!qemu_plugin_read_memory_vaddr(0x1000, b, sizeof(ref_header))) {
++        return false;
++    }
++    return b->len == sizeof(ref_header) &&
++           memcmp(b->data, ref_header, sizeof(ref_header)) == 0;
++}
++
++static bool same_thread(const sample_t *s)
++{
++    uint32_t sp = (uint32_t)rdreg(h_r[13]);
++    if (h_tid && (uint32_t)rdreg(h_tid) != s->tid) {
++        return false;
++    }
++    return sp <= s->entry_sp && sp > s->entry_sp - window;
++}
++
++static page_key_t page_hash(const uint8_t *p)
++{
++    uint64_t h1 = 0xcbf29ce484222325ull, h2 = 0x9e3779b97f4a7c15ull;
++    const uint64_t *w = (const uint64_t *)p;
++    for (unsigned i = 0; i < PAGE / 8; i++) {
++        h1 = (h1 ^ w[i]) * 0x100000001b3ull;
++        h2 ^= w[i] + 0x9e3779b97f4a7c15ull + (h2 << 6) + (h2 >> 2);
++    }
++    return (page_key_t){ h1, h2 };
++}
++
++static guint key_hash(gconstpointer k)
++{
++    return (guint)((const page_key_t *)k)->h1;
++}
++
++static gboolean key_eq(gconstpointer a, gconstpointer b)
++{
++    return memcmp(a, b, sizeof(page_key_t)) == 0;
++}
++
++/* Store a page's current content; returns its index or UINT32_MAX. */
++static uint32_t snap_page(uint32_t va)
++{
++    static GByteArray *b;
++    if (!b) {
++        b = g_byte_array_new();
++    }
++    if (!qemu_plugin_read_memory_vaddr(va, b, PAGE) || b->len != PAGE) {
++        return UINT32_MAX;
++    }
++    page_key_t k = page_hash(b->data);
++    gpointer v = g_hash_table_lookup(store, &k);
++    if (v) {
++        n_store_hits++;
++        return (uint32_t)(uintptr_t)v - 1;
++    }
++    fwrite(b->data, 1, PAGE, pages_fp);
++    g_hash_table_insert(store, g_memdup2(&k, sizeof(k)), (gpointer)(uintptr_t)(n_store + 1));
++    return n_store++;
++}
++
++static spage_t *touch(sample_t *s, uint32_t va, uint32_t flags)
++{
++    if (s->last && s->last->va == va) {
++        return s->last;
++    }
++    spage_t *p = g_hash_table_lookup(s->pages, GUINT_TO_POINTER(va));
++    if (!p) {
++        p = g_new0(spage_t, 1);
++        p->va = va;
++        p->idx = flags & PF_IO ? UINT32_MAX : snap_page(va);
++        p->flags = flags | (p->idx == UINT32_MAX && !(flags & PF_IO) ? PF_UNREADABLE : 0);
++        g_hash_table_insert(s->pages, GUINT_TO_POINTER(va), p);
++    }
++    s->last = p;
++    return p;
++}
++
++static void set_recording(void)
++{
++    qemu_plugin_u64_set(recording, 0, depth > 0);
++}
++
++/* ---------------------------------------------------------------- output */
++static void put32(GByteArray *o, uint32_t v) { g_byte_array_append(o, (uint8_t *)&v, 4); }
++static void put64(GByteArray *o, uint64_t v) { g_byte_array_append(o, (uint8_t *)&v, 8); }
++
++static void finish(sample_t *s, int status)
++{
++    GByteArray *o = g_byte_array_new();
++    GHashTableIter it;
++    gpointer k, v;
++    bool keep = status == ST_OK || status == ST_SNAPSHOT;
++    uint32_t np = keep ? g_hash_table_size(s->pages) : 0;
++    uint32_t nd = 0;
++
++    if (keep) {
++        /* final contents of written pages (post-state), before freeing */
++        g_hash_table_iter_init(&it, s->pages);
++        while (g_hash_table_iter_next(&it, &k, &v)) {
++            nd += ((spage_t *)v)->dirty != NULL;
++        }
++    }
++    put32(o, 0x31504d53);               /* 'SMP1' */
++    put32(o, 0);                        /* length, patched below */
++    put32(o, s->fn); put32(o, s->hit); put32(o, status);
++    put64(o, s->tbs);
++    for (int i = 0; i < 16; i++) {
++        put32(o, s->regs[i]);
++    }
++    put32(o, s->cpsr); put32(o, s->fpscr); put32(o, s->fpexc); put32(o, s->tid);
++    for (int i = 0; i < 16; i++) {
++        put64(o, s->d[i]);
++    }
++    put32(o, np); put32(o, nd);
++    if (keep) {
++        g_hash_table_iter_init(&it, s->pages);
++        while (g_hash_table_iter_next(&it, &k, &v)) {
++            spage_t *p = v;
++            put32(o, p->va); put32(o, p->idx); put32(o, p->flags);
++        }
++        g_hash_table_iter_init(&it, s->pages);
++        while (g_hash_table_iter_next(&it, &k, &v)) {
++            spage_t *p = v;
++            if (p->dirty) {
++                put32(o, p->va); put32(o, p->flags & PF_IO ? UINT32_MAX : snap_page(p->va));
++                g_byte_array_append(o, p->dirty, PAGE / 8);
++            }
++        }
++    }
++    uint32_t len = o->len;
++    memcpy(o->data + 4, &len, 4);
++    fwrite(o->data, 1, o->len, samples_fp);
++    fflush(samples_fp);
++    fflush(pages_fp);
++    g_byte_array_free(o, TRUE);
++
++    g_hash_table_iter_init(&it, s->pages);
++    while (g_hash_table_iter_next(&it, &k, &v)) {
++        g_free(((spage_t *)v)->dirty);
++        g_free(v);
++    }
++    g_hash_table_destroy(s->pages);
++    if (status == ST_OK) {
++        n_ok++;
++    } else if (status < ST_SNAPSHOT) {
++        n_abort[status]++;
++    }
++    g_free(s);
++}
++
++/* End act[i] with status; anything nested above it is unwound. */
++static void end_at(int i, int status)
++{
++    while (depth > i + 1) {
++        finish(act[--depth], ST_UNWOUND);
++    }
++    finish(act[--depth], status);
++    set_recording();
++}
++
++/* ---------------------------------------------------------------- callbacks */
++static void on_entry(unsigned int cpu, void *udata)
++{
++    entry_tb_t *e = udata;
++    if (e->state == BB_UNKNOWN) {
++        e->state = context_is_mgst() ? BB_MGST : BB_OTHER;
++    }
++    if (e->state != BB_MGST) {
++        return;
++    }
++    fnstat_t *st = e->st;
++    st->count++;
++    if (st->taken >= maxs) {
++        return;
++    }
++    bool want = false;
++    for (int i = 0; i < nsched; i++) {
++        want |= st->count == sched[i];
++    }
++    if (!want) {
++        return;
++    }
++    if (depth == MAXD) {
++        n_skipped_depth++;
++        return;
++    }
++    if (depth && !same_thread(act[0])) {
++        n_skipped_thread++;
++        return;
++    }
++    sample_t *s = g_new0(sample_t, 1);
++    s->fn = e->fn;
++    s->hit = st->count;
++    for (int i = 0; i < 16; i++) {
++        s->regs[i] = (uint32_t)rdreg(h_r[i]);
++        s->d[i] = rdreg(h_d[i]);
++    }
++    s->cpsr = (uint32_t)rdreg(h_cpsr);
++    s->fpscr = (uint32_t)rdreg(h_fpscr);
++    s->fpexc = (uint32_t)rdreg(h_fpexc);
++    s->tid = (uint32_t)rdreg(h_tid);
++    s->ret = s->regs[14] & ~1u;
++    s->entry_sp = s->regs[13];
++    s->pages = g_hash_table_new(g_direct_hash, g_direct_equal);
++    st->taken++;
++    n_started++;
++    act[depth++] = s;
++    in_thread = true;
++    prev_kernel = false;
++    set_recording();
++}
++
++static void read_regs(sample_t *s)
++{
++    for (int i = 0; i < 16; i++) {
++        s->regs[i] = (uint32_t)rdreg(h_r[i]);
++        s->d[i] = rdreg(h_d[i]);
++    }
++    s->cpsr = (uint32_t)rdreg(h_cpsr);
++    s->fpscr = (uint32_t)rdreg(h_fpscr);
++    s->fpexc = (uint32_t)rdreg(h_fpexc);
++    s->tid = (uint32_t)rdreg(h_tid);
++}
++
++/* Dump mode: full-process snapshot at the trigger function's entry. */
++static void on_dump_entry(unsigned int cpu, void *udata)
++{
++    entry_tb_t *e = udata;
++    if (e->state == BB_UNKNOWN) {
++        e->state = context_is_mgst() ? BB_MGST : BB_OTHER;
++    }
++    if (e->state != BB_MGST || n_dumps >= dump_max) {
++        return;
++    }
++    dump_hits++;
++    bool req = dump_req && g_file_test(dump_req, G_FILE_TEST_EXISTS);
++    if (!req && !(dump_every && dump_hits % dump_every == 0)) {
++        return;
++    }
++    if (req) {
++        remove(dump_req);
++    }
++    sample_t *s = g_new0(sample_t, 1);
++    s->fn = e->fn;
++    s->hit = (uint32_t)dump_hits;
++    read_regs(s);
++    s->pages = g_hash_table_new(g_direct_hash, g_direct_equal);
++    uint32_t got = 0;
++    for (uint32_t va = PAGE; va < dump_top; va += PAGE) {
++        uint32_t idx = snap_page(va);
++        if (idx == UINT32_MAX) {
++            continue;
++        }
++        spage_t *p = g_new0(spage_t, 1);
++        p->va = va;
++        p->idx = idx;
++        g_hash_table_insert(s->pages, GUINT_TO_POINTER(va), p);
++        got++;
++    }
++    n_dumps++;
++    fprintf(stderr, "snap_mgst: snapshot %u at hit %u of 0x%x: %u pages (%s)\n",
++            n_dumps, s->hit, s->fn, got, req ? "requested" : "periodic");
++    finish(s, ST_SNAPSHOT);
++}
++
++static void on_tb_rec(unsigned int cpu, void *udata)
++{
++    tbinfo_t *t = udata;
++    if (t->kernel) {
++        prev_kernel = true;
++        in_thread = false;
++        return;
++    }
++    if (prev_kernel) {
++        prev_kernel = false;
++        in_thread = depth && context_is_mgst() && same_thread(act[0]);
++    }
++    if (!in_thread) {
++        return;
++    }
++    for (int i = depth - 1; i >= 0; i--) {
++        if (act[i]->ret == t->va && (uint32_t)rdreg(h_r[13]) == act[i]->entry_sp) {
++            end_at(i, ST_OK);
++            break;
++        }
++    }
++    for (int i = depth - 1; i >= 0; i--) {
++        sample_t *s = act[i];
++        if (++s->tbs > maxtbs || g_hash_table_size(s->pages) > maxpages) {
++            end_at(i, ST_LIMIT);
++            continue;
++        }
++        touch(s, t->va & PMASK, PF_CODE);
++        if (((t->va + t->size - 1) & PMASK) != (t->va & PMASK)) {
++            touch(s, (t->va + t->size - 1) & PMASK, PF_CODE);
++        }
++    }
++}
++
++static void on_mem(unsigned int cpu, qemu_plugin_meminfo_t info, uint64_t vaddr, void *udata)
++{
++    if (!depth || !in_thread) {
++        return;
++    }
++    uint32_t va = (uint32_t)vaddr;
++    uint32_t size = 1u << qemu_plugin_mem_size_shift(info);
++    bool store_ = qemu_plugin_mem_is_store(info);
++    struct qemu_plugin_hwaddr *hw = qemu_plugin_get_hwaddr(info, vaddr);
++    if (hw && qemu_plugin_hwaddr_is_io(hw)) {
++        /* device memory: note the page, never read it (see header) */
++        n_io++;
++        for (int i = 0; i < depth; i++) {
++            touch(act[i], va & PMASK, PF_IO);
++        }
++        return;
++    }
++    for (int i = 0; i < depth; i++) {
++        sample_t *s = act[i];
++        for (uint32_t pg = va & PMASK; pg <= ((va + size - 1) & PMASK); pg += PAGE) {
++            spage_t *p = touch(s, pg, store_ ? PF_STOREFIRST : 0);
++            if (!store_) {
++                continue;
++            }
++            if (!p->dirty) {
++                p->dirty = g_malloc0(PAGE / 8);
++                s->n_dirty++;
++            }
++            for (uint32_t a = MAX(va, pg); a < MIN(va + size, pg + PAGE); a++) {
++                p->dirty[(a - pg) >> 3] |= 1 << ((a - pg) & 7);
++            }
++        }
++    }
++}
++
++static void tb_trans(qemu_plugin_id_t id, struct qemu_plugin_tb *tb)
++{
++    uint32_t va = (uint32_t)qemu_plugin_tb_vaddr(tb);
++    if (dump_fn) {
++        if (va == dump_fn) {
++            entry_tb_t *e = g_new0(entry_tb_t, 1);
++            e->fn = va;
++            qemu_plugin_register_vcpu_tb_exec_cb(tb, on_dump_entry, QEMU_PLUGIN_CB_R_REGS, e);
++        }
++        return;                                  /* nothing else: full speed */
++    }
++    size_t n = qemu_plugin_tb_n_insns(tb);
++    tbinfo_t *t = g_new0(tbinfo_t, 1);
++    t->va = va;
++    t->kernel = va >= KERNEL_VA;
++    for (size_t i = 0; i < n; i++) {
++        t->size += qemu_plugin_insn_size(qemu_plugin_tb_get_insn(tb, i));
++    }
++    fnstat_t *st = g_hash_table_lookup(fns, GUINT_TO_POINTER(va));
++    if (st) {
++        entry_tb_t *e = g_new0(entry_tb_t, 1);
++        e->fn = va;
++        e->st = st;
++        qemu_plugin_register_vcpu_tb_exec_cb(tb, on_entry, QEMU_PLUGIN_CB_R_REGS, e);
++    }
++    qemu_plugin_register_vcpu_tb_exec_cond_cb(tb, on_tb_rec, QEMU_PLUGIN_CB_R_REGS,
++                                              QEMU_PLUGIN_COND_NE, recording, 0, t);
++    if (t->kernel) {
++        return;
++    }
++    for (size_t i = 0; i < n; i++) {
++        qemu_plugin_register_vcpu_mem_cb(qemu_plugin_tb_get_insn(tb, i), on_mem,
++                                         QEMU_PLUGIN_CB_NO_REGS, QEMU_PLUGIN_MEM_RW, NULL);
++    }
++}
++
++static void vcpu_init(qemu_plugin_id_t id, unsigned int cpu)
++{
++    g_autoptr(GArray) regs = qemu_plugin_get_registers();
++    static const char *core[16] = { "r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8",
++                                    "r9", "r10", "r11", "r12", "sp", "lr", "pc" };
++    for (guint i = 0; i < regs->len; i++) {
++        qemu_plugin_reg_descriptor *d = &g_array_index(regs, qemu_plugin_reg_descriptor, i);
++        for (int k = 0; k < 16; k++) {
++            if (!strcmp(d->name, core[k])) {
++                h_r[k] = d->handle;
++            }
++            char dn[8];
++            snprintf(dn, sizeof(dn), "d%d", k);
++            if (!strcmp(d->name, dn)) {
++                h_d[k] = d->handle;
++            }
++        }
++        if (!strcmp(d->name, "cpsr")) {
++            h_cpsr = d->handle;
++        } else if (!strcmp(d->name, "fpscr")) {
++            h_fpscr = d->handle;
++        } else if (!strcmp(d->name, "fpexc")) {
++            h_fpexc = d->handle;
++        } else if (!h_tid && g_str_has_prefix(d->name, "TPIDRURO")) {
++            h_tid = d->handle;
++        }
++    }
++    fprintf(stderr, "snap_mgst: regs core=%s cpsr=%s fpscr=%s d0=%s TPIDRURO=%s\n",
++            h_r[13] ? "ok" : "MISSING", h_cpsr ? "ok" : "MISSING", h_fpscr ? "ok" : "MISSING",
++            h_d[0] ? "ok" : "MISSING", h_tid ? "ok" : "missing (SP window only)");
++}
++
++static void plugin_exit(qemu_plugin_id_t id, void *p)
++{
++    while (depth) {
++        finish(act[--depth], ST_EXIT);
++    }
++    guint nf = 0;
++    GHashTableIter it;
++    gpointer k, v;
++    g_hash_table_iter_init(&it, fns);
++    while (g_hash_table_iter_next(&it, &k, &v)) {
++        nf += ((fnstat_t *)v)->taken > 0;
++    }
++    fclose(samples_fp);
++    fclose(pages_fp);
++    fprintf(stderr, "snap_mgst: %" PRIu64 " samples started, %" PRIu64 " ok, aborted limit %"
++            PRIu64 " unwound %" PRIu64 " exit %" PRIu64 "; skipped depth %" PRIu64 " thread %"
++            PRIu64 "; %u/%u functions sampled; %u unique pages (%" PRIu64 " dedup hits); %" PRIu64
++            " device I/O accesses (pages not read)\n",
++            n_started, n_ok, n_abort[ST_LIMIT], n_abort[ST_UNWOUND], n_abort[ST_EXIT],
++            n_skipped_depth, n_skipped_thread, nf, g_hash_table_size(fns), n_store, n_store_hits, n_io);
++}
++
++QEMU_PLUGIN_EXPORT
++int qemu_plugin_install(qemu_plugin_id_t id, const qemu_info_t *info, int argc, char **argv)
++{
++    for (int i = 0; i < argc; i++) {
++        g_auto(GStrv) t = g_strsplit(argv[i], "=", 2);
++        if (!t[0] || !t[1]) {
++            continue;
++        }
++        if (!strcmp(t[0], "ref")) {
++            ref_path = g_strdup(t[1]);
++        } else if (!strcmp(t[0], "funcs")) {
++            funcs_path = g_strdup(t[1]);
++        } else if (!strcmp(t[0], "out")) {
++            out_dir = g_strdup(t[1]);
++        } else if (!strcmp(t[0], "maxs")) {
++            maxs = strtoul(t[1], NULL, 0);
++        } else if (!strcmp(t[0], "maxtbs")) {
++            maxtbs = strtoull(t[1], NULL, 0);
++        } else if (!strcmp(t[0], "maxpages")) {
++            maxpages = strtoul(t[1], NULL, 0);
++        } else if (!strcmp(t[0], "dumpfn")) {
++            dump_fn = strtoul(t[1], NULL, 16) & ~1u;
++        } else if (!strcmp(t[0], "dumpevery")) {
++            dump_every = strtoul(t[1], NULL, 0);
++        } else if (!strcmp(t[0], "dumpmax")) {
++            dump_max = strtoul(t[1], NULL, 0);
++        } else if (!strcmp(t[0], "dumptop")) {
++            dump_top = strtoul(t[1], NULL, 16);
++        } else if (!strcmp(t[0], "dumpreq")) {
++            dump_req = g_strdup(t[1]);
++        } else if (!strcmp(t[0], "window")) {
++            window = strtoul(t[1], NULL, 16);
++        } else if (!strcmp(t[0], "sched")) {
++            g_auto(GStrv) s = g_strsplit(t[1], ",", 16);
++            for (nsched = 0; s[nsched] && nsched < 16; nsched++) {
++                sched[nsched] = strtoul(s[nsched], NULL, 0);
++            }
++        }
++    }
++    if (!ref_path || !funcs_path || !out_dir) {
++        fprintf(stderr, "snap_mgst: need ref=, funcs= and out=\n");
++        return -1;
++    }
++    FILE *f = fopen(ref_path, "rb");
++    if (!f || fread(ref_header, 1, sizeof(ref_header), f) != sizeof(ref_header)) {
++        fprintf(stderr, "snap_mgst: cannot read ref=%s\n", ref_path);
++        return -1;
++    }
++    fclose(f);
++    fns = g_hash_table_new(g_direct_hash, g_direct_equal);
++    f = fopen(funcs_path, "r");
++    if (!f) {
++        fprintf(stderr, "snap_mgst: cannot read funcs=%s\n", funcs_path);
++        return -1;
++    }
++    char line[64];
++    while (fgets(line, sizeof(line), f)) {
++        uint32_t a = strtoul(line, NULL, 16);
++        if (a) {
++            g_hash_table_insert(fns, GUINT_TO_POINTER(a & ~1u), g_new0(fnstat_t, 1));
++        }
++    }
++    fclose(f);
++    g_mkdir_with_parents(out_dir, 0755);
++    g_autofree char *pp = g_build_filename(out_dir, "pages.bin", NULL);
++    g_autofree char *sp = g_build_filename(out_dir, "samples.bin", NULL);
++    pages_fp = fopen(pp, "wb");
++    samples_fp = fopen(sp, "wb");
++    if (!pages_fp || !samples_fp) {
++        fprintf(stderr, "snap_mgst: cannot write into out=%s\n", out_dir);
++        return -1;
++    }
++    store = g_hash_table_new(key_hash, key_eq);
++    if (dump_fn && !dump_req) {
++        dump_req = g_build_filename(out_dir, "dump.request", NULL);
++    }
++    if (dump_fn) {
++        fprintf(stderr, "snap_mgst: DUMP MODE trigger 0x%x every %u (0 = on request: %s), max %u\n",
++                dump_fn, dump_every, dump_req, dump_max);
++    }
++    score = qemu_plugin_scoreboard_new(sizeof(uint64_t));
++    recording = qemu_plugin_scoreboard_u64(score);
++    fprintf(stderr, "snap_mgst: %u function entries, maxs %u, out %s\n",
++            g_hash_table_size(fns), maxs, out_dir);
++    qemu_plugin_register_vcpu_init_cb(id, vcpu_init);
++    qemu_plugin_register_vcpu_tb_trans_cb(id, tb_trans);
++    qemu_plugin_register_atexit_cb(id, plugin_exit, NULL);
++    return 0;
++}

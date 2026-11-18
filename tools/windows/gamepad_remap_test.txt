@@ -1,0 +1,11 @@
+6 stick 0 0
+7 navprobe initial
+8 pad 0 1
+8.2 pad 0 0
+9 probe unbound_a
+10 pad 2 1
+10.2 pad 2 0
+12 probe mapped_confirm
+13 pad 3 1
+13.2 pad 3 0
+15 probe mapped_back

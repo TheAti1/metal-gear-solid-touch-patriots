@@ -1,0 +1,20 @@
+site	function	insn	n_targets	targets
+0x1f5ae	__Z23_alBufferDataStaticProciiPvii+0x3a	blx_reg	1	0x1f5b0 __Z23_alBufferDataStaticProciiPvii+0x3c x9280
+0x1f5d6	__ZN7ALSound5readyEP10SoundLabel+0x12	blx_reg	1	0x1f456 __ZN7ALSound5resetEv+0x0 x9077
+0x1fa10	__ZN7AQSound5resetEv+0x14	blx_reg	1	0x1f798 __ZN7AQSound4stopEv+0x0 x88
+0x1fdc2	__ZN5Sound5resetEv+0x18	blx_reg	2	0x1f456 __ZN7ALSound5resetEv+0x0 x8774 | 0x1f9fc __ZN7AQSound5resetEv+0x0 x123
+0x1fdfe	__ZN5Sound12updateStatusEv+0x1e	blx_reg	2	0x1f24c __ZN7ALSound9isPlayingERb+0x0 x42971 | 0x1f768 __ZN7AQSound9isPlayingERb+0x0 x41517
+0x1fe30	__ZN5Sound9isPlayingEv+0x1a	blx_reg	2	0x1f768 __ZN7AQSound9isPlayingERb+0x0 x10844 | 0x1f24c __ZN7ALSound9isPlayingERb+0x0 x587
+0x1fe8c	__ZN5Sound9setVolumeEf+0x2c	blx_reg	2	0x1f418 __ZN7ALSound9setVolumeEf+0x0 x9052 | 0x1f772 __ZN7AQSound9setVolumeEf+0x0 x192
+0x1ff02	__ZN5Sound12updateVolumeEv+0x5a	blx_reg	1	0x1f798 __ZN7AQSound4stopEv+0x0 x66
+0x20002	__ZN5Sound4stopEi+0x3e	blx_reg	2	0x1f43c __ZN7ALSound4stopEv+0x0 x143 | 0x1f798 __ZN7AQSound4stopEv+0x0 x28
+0x20068	__ZN5Sound6play2DEi+0x1a	blx_reg	2	0x1f284 __ZN7ALSound13set2DSettingsEv+0x0 x8486 | 0x1f760 __ZN7AQSound13set2DSettingsEv+0x0 x136
+0x20078	__ZN5Sound6play2DEi+0x2a	blx_reg	2	0x1f4c8 __ZN7ALSound4playEv+0x0 x8386 | 0x1f800 __ZN7AQSound4playEv+0x0 x99
+0x201b0	__ZN5Sound5readyEP10SoundLabel+0xdc	blx_reg	1	0x1f734 __ZN7AQSound4initEv+0x0 x25
+0x20248	__ZN5Sound5readyEP10SoundLabel+0x174	blx_reg	1	0x1f52c __ZN7ALSound4initEv+0x0 x89
+0x20276	__ZN5Sound5readyEP10SoundLabel+0x1a2	blx_reg	2	0x1f5c4 __ZN7ALSound5readyEP10SoundLabel+0x0 x9112 | 0x1fa70 __ZN7AQSound5readyEP10SoundLabel+0x0 x136
+0x202d6	__ZN5Sound5readyEP10SoundLabel+0x202	blx_reg	2	0x1f334 __ZN7ALSound15setDistanceGainEff+0x0 x9024 | 0x1f75c __ZN7AQSound15setDistanceGainEff+0x0 x136
+0x202e2	__ZN5Sound5readyEP10SoundLabel+0x20e	blx_reg	2	0x1f38c __ZN7ALSound11setDistanceEf+0x0 x9047 | 0x1f758 __ZN7AQSound11setDistanceEf+0x0 x136
+0x2035a	__ZN5Sound6play3DEffffi+0x26	blx_reg	1	0x1f3c0 __ZN7ALSound16setRolloffFactorEf+0x0 x6365
+0x20368	__ZN5Sound6play3DEffffi+0x34	blx_reg	1	0x1f2e4 __ZN7ALSound11setPositionEfff+0x0 x6356
+0x20378	__ZN5Sound6play3DEffffi+0x44	blx_reg	1	0x1f4c8 __ZN7ALSound4playEv+0x0 x6357

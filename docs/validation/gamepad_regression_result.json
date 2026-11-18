@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "native_exe_sha256": "0394cc78ccac080a5b189aed1cdf62e947a11655bc157d5e6ff64cd6474059f0",
+  "gamepad_event_path": true,
+  "main_and_mission_menus": true,
+  "story_advice_and_ready": true,
+  "pause_confirm_resume": true,
+  "mouse_resume_hit_test": true,
+  "held_stick_does_not_change_default": true,
+  "quit_defaults_to_cancel": true,
+  "back_and_pause_distinct": true,
+  "mission_clear_to_mission_2": true,
+  "custom_button_mapping": true,
+  "unexpected_patriots_launches": 0,
+  "result_fixture": "QA-only completion counter; original game result/next-stage logic",
+  "probes": {
+    "main_menu": {
+      "kind": 1,
+      "index": 0,
+      "count": 6,
+      "busy": 0,
+      "overlay_focus": 0,
+      "pc": 0
+    },
+    "mission_menu": {
+      "kind": 1,
+      "index": 0,
+      "count": 4,
+      "busy": 0,
+      "overlay_focus": 0,
+      "pc": 0
+    },
+    "gameplay": {
+      "kind": 0,
+      "index": 0,
+      "count": 0,
+      "busy": 0,
+      "overlay_focus": 0,
+      "pc": 1
+    },
+    "pause_held_stick": {
+      "kind": 11,
+      "index": 0,
+      "count": 0,
+      "busy": 0,
+      "overlay_focus": 0,
+      "pc": 0
+    },
+    "resume_a": {
+      "kind": 0,
+      "index": 0,
+      "count": 0,
+      "busy": 0,
+      "overlay_focus": 0,
+      "pc": 1
+    },
+    "resume_mouse": {
+      "kind": 0,
+      "index": 0,
+      "count": 0,
+      "busy": 0,
+      "overlay_focus": 0,
+      "pc": 1
+    },
+    "pause_patriots_selected": {
+      "kind": 11,
+      "index": 0,
+      "count": 0,
+      "busy": 0,
+      "overlay_focus": 1,
+      "pc": 0
+    },
+    "pause_quit_selected": {
+      "kind": 11,
+      "index": 0,
+      "count": 0,
+      "busy": 0,
+      "overlay_focus": 2,
+      "pc": 0
+    },
+    "quit_confirmation": {
+      "kind": 12,
+      "index": 0,
+      "count": 0,
+      "busy": 0,
+      "overlay_focus": 1,
+      "pc": 0
+    },
+    "quit_cancel_default": {
+      "kind": 11,
+      "index": 0,
+      "count": 0,
+      "busy": 0,
+      "overlay_focus": 2,
+      "pc": 0
+    },
+    "resume_b": {
+      "kind": 0,
+      "index": 0,
+      "count": 0,
+      "busy": 0,
+      "overlay_focus": 2,
+      "pc": 1
+    },
+    "result": {
+      "kind": 3,
+      "index": 0,
+      "count": 2,
+      "busy": 0,
+      "overlay_focus": 2,
+      "pc": 0
+    },
+    "next_mission": {
+      "kind": 2,
+      "index": 0,
+      "count": 1,
+      "busy": 0,
+      "overlay_focus": 2,
+      "pc": 0
+    }
+  }
+}

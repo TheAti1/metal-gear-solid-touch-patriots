@@ -1,0 +1,8 @@
+{
+  "status": "delivered_to_user_for_translation",
+  "file": "metal_gear_solid_touch_english.json",
+  "sha256": "d87d9ec3a65b29099f078dc5ea7edc644087c9189a30a0f75703d251950bc807",
+  "localized_records": 890,
+  "translatable_blocks": 497,
+  "rule": "Do not change IDs/source or add records to this delivered catalogue; preserve user translation work."
+}

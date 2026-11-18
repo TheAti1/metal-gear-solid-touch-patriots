@@ -1,0 +1,18 @@
+# 17 typed declarations (name:stabs-type)
+N_GSYM   0x00000000 _BGChangeFlag
+N_GSYM   0x00000000 _enemy_data
+N_GSYM   0x00000000 _g_ApEnemyData
+N_GSYM   0x00000000 _g_ApEnemyNum
+N_GSYM   0x00000000 _g_ApEnemyType
+N_GSYM   0x00000000 _g_ApItemData
+N_GSYM   0x00000000 _g_ApNPCData
+N_GSYM   0x00000000 _g_ApNum
+N_GSYM   0x00000000 _g_DeviceShake
+N_GSYM   0x00000000 _g_accelerometer
+N_GSYM   0x00000000 _g_accelerometer_old
+N_GSYM   0x00000000 _g_emax
+N_GSYM   0x00000000 _g_emin
+N_GSYM   0x00000000 _g_pmcB_JudgeNum
+N_GSYM   0x00000000 _g_pmcB_Num
+N_GSYM   0x00000000 _g_saveHp
+N_GSYM   0x00000000 _g_sortedObjectList

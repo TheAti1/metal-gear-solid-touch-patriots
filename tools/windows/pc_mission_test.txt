@@ -1,0 +1,11 @@
+8.0 tap 160 300
+11.0 tap 160 300
+24.0 capture D:/Patriots_MGS_Touch_PC/pc-mission-24.ppm
+27.0 tap 160 420
+32.0 capture D:/Patriots_MGS_Touch_PC/pc-mission-32.ppm
+34.0 tap 160 420
+38.0 pc 1 15 7
+39.0 pc 2 0 0
+40.0 capture D:/Patriots_MGS_Touch_PC/pc-mission-40.ppm
+42.0 pause
+44.0 capture D:/Patriots_MGS_Touch_PC/pc-mission-paused.ppm

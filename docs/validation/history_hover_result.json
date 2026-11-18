@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "native_exe_sha256": "0394cc78ccac080a5b189aed1cdf62e947a11655bc157d5e6ff64cd6474059f0",
+  "special_history_landscape": true,
+  "history_right_stick_scroll": true,
+  "history_mouse_wheel_scroll": true,
+  "return_to_portrait_menus": true,
+  "mouse_hover_changes_button_color": true,
+  "selection_uses_color_without_outline": true,
+  "views": {
+    "hover_start": {
+      "scene": 1,
+      "case": 1,
+      "landscape": 0,
+      "rotation": 0,
+      "hover": 0,
+      "selected": 0
+    },
+    "hover_none": {
+      "scene": 1,
+      "case": 1,
+      "landscape": 0,
+      "rotation": 0,
+      "hover": -1,
+      "selected": 0
+    },
+    "special_menu": {
+      "scene": 14,
+      "case": 1,
+      "landscape": 0,
+      "rotation": 0,
+      "hover": -1,
+      "selected": 0
+    },
+    "history_list": {
+      "scene": 21,
+      "case": 1,
+      "landscape": 0,
+      "rotation": 0,
+      "hover": -1,
+      "selected": 0
+    },
+    "history_picture": {
+      "scene": 21,
+      "case": 7,
+      "landscape": 1,
+      "rotation": 90,
+      "hover": -1,
+      "selected": 0
+    },
+    "history_text": {
+      "scene": 21,
+      "case": 7,
+      "landscape": 1,
+      "rotation": 90,
+      "hover": -1,
+      "selected": 0
+    },
+    "back_picture": {
+      "scene": 21,
+      "case": 7,
+      "landscape": 1,
+      "rotation": 90,
+      "hover": -1,
+      "selected": 0
+    },
+    "back_history_list": {
+      "scene": 21,
+      "case": 1,
+      "landscape": 0,
+      "rotation": 0,
+      "hover": -1,
+      "selected": 0
+    },
+    "back_special": {
+      "scene": 14,
+      "case": 1,
+      "landscape": 0,
+      "rotation": 0,
+      "hover": -1,
+      "selected": 0
+    },
+    "back_main": {
+      "scene": 1,
+      "case": 1,
+      "landscape": 0,
+      "rotation": 0,
+      "hover": -1,
+      "selected": 0
+    }
+  },
+  "scroll": {
+    "history_top": [
+      90000,
+      0
+    ],
+    "history_down": [
+      90000,
+      -90000
+    ],
+    "wheel_up": [
+      90000,
+      0
+    ],
+    "wheel_down": [
+      90000,
+      -90000
+    ],
+    "history_up": [
+      90000,
+      0
+    ]
+  },
+  "pause_hover_matches_clicked_button": true
+}

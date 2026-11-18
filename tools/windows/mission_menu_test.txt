@@ -1,0 +1,5 @@
+8.0 tap 160 300
+11.0 tap 160 300
+14.0 capture D:/Patriots_MGS_Touch_PC/mission-list.ppm
+16.0 tap 160 300
+19.0 capture D:/Patriots_MGS_Touch_PC/mission-briefing.ppm

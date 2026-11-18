@@ -1,0 +1,22 @@
+# C++ member functions whose `this` (instance vs static) Ghidra had wrong.
+# Applied by tools/ghidra/FixCppThis.java (LOG 2026-10-07 STEP 2). Mangled
+# names do not encode static-ness, so each decision cites evidence:
+#   runtime  entry registers captured by the snap_mgst plugin (Mission 1):
+#            r0 is the object the same class's other methods get as `this`
+#            (Sound 0x831fc0, SoundService 0x145010, AQSound 0x199eb0), or
+#            r0 is the first declared parameter (static)
+#   vtable   slot of __ZTV7AQSound / __ZTV7ALSound: virtual => instance
+#   body     the decompiled body uses r1..r3 for the declared parameters and
+#            ignores r0 (in_r3 = an unmodelled register)
+addr	function	decision	evidence
+0x200d4	Sound::ready(SoundLabel*)	instance	runtime: r0=0x831fc0 (Sound, = this of Sound::isPlaying/setVolume), r1=0x34aa000 (SoundLabel)
+0x21b44	SoundService::init(float)	instance	runtime: r0=0x145010 (SoundService, = this of its other methods), r1=0x46fa0000 (32000.0f)
+0x21958	SoundService::setListenerPos(float, float, float)	instance	body: x,y,z read from r1,r2,r3 (in_r3), r0 unused
+0x1f758	AQSound::setDistance(float)	instance	runtime: r0=0x199eb0 (AQSound), r1=10.0f; vtable slot
+0x1f75c	AQSound::setDistanceGain(float, float)	instance	runtime: r0=0x199eb0 (AQSound), r1=0.0f, r2=1.0f; vtable slot
+0x1f760	AQSound::set2DSettings()	instance	runtime: r0=0x199eb0 (AQSound); vtable slot
+0x1f74c	AQSound::setPitch(float)	instance	vtable slot (__ZTV7AQSound)
+0x1f750	AQSound::setPosition(float, float, float)	instance	vtable slot (__ZTV7AQSound)
+0x1f754	AQSound::setRolloffFactor(float)	instance	vtable slot (__ZTV7AQSound)
+0x1f764	AQSound::updateStream()	instance	vtable slot (__ZTV7AQSound)
+0x207a4	SoundMisc::calculateByteForTime(AudioStreamBasicDescription&, unsigned long, double, unsigned long*, unsigned long*)	static	runtime: r0=0x199ef8 -> 40df400000000000 (ASBD.mSampleRate = 32000.0), r1=0x44, r2:r3=0.5 (double), stack = 2 out pointers

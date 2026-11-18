@@ -1,0 +1,5 @@
+addr	function	reason
+0x205d8	SoundManager::masterVolume	returns 0x3f800000 (1.0f) or the float master volume (SoundService+0x38); armv6 softfp returns float bits in r0. Declared undefined4, callers converted it with (float) (1.0 -> 1.065e9). Found by the mgsport port (LOG 2026-10-11)
+0x20620	SoundManager::categoryVolume	returns 0x3f800000 (1.0f) or SoundService::categoryVolume; same defect in Sound::ready
+0x209de	SoundResourceManager::attributeVolume	returns 0x3f800000 (1.0f) or a float of attribute[]; same defect at 2 sites in SoundService::init
+0x213a8	SoundService::categoryVolume	returns 0x3f800000 (1.0f) or a float of the category record; SoundManager::categoryVolume returns it (found once the caller was typed: 0x3f800000 vs 0x4e7e0000)

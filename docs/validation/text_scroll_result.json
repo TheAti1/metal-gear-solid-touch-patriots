@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "native_exe_sha256": "0394cc78ccac080a5b189aed1cdf62e947a11655bc157d5e6ff64cd6474059f0",
+  "right_stick_text_scroll_both_directions": true,
+  "loading_with_both_sticks_and_held_confirm": true,
+  "confirm_works_after_loading": true,
+  "pause_and_resume": true,
+  "selection_boxes_removed_visual_check": true,
+  "probes": {
+    "top": {
+      "extent": 270000,
+      "position": 0
+    },
+    "down": {
+      "extent": 270000,
+      "position": -197948
+    },
+    "up": {
+      "extent": 270000,
+      "position": -299
+    },
+    "loading_axes": {
+      "extent": 0,
+      "position": 0
+    }
+  }
+}

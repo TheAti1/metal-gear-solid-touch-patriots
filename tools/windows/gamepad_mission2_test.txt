@@ -1,0 +1,36 @@
+6 stick 0 0
+8 pad 0 1
+8.2 pad 0 0
+10 navprobe mission_menu_2
+11 stick 0 1
+11.1 stick 0 0
+12 stick 0 1
+12.1 stick 0 0
+12.5 navprobe mission_2_selected
+13 pad 0 1
+13.2 pad 0 0
+20 pad 0 1
+20.2 pad 0 0
+23 pad 0 1
+23.2 pad 0 0
+26 pad 0 1
+26.2 pad 0 0
+29 pad 0 1
+29.2 pad 0 0
+30 probe mission_2_ready
+31 pad 0 1
+31.2 pad 0 0
+32 probe mission_2_gameplay
+33 pad 6 1
+33.2 pad 6 0
+34 navprobe mission_2_start_pause
+35 pad 0 1
+35.2 pad 0 0
+36 probe mission_2_resumed
+37 pad 1 1
+37.2 pad 1 0
+38 navprobe mission_2_back_pause
+39 pad 1 1
+39.2 pad 1 0
+40 probe mission_2_back_resume
+41 capture D:/Patriots_MGS_Touch_PC/QA/gamepad-mission2-play.png

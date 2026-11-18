@@ -1,0 +1,154 @@
+{
+  "passed": true,
+  "mission": 1,
+  "large_input_both_directions": true,
+  "reversed_after_extreme_input": true,
+  "after_cover_pause_and_weapon_switch": true,
+  "native_icons": true,
+  "patriots_url_route": true,
+  "probes": {
+    "baseline": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        240.0,
+        160.0
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "negative_edge": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        20.0,
+        260.0
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "reverse_negative": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        33.2,
+        246.8
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "positive_edge": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        253.2,
+        114.8
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "reverse_positive": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        240.0,
+        128.0
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "after_cover": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        226.8,
+        141.2
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "paused": {
+      "scene": 8,
+      "mission": 1,
+      "active": 0,
+      "sight": [
+        226.8,
+        141.2
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "after_resume": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        240.0,
+        128.0
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "svd_edge": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        300.0,
+        92.0
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "svd_reverse": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        296.4,
+        95.6
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    },
+    "after_weapon": {
+      "scene": 8,
+      "mission": 1,
+      "active": 1,
+      "sight": [
+        283.2,
+        108.8
+      ],
+      "previous": [
+        240.0,
+        160.0
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "native_exe_sha256": "6d16947f5657b6c54eee2bc35f02363b1d25b9292c2bb1200720ce8201b401c7",
+  "scene_13_landscape": true,
+  "gamepad_next_uses_original_button": true,
+  "original_advice_exit": true,
+  "portrait_menu_restored": true,
+  "fixture": "Initialize original GameScene advice at scene 13; no boss win or player save fabricated"
+}

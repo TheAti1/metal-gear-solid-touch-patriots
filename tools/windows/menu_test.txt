@@ -1,0 +1,2 @@
+8.0 tap 160 300
+11.0 capture D:/Patriots_MGS_Touch_PC/menu-after-start.ppm

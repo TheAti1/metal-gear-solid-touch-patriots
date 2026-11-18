@@ -1,0 +1,8 @@
+# C++ class sizes from allocation sites `(T *)operator_new(N)` in the corpus.
+# Applied by tools/ghidra/SizeCppClasses.java (grows a class struct to N; never shrinks).
+class	size	evidence
+ALSound	0x34	operator_new(0x34) in corpus
+AQSound	0x8c	operator_new(0x8c) in corpus
+SoundResourceManager	0x24	operator_new(0x24) in corpus
+SoundService	0x70	operator_new(0x70) in corpus
+Sound	0x3c	operator_new(n * 0x3c) in SoundService::init 0x21b44 (array of Sound); Ghidra laid it out as 0x39 from this-accesses, so &p[1]+3 stepped 0x3f (found by the mgsport port, LOG 2026-10-11)

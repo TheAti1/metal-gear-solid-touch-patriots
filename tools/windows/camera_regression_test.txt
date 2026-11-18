@@ -1,0 +1,38 @@
+8 tap 160 300
+11 tap 160 300
+15 capture D:/Patriots_MGS_Touch_PC/QA/camera-select.png
+20 tap 20 460
+23 tap 20 460
+26 tap 20 460
+29 tap 20 460
+34 tap 20 460
+37 tap 20 460
+40 probe baseline
+41 pc 1 -10000 -10000
+42 probe negative_edge
+43 pc 1 12 12
+44 probe reverse_negative
+45 pc 1 10000 10000
+46 probe positive_edge
+47 pc 1 -12 -12
+48 probe reverse_positive
+49 pc 3 1 0
+50 pc 1 5000 5000
+51 pc 3 0 0
+52 pc 1 -12 -12
+53 probe after_cover
+54 pause
+55 probe paused
+56 pause
+57 pc 1 12 12
+58 probe after_resume
+59 zoom 1
+61 pc 1 10000 10000
+62 probe svd_edge
+63 pc 1 -12 -12
+64 probe svd_reverse
+65 zoom -1
+67 pc 1 -12 -12
+68 probe after_weapon
+69 patriots
+70 capture D:/Patriots_MGS_Touch_PC/QA/camera-after-stress.png

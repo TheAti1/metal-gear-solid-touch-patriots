@@ -1,0 +1,29 @@
+6 stick 0 0
+8 pad 0 1
+8.2 pad 0 0
+11 stick 0 1
+11.1 stick 0 0
+12 stick 0 1
+12.1 stick 0 0
+13 pad 0 1
+13.2 pad 0 0
+20 pad 0 1
+20.2 pad 0 0
+23 pad 0 1
+23.2 pad 0 0
+26 pad 0 1
+26.2 pad 0 0
+29 pad 0 1
+29.2 pad 0 0
+31 pad 0 1
+31.2 pad 0 0
+33 pad 6 1
+33.2 pad 6 0
+34 hover 118 240
+34.2 navprobe hover_patriots
+35 capture D:/Patriots_MGS_Touch_PC/QA/pause-hover-patriots.png
+36 hover 168 240
+36.2 navprobe hover_resume
+37 capture D:/Patriots_MGS_Touch_PC/QA/pause-hover-resume.png
+38 tap 168 240
+39 probe hover_then_resume

@@ -1,0 +1,81 @@
+cputype=12 cpusubtype=6 filetype=2 ncmds=26 flags=0x10085
+
+--- LOAD COMMANDS ---
+  LC_SEGMENT                 size=56
+  LC_SEGMENT                 size=464
+  LC_SEGMENT                 size=1212
+  LC_SEGMENT                 size=56
+  LC_SYMTAB                  size=24
+  LC_DYSYMTAB                size=80
+  LC_LOAD_DYLINKER           size=28
+  LC_UUID                    size=24
+  0x5                        size=84
+  LC_ENCRYPTION_INFO         size=20
+  LC_LOAD_DYLIB              size=84
+  LC_LOAD_DYLIB              size=76
+  LC_LOAD_DYLIB              size=80
+  LC_LOAD_DYLIB              size=84
+  LC_LOAD_DYLIB              size=88
+  LC_LOAD_DYLIB              size=84
+  LC_LOAD_DYLIB              size=88
+  LC_LOAD_DYLIB              size=76
+  LC_LOAD_DYLIB              size=84
+  LC_LOAD_DYLIB              size=88
+  LC_LOAD_DYLIB              size=52
+  LC_LOAD_DYLIB              size=52
+  LC_LOAD_DYLIB              size=52
+  LC_LOAD_DYLIB              size=52
+  LC_LOAD_DYLIB              size=92
+  LC_CODE_SIGNATURE          size=16
+
+--- SEGMENTS / SECTIONS ---
+  __PAGEZERO   vm=0x00000000+0x1000  file=0x0+0x0  prot=0/0
+  __TEXT       vm=0x00001000+0x68000  file=0x0+0x68000  prot=5/5
+      __text               addr=0x000025bc size= 0x58058 off=  0x15bc flags=0x80000400
+      __symbol_stub4       addr=0x0005a614 size=   0x888 off= 0x59614 flags=0x80000408
+      __cstring            addr=0x0005ae9c size=  0xc2b2 off= 0x59e9c flags=0x2
+      __ustring            addr=0x0006714e size=    0x61 off= 0x6614e flags=0x0
+      __const              addr=0x000671b0 size=  0x1e1c off= 0x661b0 flags=0x0
+      __gcc_except_tab     addr=0x00068fcc size=    0x32 off= 0x67fcc flags=0x0
+  __DATA       vm=0x00069000+0x20000  file=0x68000+0xd000  prot=3/3
+      __dyld               addr=0x00069000 size=    0x1c off= 0x68000 flags=0x0
+      __nl_symbol_ptr      addr=0x0006901c size=    0xec off= 0x6801c flags=0x6
+      __la_symbol_ptr      addr=0x00069108 size=   0x2d8 off= 0x68108 flags=0x7
+      __const              addr=0x000693e0 size=   0x15c off= 0x683e0 flags=0x0
+      __cfstring           addr=0x0006953c size=   0xeb0 off= 0x6853c flags=0x0
+      __objc_data          addr=0x0006a3ec size=   0x8e8 off= 0x693ec flags=0x0
+      __objc_selrefs       addr=0x0006acd4 size=   0xd70 off= 0x69cd4 flags=0x5
+      __objc_classrefs     addr=0x0006ba44 size=   0x510 off= 0x6aa44 flags=0x0
+      __objc_superrefs     addr=0x0006bf54 size=    0x64 off= 0x6af54 flags=0x0
+      __objc_const         addr=0x0006bfb8 size=  0x947c off= 0x6afb8 flags=0x0
+      __objc_classlist     addr=0x00075434 size=    0xe4 off= 0x74434 flags=0x0
+      __objc_catlist       addr=0x00075518 size=    0x10 off= 0x74518 flags=0x0
+      __objc_protolist     addr=0x00075528 size=    0x18 off= 0x74528 flags=0x0
+      __objc_imageinfo     addr=0x00075540 size=     0x8 off= 0x74540 flags=0x0
+      __data               addr=0x00075548 size=   0x239 off= 0x74548 flags=0x0
+      __common             addr=0x00075784 size=  0xb81c off=     0x0 flags=0x1
+      __bss                addr=0x00080fa0 size=  0x7e94 off=     0x0 flags=0x1
+  __LINKEDIT   vm=0x00089000+0x4d000  file=0x75000+0x4c5a0  prot=1/1
+
+--- ENCRYPTION ---
+  LC_ENCRYPTION_INFO cryptoff=0x1000 cryptsize=0x67000 cryptid=0
+  => cryptid=0 - NOT encrypted, code is readable
+
+--- LINKED DYLIBS/FRAMEWORKS ---
+  /System/Library/Frameworks/Foundation.framework/Foundation
+  /System/Library/Frameworks/UIKit.framework/UIKit
+  /System/Library/Frameworks/OpenGLES.framework/OpenGLES
+  /System/Library/Frameworks/QuartzCore.framework/QuartzCore
+  /System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
+  /System/Library/Frameworks/CoreAudio.framework/CoreAudio
+  /System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+  /System/Library/Frameworks/OpenAL.framework/OpenAL
+  /System/Library/Frameworks/CFNetwork.framework/CFNetwork
+  /System/Library/Frameworks/MediaPlayer.framework/MediaPlayer
+  /usr/lib/libstdc++.6.dylib
+  /usr/lib/libgcc_s.1.dylib
+  /usr/lib/libSystem.B.dylib
+  /usr/lib/libobjc.A.dylib
+  /System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
+
+--- SYMTAB --- nsyms=9743

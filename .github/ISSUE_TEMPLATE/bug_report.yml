@@ -1,0 +1,24 @@
+name: Bug report / Hata bildirimi
+description: Report a launcher, control, graphics or game issue.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Release version / Sürüm
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps, mission and expected behavior / Adımlar, görev ve beklenen davranış
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Windows, GPU, controller, bindings and game language
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshot or redacted log excerpt / Ekran görüntüsü veya temizlenmiş günlük
+      description: Do not upload an IPA, original executable, save file, credentials or unredacted personal paths.

@@ -1,0 +1,15 @@
+8.0 tap 160 300
+11.0 tap 160 300
+20.0 tap 20 460
+23.0 tap 20 460
+26.0 tap 20 460
+29.0 tap 20 460
+34.0 tap 20 460
+37.0 tap 20 460
+40.0 pc 1 12 8
+41.0 pc 2 0 0
+43.0 zoom 1
+45.0 capture D:/Patriots_MGS_Touch_PC/svd-scope.ppm
+46.0 zoom -1
+48.0 pc 3 1 0
+49.0 capture D:/Patriots_MGS_Touch_PC/m4-cover.ppm

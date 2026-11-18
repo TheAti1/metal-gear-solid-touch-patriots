@@ -1,0 +1,20 @@
+[
+  {
+    "font": "LiberationSans-Regular.ttf",
+    "sha256": "76d04c18ea243f426b7de1f3ad208e927008f961dc5945e5aad352d0dfde8ee8",
+    "turkish_characters": "ÇçĞğİıÖöŞşÜü",
+    "missing": []
+  },
+  {
+    "font": "LiberationSans-Bold.ttf",
+    "sha256": "788abee4c806d660e8aee46689dd8540cd4bb98da03dcc9d171ce3efd99a9173",
+    "turkish_characters": "ÇçĞğİıÖöŞşÜü",
+    "missing": []
+  },
+  {
+    "font": "BebasNeue-Regular.ttf",
+    "sha256": "08e4623805102d819f58601e46e345648846075e363b2ceb23313c2d1c83ec73",
+    "turkish_characters": "ÇçĞğİıÖöŞşÜü",
+    "missing": []
+  }
+]

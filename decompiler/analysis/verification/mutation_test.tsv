@@ -1,0 +1,28 @@
+run	addr	function	mutation	change	result
+main run (harness 6)	0x2828	__Texture2D_Image__initWithImageA8Filena	cmp	!= -> ==	KILLED
+main run (harness 6)	0x89b4	__CrashLandingAppDelegate_setStageObject	int	1 -> 2	KILLED
+main run (harness 6)	0x89b4	__CrashLandingAppDelegate_setStageObject	cmp	< -> <=	KILLED
+main run (harness 6)	0x89b4	__CrashLandingAppDelegate_setStageObject	float	0.5f -> 0.50000006f	KILLED
+main run (harness 6)	0x136b0	__CrashLandingAppDelegate_Credit_Load_	int	1 -> 2	KILLED
+main run (harness 6)	0x136b0	__CrashLandingAppDelegate_Credit_Load_	float	0.0f -> 1.40129846e-45f	KILLED
+main run (harness 6)	0x23cca	__Effect_setEffect:_	int	2 -> 3	KILLED
+main run (harness 6)	0x23cca	__Effect_setEffect:_	float	0.0f -> 1.40129846e-45f	KILLED
+main run (harness 6)	0x2adac	__EnemyManager_updateAppearData:_	int	1 -> 2	KILLED
+main run (harness 6)	0x2adac	__EnemyManager_updateAppearData:_	cmp	<= -> <	KILLED
+main run (harness 6)	0x2ef50	__Canard_initAppearance_	int	1 -> 2	KILLED
+main run (harness 6)	0x2ef50	__Canard_initAppearance_	float	2.0f -> 2.00000024f	KILLED
+main run (harness 6)	0x38d50	__Player_drawPlayer_	int	4 -> 5	SURVIVED
+main run (harness 6)	0x38d50	__Player_drawPlayer_	cmp	< -> <=	SURVIVED
+main run (harness 6)	0x42644	__Raven_initWithParameter:index:hp:rpgEx	int	1 -> 2	KILLED
+main run (harness 6)	0x42644	__Raven_initWithParameter:index:hp:rpgEx	float	0.0f -> 1.40129846e-45f	KILLED
+main run (harness 6)	0x49b10	__Ray_getEnemyScale_	int	8 -> 9	untested
+main run (harness 6)	0x49b10	__Ray_getEnemyScale_	cmp	== -> !=	untested
+main run (harness 6)	0x49b10	__Ray_getEnemyScale_	float	0.5f -> 0.50000006f	untested
+main run (harness 6)	0x50f34	GResult::Result_Save_Survival_continue	int	8 -> 9	SURVIVED
+main run (harness 6)	0x50f34	GResult::Result_Save_Survival_continue	cmp	== -> !=	KILLED
+main run (harness 6)	0x50f34	GResult::Result_Save_Survival_continue	float	200.0f -> 200.000015f	SURVIVED
+re-run (harness 8, 16 missions)	0x50f34	GResult::Result_Save_Survival_continue	int	8 -> 9	SURVIVED
+re-run (harness 8, 16 missions)	0x50f34	GResult::Result_Save_Survival_continue	cmp	== -> !=	KILLED
+re-run (harness 8, 16 missions)	0x50f34	GResult::Result_Save_Survival_continue	float	200.0f -> 200.000015f	SURVIVED
+re-run (harness 8, 16 missions)	0x51134	GResult::Result_Save_Survival_result	int	1 -> 2	KILLED
+re-run (harness 8, 16 missions)	0x51134	GResult::Result_Save_Survival_result	cmp	== -> !=	KILLED

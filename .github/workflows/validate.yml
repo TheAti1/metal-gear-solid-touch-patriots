@@ -1,0 +1,34 @@
+name: Source and launcher checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python tools/check_repository.py
+  launcher:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        run: ./launcher/build.ps1
+      - name: Launcher binding and Unicode plist checks
+        shell: pwsh
+        run: |
+          $test=Start-Process './package/Metal Gear Solid Touch.exe' -ArgumentList '--test-launcher' -Wait -PassThru -WindowStyle Hidden
+          if($test.ExitCode -ne 0){throw 'Launcher self-test failed'}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: touch-launcher-build
+          path: |
+            package/Metal Gear Solid Touch.exe
+            package/Arayuz/

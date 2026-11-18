@@ -1,0 +1,16 @@
+8.0 tap 160 300
+11.0 tap 160 300
+14.0 tap 300 460
+18.0 tap 300 460
+22.0 tap 300 460
+26.0 tap 300 460
+30.0 capture D:/Patriots_MGS_Touch_PC/gameplay-30.ppm
+33.0 pc 1 10 8
+34.0 pc 2 0 0
+35.0 pc 3 1 0
+36.0 capture D:/Patriots_MGS_Touch_PC/gameplay-36.ppm
+37.0 zoom 1
+38.0 pc 3 0 0
+39.0 capture D:/Patriots_MGS_Touch_PC/gameplay-39.ppm
+40.0 pause
+42.0 capture D:/Patriots_MGS_Touch_PC/gameplay-paused.ppm

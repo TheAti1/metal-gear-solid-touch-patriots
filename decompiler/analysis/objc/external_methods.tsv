@@ -1,0 +1,111 @@
+# Foundation/UIKit/EAGL/MediaPlayer selectors called by MGSTUS: iOS 3.1 SDK signatures (armv6)
+# selector	ret	args(after self,_cmd)	varargs   types.spec notation; NSRange passed as u4,u4
+CGImage	ptr(void)		0
+URLWithString:	id	id	0
+UTF8String	ptr(i1)		0
+addObject:	void	id	0
+addObserver:selector:name:object:	void	id,sel,id,id	0
+addSubview:	void	id	0
+alloc	id		0
+applicationFrame	struct(CGRect)		0
+array	id		0
+autorelease	id		0
+bounds	struct(CGRect)		0
+bytes	ptr(void)		0
+cStringUsingEncoding:	ptr(i1)	u4	0
+changeCurrentDirectoryPath:	i1	id	0
+class	id		0
+componentsSeparatedByString:	id	id	0
+count	u4		0
+countByEnumeratingWithState:objects:count:	u4	ptr(void),ptr(id),u4	0
+currentContext	id		0
+currentDevice	id		0
+dataUsingEncoding:	id	u4	0
+dataWithContentsOfFile:	id	id	0
+defaultCenter	id		0
+defaultManager	id		0
+detachNewThreadSelector:toTarget:withObject:	void	sel,id,id	0
+dictionary	id		0
+dictionaryWithObject:forKey:	id	id,id	0
+dictionaryWithObjectsAndKeys:	id	id	1
+drawInRect:withFont:lineBreakMode:alignment:	struct(CGSize)	struct(CGRect),id,i4,i4	0
+floatValue	f4		0
+fontWithName:size:	id	id,f4	0
+getBytes:	void	ptr(void)	0
+imageWithContentsOfFile:	id	id	0
+init	id		0
+initWithAPI:	id	u4	0
+initWithBytes:length:encoding:	id	ptr(void),u4,u4	0
+initWithCapacity:	id	u4	0
+initWithContentURL:	id	id	0
+initWithData:encoding:	id	id,u4	0
+initWithFrame:	id	struct(CGRect)	0
+initWithObjectsAndKeys:	id	id	1
+initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:	id	id,id,id,id,id	1
+intValue	i4		0
+isEqualToString:	i1	id	0
+layer	id		0
+length	u4		0
+lineRangeForRange:	struct(_NSRange)	u4,u4	0
+loadHTMLString:baseURL:	void	id,id	0
+loadRequest:	void	id	0
+localizedDescription	id		0
+localizedStringForKey:value:table:	id	id,id,id	0
+locationInView:	struct(CGPoint)	id	0
+lock	void		0
+mainBundle	id		0
+mainScreen	id		0
+makeKeyAndVisible	void		0
+model	id		0
+numberWithBool:	id	i1	0
+numberWithInt:	id	i4	0
+object	id		0
+objectAtIndex:	id	u4	0
+objectForKey:	id	id	0
+openURL:	i1	id	0
+pathForResource:ofType:	id	id,id	0
+pathForResource:ofType:inDirectory:	id	id,id,id	0
+play	void		0
+presentRenderbuffer:	i1	u4	0
+raise:format:	void	id,id	1
+registerDefaults:	void	id	0
+removeAllObjects	void		0
+removeFromSuperview	void		0
+removeObserver:name:object:	void	id,id,id	0
+renderbufferStorage:fromDrawable:	i1	u4,id	0
+requestWithURL:	id	id	0
+respondsToSelector:	i1	sel	0
+retain	id		0
+reverseObjectEnumerator	id		0
+scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:	id	f8,id,sel,id,i1	0
+setAutoresizesSubviews:	void	i1	0
+setAutoresizingMask:	void	u4	0
+setBackgroundColor:	void	id	0
+setCurrentContext:	i1	id	0
+setDelegate:	void	id	0
+setDrawableProperties:	void	id	0
+setMultipleTouchEnabled:	void	i1	0
+setNetworkActivityIndicatorVisible:	void	i1	0
+setObject:forKey:	void	id,id	0
+setOpaque:	void	i1	0
+setScalesPageToFit:	void	i1	0
+setScalingMode:	void	i4	0
+setUpdateInterval:	void	f8	0
+sharedAccelerometer	id		0
+sharedApplication	id		0
+show	void		0
+sizeWithFont:	struct(CGSize)	id	0
+sleepForTimeInterval:	void	f8	0
+sortUsingFunction:context:	void	ptr(void),ptr(void)	0
+standardUserDefaults	id		0
+stringByAppendingString:	id	id	0
+stringWithCString:encoding:	id	ptr(i1),u4	0
+stringWithContentsOfFile:encoding:error:	id	id,u4,ptr(id)	0
+stringWithFormat:	id	id	1
+substringWithRange:	id	u4,u4	0
+unlock	void		0
+userInterfaceIdiom	i4		0
+whiteColor	id		0
+x	f8		0
+y	f8		0
+z	f8		0

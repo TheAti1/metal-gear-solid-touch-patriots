@@ -1,0 +1,6 @@
+# C/C++ functions declared void whose callers read r0 after the call (FixVoidReturns.java)
+addr	function	call_sites_reading_r0	evidence
+000200d4	Sound::ready	2	00021e1e:cmp r0,#0x0 | 00021e74:cmp r0,#0x0
+000206a0	SoundManager::play3DSound	1	0002384c:str r0,[r3,r2]
+000206d0	SoundManager::play2DSound	6	00023b26:str r0,[r6,#0x0] | 00023614:str r0,[r3,r2] | 0002397a:str r0,[r3,#0x0]
+00021b44	SoundService::init	1	00020756:subs r5,r0,#0x0

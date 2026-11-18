@@ -1,0 +1,42 @@
+6 stick 0 0
+8 pad 0 1
+8.2 pad 0 0
+11 pad 0 1
+11.2 pad 0 0
+20 pad 0 1
+20.2 pad 0 0
+20.5 scrollprobe top
+20.6 rstick 1
+21.5 rstick 0
+21.6 scrollprobe down
+21.7 capture D:/Patriots_MGS_Touch_PC/QA/text-down.png
+21.9 rstick -1
+22.8 rstick 0
+22.9 scrollprobe up
+23.1 capture D:/Patriots_MGS_Touch_PC/QA/text-up.png
+24 pad 0 1
+24.2 pad 0 0
+27 pad 0 1
+27.2 pad 0 0
+30 pad 0 1
+30.2 pad 0 0
+30.3 stick 0 1
+30.3 rstick 1
+30.4 pad 0 1
+34 scrollprobe loading_axes
+35 pad 0 0
+35.5 navprobe ready_after_loading
+36 pad 0 1
+36.2 pad 0 0
+39 pad 0 1
+39.2 pad 0 0
+42 stick 0 0
+42 rstick 0
+43 probe after_loading_held_axes
+44 pad 6 1
+44.2 pad 6 0
+45 navprobe pause_no_boxes
+45.2 capture D:/Patriots_MGS_Touch_PC/QA/pause-no-boxes.png
+46 pad 0 1
+46.2 pad 0 0
+47 probe resumed

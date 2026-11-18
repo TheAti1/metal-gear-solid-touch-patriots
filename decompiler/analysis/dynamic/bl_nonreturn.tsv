@@ -1,0 +1,12 @@
+target	target_function	n_sites	sites
+0x1339c	-[CrashLandingAppDelegate GameScene]+0x2470	6	0x11076 0x11274 0x11476 0x11698 0x11eb4 0x12594
+0x18386	-[CrashLandingAppDelegate title_load]+0x150e	2	0x17252 0x17676
+0x3a0f6	+[Player private_ControlPlayer]+0xc1a	2	0x39652 0x397ac
+0x13416	-[CrashLandingAppDelegate GameScene]+0x24ea	1	0x11dd0
+0x11e00	-[CrashLandingAppDelegate GameScene]+0xed4	1	0x13428
+0x9e1a	-[CrashLandingAppDelegate sh_drawInterface]+0xf46	1	0x916a
+0x9e34	-[CrashLandingAppDelegate sh_drawInterface]+0xf60	1	0x91b4
+0x9e42	-[CrashLandingAppDelegate sh_drawInterface]+0xf6e	1	0x955e
+0x19eda	-[CrashLandingAppDelegate sh_load]+0x1026	1	0x19264
+0x11ea4	-[CrashLandingAppDelegate GameScene]+0xf78	1	0x13440
+0x13430	-[CrashLandingAppDelegate GameScene]+0x2504	1	0x11e30

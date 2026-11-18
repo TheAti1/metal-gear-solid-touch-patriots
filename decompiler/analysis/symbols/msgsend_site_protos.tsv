@@ -1,0 +1,2 @@
+func	site	ctype	reason
+0x583c	0x5eba	void (*)(void *, char *, void *, float, float, unsigned int, int)	drebin_drawBar: scale is passed as its float bits (uVar7 = 0x3f800000 / 0x3e75c28f), so the word is typed unsigned int; selector is +[TextureManager StringdrawImage2:x:y:scale:rot:] (v28@0:4@8f12f16f20i24) or -[CrashLandingAppDelegate draw_Dp:::::] (v28@0:4i8f12f16f20i24); same word layout; untyped varargs promoted the floats to double

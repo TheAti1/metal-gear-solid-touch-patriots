@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "native_exe_sha256": "ceeeb595df23bd43c0acb7691b22c09386f7764b60d2061738ace810a507a747",
+  "original_left_and_right_dodge_animations": true,
+  "original_dodge_protection": true,
+  "landscape_direction_inversion_corrected": true,
+  "held_stick_does_not_repeat": true,
+  "held_stick_after_loading_and_pause_ignored": true,
+  "vertical_motion_ignored": true,
+  "mission_20_only_guard_reviewed": true,
+  "input_path": "same right-stick handler as physical SDL gamepad; isolated copy of player save",
+  "whole_boss_fight_played": false,
+  "probes": {
+    "held_after_loading": {
+      "mission": 20,
+      "active": 1,
+      "state": 5,
+      "pose": 0,
+      "frame": 0,
+      "protected": 0
+    },
+    "left": {
+      "mission": 20,
+      "active": 1,
+      "state": 8,
+      "pose": 5,
+      "frame": 1,
+      "protected": 1
+    },
+    "held_left": {
+      "mission": 20,
+      "active": 1,
+      "state": 5,
+      "pose": 0,
+      "frame": 0,
+      "protected": 0
+    },
+    "right": {
+      "mission": 20,
+      "active": 1,
+      "state": 7,
+      "pose": 4,
+      "frame": 2,
+      "protected": 1
+    },
+    "held_right": {
+      "mission": 20,
+      "active": 1,
+      "state": 5,
+      "pose": 0,
+      "frame": 0,
+      "protected": 0
+    },
+    "held_after_pause": {
+      "mission": 20,
+      "active": 1,
+      "state": 5,
+      "pose": 0,
+      "frame": 0,
+      "protected": 0
+    },
+    "resumed_right": {
+      "mission": 20,
+      "active": 1,
+      "state": 7,
+      "pose": 4,
+      "frame": 2,
+      "protected": 1
+    },
+    "vertical": {
+      "mission": 20,
+      "active": 1,
+      "state": 5,
+      "pose": 0,
+      "frame": 0,
+      "protected": 0
+    }
+  }
+}

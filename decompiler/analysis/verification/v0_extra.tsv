@@ -1,0 +1,5 @@
+addr	function	reason
+0x2608	dyld_stub_binding_helper	dyld glue (tail-jump into the binder); not application code; see v0_audit.md
+0x5a5b4	___switchu8	compiler switch helper (u8 table): modelled as a p-code call-fixup, not recompiled; every call site verified by V1 audit A3 (76/76)
+0x5a5cc	___switch8	compiler switch helper (s8 table): p-code call-fixup; V1 audit A3
+0x5a5e4	___switch16	compiler switch helper (s16 table): p-code call-fixup; V1 audit A3

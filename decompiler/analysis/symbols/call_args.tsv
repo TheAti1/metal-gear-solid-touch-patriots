@@ -1,0 +1,2 @@
+func	args	reason
+0x45dd0	ivar:Raven.pEneDat,f:250.0,f:-30.0,i:3,i:40	RavenSlider set::sliderAnime:: - its only caller, -[Raven updateMoveAttack2] 0x43a02, sends [pSlider[i] set:self->pEneDat (the RAVEN's EneDat) x:250.0 (stage 0; else g_ApEnemyData) y:-30.0 sliderAnime:3 arg:(int)(i*40.0)]

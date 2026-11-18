@@ -1,0 +1,2 @@
+func	site	reason
+0x5698c	0x56aa8	RayMissile update: getPackImageWH frame 0xd result (sp+0x44) is never read; the frame 0xc result was saved to sp+0x2c/0x30 at 0x56a90 and only that copy is read (0x56c0e/0x56c12) for jetx/jety

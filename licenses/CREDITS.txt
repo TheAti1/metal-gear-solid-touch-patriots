@@ -1,0 +1,8 @@
+Metal Gear Solid Touch: Konami / Kojima Productions, 2009. Original game code and art remain their respective owners' copyrighted material.
+Decompilation and platform foundation: etruj, mgs-retouched and MetalGearSolidTouch-Decompilation- (MIT).
+Windows desktop integration and localization workflow: Patriots.
+The launcher combines MIT components with its GPL-3.0-or-later Discord IPC component; corresponding source is included in KaynakKod_Launcher.zip.
+Portions of this software are copyright (c) The FreeType Project (www.freetype.org). All rights reserved. FreeType is used under the FreeType License.
+Liberation Sans and Bebas Neue: SIL Open Font License. Droid Sans Fallback: Android Open Source Project / Google, Apache License 2.0 (see WABT-Apache-2.0.txt for the license text).
+SDL3: zlib license. zlib: zlib license. WABT wasm2c runtime: Apache 2.0. MinGW-w64 / winpthreads notices are included.
+The free-software licenses for the launcher/tools do not grant rights to Konami's original game material.

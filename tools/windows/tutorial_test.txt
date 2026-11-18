@@ -1,0 +1,11 @@
+8.0 tap 160 300
+11.0 tap 160 300
+14.0 tap 300 460
+16.0 tap 300 460
+18.0 capture D:/Patriots_MGS_Touch_PC/tutorial-18.ppm
+19.0 tap 300 460
+21.0 tap 300 460
+23.0 capture D:/Patriots_MGS_Touch_PC/tutorial-23.ppm
+24.0 tap 300 460
+26.0 tap 300 460
+29.0 capture D:/Patriots_MGS_Touch_PC/tutorial-29.ppm

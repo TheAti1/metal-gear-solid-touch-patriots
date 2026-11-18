@@ -1,0 +1,10 @@
+6 stick 0 0
+7 qa_ending
+9 viewprobe ending_advice
+9.2 navprobe ending_next
+9.4 capture D:/Patriots_MGS_Touch_PC/QA/ending-advice-upright.png
+11 pad 0 1
+11.2 pad 0 0
+15 viewprobe after_advice
+15.2 navprobe menu_restored
+15.4 capture D:/Patriots_MGS_Touch_PC/QA/ending-advice-completed.png

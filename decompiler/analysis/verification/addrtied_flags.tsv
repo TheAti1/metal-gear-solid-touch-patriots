@@ -1,0 +1,12 @@
+func	name	variable	def	overwrite	use	use_op
+00003ad4	__Texture2D_Image__initWithImage:_	local_6c	00003c90	00003d30	00003d4a	CAST
+00003ad4	__Texture2D_Image__initWithImage:_	local_6c	00003c90	00003d30	00003d6e	CALL
+0002e794	__Canard_getEnemyScale_	local_30	0002e83e	0002e806	0002e830	FLOAT_LESS
+0002e794	__Canard_getEnemyScale_	local_30	0002e83e	0002e806	0002e836	COPY
+00052080	__HavenSoldierB_getMovePoint_	local_24	000520b2	000520ea	00052138	COPY
+00052080	__HavenSoldierB_getMovePoint_	local_24	000520b2	000520ea	0005213c	CAST
+00052080	__HavenSoldierB_getMovePoint_	local_24	000520b2	000520ea	0005214c	COPY
+0005698c	__RayMissile_update_	stack-40	00056a84	00056aa8	00056c2a	NO-WRITE-EFFECT FLOAT_MULT
+0005698c	__RayMissile_update_	stack-40	00056a84	00056aa8	00056c32	NO-WRITE-EFFECT FLOAT_ADD
+0005698c	__RayMissile_update_	stack-40	00056a84	00056aa8	00056c70	NO-WRITE-EFFECT FLOAT_SUB
+0005698c	__RayMissile_update_	stack-40	00056a84	00056aa8	00056c70	NO-WRITE-EFFECT FLOAT_SUB

@@ -1,0 +1,477 @@
+{
+  "version": "1.0.8",
+  "input_version": "2.3.0",
+  "executable_input_sha256": "07ac5db07fb8909a95b23c791d20800237bf14a51de1cec32cd0be8e37773a9c",
+  "decompiled_functions": 1395,
+  "standalone_compile_passed": 1395,
+  "printer_mismatches": 0,
+  "static_audit": "PASS: layouts/returns/switches/imports",
+  "original_arm_vs_wasm_layout_differences": 0,
+  "turkish_records": 890,
+  "changed_localized_records": 373,
+  "translated_runtime_constants": 52,
+  "turkish_fonts_verified": 3,
+  "supplied_translation_sha256": "4ae2432bc281de0e245239dbf1942ea054a61b30ccf75e41060beeaeeed4a32d",
+  "english_boot": true,
+  "turkish_gameplay_mission_1": true,
+  "non_silent_audio": true,
+  "pause": true,
+  "save_size": 1024,
+  "svd_scope_and_m4_switch": true,
+  "cover": true,
+  "png_screenshots": true,
+  "turkish_hud_life": "CAN",
+  "camera_regression": {
+    "passed": true,
+    "mission": 1,
+    "large_input_both_directions": true,
+    "reversed_after_extreme_input": true,
+    "after_cover_pause_and_weapon_switch": true,
+    "native_icons": true,
+    "patriots_url_route": true,
+    "probes": {
+      "baseline": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          240.0,
+          160.0
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "negative_edge": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          20.0,
+          260.0
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "reverse_negative": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          33.2,
+          246.8
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "positive_edge": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          253.2,
+          114.8
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "reverse_positive": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          240.0,
+          128.0
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "after_cover": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          226.8,
+          141.2
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "paused": {
+        "scene": 8,
+        "mission": 1,
+        "active": 0,
+        "sight": [
+          226.8,
+          141.2
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "after_resume": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          240.0,
+          128.0
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "svd_edge": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          300.0,
+          92.0
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "svd_reverse": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          296.4,
+          95.6
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      },
+      "after_weapon": {
+        "scene": 8,
+        "mission": 1,
+        "active": 1,
+        "sight": [
+          283.2,
+          108.8
+        ],
+        "previous": [
+          240.0,
+          160.0
+        ]
+      }
+    }
+  },
+  "launcher_lifecycle": {
+    "passed": true,
+    "hidden_during_game": true,
+    "second_launch_stays_hidden": true,
+    "restored_after_game": true,
+    "native_window_icons": true
+  },
+  "gamepad_navigation": {
+    "passed": true,
+    "native_exe_sha256": "0394cc78ccac080a5b189aed1cdf62e947a11655bc157d5e6ff64cd6474059f0",
+    "gamepad_event_path": true,
+    "main_and_mission_menus": true,
+    "story_advice_and_ready": true,
+    "pause_confirm_resume": true,
+    "mouse_resume_hit_test": true,
+    "held_stick_does_not_change_default": true,
+    "quit_defaults_to_cancel": true,
+    "back_and_pause_distinct": true,
+    "mission_clear_to_mission_2": true,
+    "custom_button_mapping": true,
+    "unexpected_patriots_launches": 0,
+    "result_fixture": "QA-only completion counter; original game result/next-stage logic",
+    "probes": {
+      "main_menu": {
+        "kind": 1,
+        "index": 0,
+        "count": 6,
+        "busy": 0,
+        "overlay_focus": 0,
+        "pc": 0
+      },
+      "mission_menu": {
+        "kind": 1,
+        "index": 0,
+        "count": 4,
+        "busy": 0,
+        "overlay_focus": 0,
+        "pc": 0
+      },
+      "gameplay": {
+        "kind": 0,
+        "index": 0,
+        "count": 0,
+        "busy": 0,
+        "overlay_focus": 0,
+        "pc": 1
+      },
+      "pause_held_stick": {
+        "kind": 11,
+        "index": 0,
+        "count": 0,
+        "busy": 0,
+        "overlay_focus": 0,
+        "pc": 0
+      },
+      "resume_a": {
+        "kind": 0,
+        "index": 0,
+        "count": 0,
+        "busy": 0,
+        "overlay_focus": 0,
+        "pc": 1
+      },
+      "resume_mouse": {
+        "kind": 0,
+        "index": 0,
+        "count": 0,
+        "busy": 0,
+        "overlay_focus": 0,
+        "pc": 1
+      },
+      "pause_patriots_selected": {
+        "kind": 11,
+        "index": 0,
+        "count": 0,
+        "busy": 0,
+        "overlay_focus": 1,
+        "pc": 0
+      },
+      "pause_quit_selected": {
+        "kind": 11,
+        "index": 0,
+        "count": 0,
+        "busy": 0,
+        "overlay_focus": 2,
+        "pc": 0
+      },
+      "quit_confirmation": {
+        "kind": 12,
+        "index": 0,
+        "count": 0,
+        "busy": 0,
+        "overlay_focus": 1,
+        "pc": 0
+      },
+      "quit_cancel_default": {
+        "kind": 11,
+        "index": 0,
+        "count": 0,
+        "busy": 0,
+        "overlay_focus": 2,
+        "pc": 0
+      },
+      "resume_b": {
+        "kind": 0,
+        "index": 0,
+        "count": 0,
+        "busy": 0,
+        "overlay_focus": 2,
+        "pc": 1
+      },
+      "result": {
+        "kind": 3,
+        "index": 0,
+        "count": 2,
+        "busy": 0,
+        "overlay_focus": 2,
+        "pc": 0
+      },
+      "next_mission": {
+        "kind": 2,
+        "index": 0,
+        "count": 1,
+        "busy": 0,
+        "overlay_focus": 2,
+        "pc": 0
+      }
+    }
+  },
+  "right_stick_text_scroll": {
+    "passed": true,
+    "native_exe_sha256": "0394cc78ccac080a5b189aed1cdf62e947a11655bc157d5e6ff64cd6474059f0",
+    "right_stick_text_scroll_both_directions": true,
+    "loading_with_both_sticks_and_held_confirm": true,
+    "confirm_works_after_loading": true,
+    "pause_and_resume": true,
+    "selection_boxes_removed_visual_check": true,
+    "probes": {
+      "top": {
+        "extent": 270000,
+        "position": 0
+      },
+      "down": {
+        "extent": 270000,
+        "position": -197948
+      },
+      "up": {
+        "extent": 270000,
+        "position": -299
+      },
+      "loading_axes": {
+        "extent": 0,
+        "position": 0
+      }
+    }
+  },
+  "special_history_and_hover": {
+    "passed": true,
+    "native_exe_sha256": "0394cc78ccac080a5b189aed1cdf62e947a11655bc157d5e6ff64cd6474059f0",
+    "special_history_landscape": true,
+    "history_right_stick_scroll": true,
+    "history_mouse_wheel_scroll": true,
+    "return_to_portrait_menus": true,
+    "mouse_hover_changes_button_color": true,
+    "selection_uses_color_without_outline": true,
+    "views": {
+      "hover_start": {
+        "scene": 1,
+        "case": 1,
+        "landscape": 0,
+        "rotation": 0,
+        "hover": 0,
+        "selected": 0
+      },
+      "hover_none": {
+        "scene": 1,
+        "case": 1,
+        "landscape": 0,
+        "rotation": 0,
+        "hover": -1,
+        "selected": 0
+      },
+      "special_menu": {
+        "scene": 14,
+        "case": 1,
+        "landscape": 0,
+        "rotation": 0,
+        "hover": -1,
+        "selected": 0
+      },
+      "history_list": {
+        "scene": 21,
+        "case": 1,
+        "landscape": 0,
+        "rotation": 0,
+        "hover": -1,
+        "selected": 0
+      },
+      "history_picture": {
+        "scene": 21,
+        "case": 7,
+        "landscape": 1,
+        "rotation": 90,
+        "hover": -1,
+        "selected": 0
+      },
+      "history_text": {
+        "scene": 21,
+        "case": 7,
+        "landscape": 1,
+        "rotation": 90,
+        "hover": -1,
+        "selected": 0
+      },
+      "back_picture": {
+        "scene": 21,
+        "case": 7,
+        "landscape": 1,
+        "rotation": 90,
+        "hover": -1,
+        "selected": 0
+      },
+      "back_history_list": {
+        "scene": 21,
+        "case": 1,
+        "landscape": 0,
+        "rotation": 0,
+        "hover": -1,
+        "selected": 0
+      },
+      "back_special": {
+        "scene": 14,
+        "case": 1,
+        "landscape": 0,
+        "rotation": 0,
+        "hover": -1,
+        "selected": 0
+      },
+      "back_main": {
+        "scene": 1,
+        "case": 1,
+        "landscape": 0,
+        "rotation": 0,
+        "hover": -1,
+        "selected": 0
+      }
+    },
+    "scroll": {
+      "history_top": [
+        90000,
+        0
+      ],
+      "history_down": [
+        90000,
+        -90000
+      ],
+      "wheel_up": [
+        90000,
+        0
+      ],
+      "wheel_down": [
+        90000,
+        -90000
+      ],
+      "history_up": [
+        90000,
+        0
+      ]
+    },
+    "pause_hover_matches_clicked_button": true
+  },
+  "discord_application_id": "1572290325937004574",
+  "discord_protocol": {
+    "passed": true,
+    "application_id": "1572290325937004574",
+    "checks": [
+      "handshake",
+      "mission",
+      "heartbeat",
+      "cleared"
+    ]
+  },
+  "whole_game_playthrough": false,
+  "full_dynamic_differential_suite_rerun": false,
+  "native_exe_sha256": "6d16947f5657b6c54eee2bc35f02363b1d25b9292c2bb1200720ce8201b401c7",
+  "launcher_exe_sha256": "b01ad16347040138431aa1cbfc9990f0dcbceea75fc1e188354db9c3f22f7645",
+  "current_build_check": {
+    "ending_advice": {
+      "passed": true,
+      "native_exe_sha256": "6d16947f5657b6c54eee2bc35f02363b1d25b9292c2bb1200720ce8201b401c7",
+      "scene_13_landscape": true,
+      "gamepad_next_uses_original_button": true,
+      "original_advice_exit": true,
+      "portrait_menu_restored": true,
+      "fixture": "Initialize original GameScene advice at scene 13; no boss win or player save fabricated"
+    },
+    "previous_regressions_rerun": false
+  },
+  "verification_scope": "1.0.8: original post-game advice screen rendered in landscape; controller confirmation exits the advice and restores portrait menus. Original GameScene advice initialized by a QA-only fixture; prior regression reports retain earlier executable hashes. The player's actual final-boss completion save is preserved."
+}

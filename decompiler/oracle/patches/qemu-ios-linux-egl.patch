@@ -1,0 +1,361 @@
+diff --git a/hw/arm/gles-host.c b/hw/arm/gles-host.c
+index 756ee1b..6371199 100644
+--- a/hw/arm/gles-host.c
++++ b/hw/arm/gles-host.c
+@@ -54,6 +54,7 @@
+  * glOrtho/glFrustum/glClearDepth take doubles on the desktop and floats in ES.
+  * Nothing here is a reimplementation; each shim below is a rename.
+  */
++#ifdef __APPLE__
+ #include <TargetConditionals.h>
+ #if !TARGET_OS_IPHONE
+ #include <VideoToolbox/VideoToolbox.h>
+@@ -62,6 +63,15 @@
+ #if TARGET_OS_IPHONE
+ #define GLES_HOST_EAGL 1
+ #endif
++#else
++/*
++ * Linux: the same desktop fixed-function renderer as macOS, with the context
++ * made by EGL instead of CGL. Every `#ifndef GLES_HOST_EAGL` below means
++ * "desktop GL", and that is still true here -- only context management and the
++ * one VideoToolbox helper differ, and those are the GLES_HOST_EGL blocks.
++ */
++#define GLES_HOST_EGL 1
++#endif
+ 
+ #ifdef GLES_HOST_EAGL
+ 
+@@ -143,6 +153,44 @@ bool gles_eagl_iosurface_bind(uint32_t width, uint32_t height,
+ void *gles_eagl_iosurface_lock(size_t *stride);
+ void gles_eagl_iosurface_unlock(void);
+ 
++#elif defined(GLES_HOST_EGL) /* Linux: EGL + desktop compatibility-profile GL */
++
++#define GL_GLEXT_PROTOTYPES 1
++#include <EGL/egl.h>
++#include <EGL/eglext.h>
++#include <GL/gl.h>
++#include <GL/glext.h>
++
++/*
++ * libglvnd's libOpenGL exports core GL only, so the EXT_framebuffer_object
++ * entry points this file was written against do not link. Their core (GL 3.0 /
++ * ARB_framebuffer_object) twins take the same arguments and the same token
++ * values, and in a compatibility context they also accept names the caller
++ * never generated, as EXT does. Same rename-only idea as the ES block above.
++ */
++#define glIsFramebufferEXT              glIsFramebuffer
++#define glIsRenderbufferEXT             glIsRenderbuffer
++#define glGenerateMipmapEXT             glGenerateMipmap
++#define glGenFramebuffersEXT            glGenFramebuffers
++#define glBindFramebufferEXT            glBindFramebuffer
++#define glFramebufferTexture2DEXT       glFramebufferTexture2D
++#define glGenRenderbuffersEXT           glGenRenderbuffers
++#define glBindRenderbufferEXT           glBindRenderbuffer
++#define glRenderbufferStorageEXT        glRenderbufferStorage
++#define glFramebufferRenderbufferEXT    glFramebufferRenderbuffer
++#define glCheckFramebufferStatusEXT     glCheckFramebufferStatus
++#define glDeleteFramebuffersEXT         glDeleteFramebuffers
++#define glDeleteRenderbuffersEXT        glDeleteRenderbuffers
++#define glGetRenderbufferParameterivEXT glGetRenderbufferParameteriv
++#define glGetFramebufferAttachmentParameterivEXT \
++                                        glGetFramebufferAttachmentParameteriv
++
++#define GLES_BGRA_READ_TYPE           GL_UNSIGNED_INT_8_8_8_8_REV
++
++/* The native context handle. Named after CGL's so the desktop-GL code paths
++ * below (sharegroups, per-guest-context state) stay shared with macOS. */
++typedef EGLContext CGLContextObj;
++
+ #else /* macOS: legacy CGL */
+ 
+ #include <OpenGL/OpenGL.h>
+@@ -592,8 +640,165 @@ static inline void gles_platform_frame_unlock(void)
+     gles_eagl_iosurface_unlock();
+ }
+ 
++#elif defined(GLES_HOST_EGL)
++
++/*
++ * EGL, with no window system at all.
++ *
++ * Every frame is rendered into gh.fbo and read back into guest memory, so the
++ * context never needs a surface -- exactly like the macOS CGL context, which
++ * is created without a drawable. EGL_MESA_platform_surfaceless gives that
++ * directly (and works on a render node or llvmpipe with no X/Wayland);
++ * the default display is the fallback for a vendor that lacks it.
++ *
++ * Desktop GL, not ES: this file speaks fixed-function GL 2.1 with *EXT FBOs.
++ * Asking for 2.1 with no profile bit yields a compatibility context, where all
++ * of that is real. IT_GLES_EGL_SOFTWARE=1 forces Mesa's llvmpipe.
++ */
++static EGLDisplay gles_egl_dpy = EGL_NO_DISPLAY;
++static EGLConfig gles_egl_cfg;
++
++static bool gles_egl_init(void)
++{
++    static bool tried;
++    PFNEGLGETPLATFORMDISPLAYEXTPROC get_platform_display;
++    EGLint major, minor, n = 0;
++    /* EGL_SURFACE_TYPE defaults to EGL_WINDOW_BIT, and a surfaceless display
++     * has pbuffer-only configs, so without DONT_CARE the choice comes back
++     * empty and every context fails with EGL_BAD_CONFIG. */
++    static const EGLint cfg_attrs[] = {
++        EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
++        EGL_SURFACE_TYPE, EGL_DONT_CARE,
++        EGL_NONE,
++    };
++
++    if (gles_egl_dpy != EGL_NO_DISPLAY) return true;
++    if (tried) return false;
++    tried = true;
++
++    if (getenv("IT_GLES_EGL_SOFTWARE")) {
++        setenv("LIBGL_ALWAYS_SOFTWARE", "1", 1);
++    }
++    get_platform_display = (PFNEGLGETPLATFORMDISPLAYEXTPROC)
++        eglGetProcAddress("eglGetPlatformDisplayEXT");
++    if (get_platform_display) {
++        gles_egl_dpy = get_platform_display(EGL_PLATFORM_SURFACELESS_MESA,
++                                            EGL_DEFAULT_DISPLAY, NULL);
++    }
++    if (gles_egl_dpy == EGL_NO_DISPLAY) {
++        gles_egl_dpy = eglGetDisplay(EGL_DEFAULT_DISPLAY);
++    }
++    if (gles_egl_dpy == EGL_NO_DISPLAY ||
++        !eglInitialize(gles_egl_dpy, &major, &minor)) {
++        fprintf(stderr, "[gles] EGL: no usable display (0x%x)\n", eglGetError());
++        gles_egl_dpy = EGL_NO_DISPLAY;
++        return false;
++    }
++    if (!eglBindAPI(EGL_OPENGL_API) ||
++        !eglChooseConfig(gles_egl_dpy, cfg_attrs, &gles_egl_cfg, 1, &n) || n < 1) {
++        fprintf(stderr, "[gles] EGL %d.%d: no desktop-GL config (0x%x)\n",
++                major, minor, eglGetError());
++        eglTerminate(gles_egl_dpy);
++        gles_egl_dpy = EGL_NO_DISPLAY;
++        return false;
++    }
++    fprintf(stderr, "[gles] EGL %d.%d (%s), surfaceless desktop GL\n", major, minor,
++            eglQueryString(gles_egl_dpy, EGL_VENDOR));
++    return true;
++}
++
++static EGLContext gles_egl_new_context(EGLContext share)
++{
++    static const EGLint attrs[] = {
++        EGL_CONTEXT_MAJOR_VERSION, 2,
++        EGL_CONTEXT_MINOR_VERSION, 1,
++        EGL_NONE,
++    };
++    return eglCreateContext(gles_egl_dpy, gles_egl_cfg,
++                            share ? share : EGL_NO_CONTEXT, attrs);
++}
++
++static inline void gles_native_set_current(CGLContextObj ctx)
++{
++    eglMakeCurrent(gles_egl_dpy, EGL_NO_SURFACE, EGL_NO_SURFACE,
++                   ctx ? ctx : EGL_NO_CONTEXT);
++}
++
++static inline void gles_native_release(CGLContextObj ctx)
++{
++    if (ctx && gles_egl_dpy != EGL_NO_DISPLAY) {
++        eglDestroyContext(gles_egl_dpy, ctx);
++    }
++}
++
++static bool gles_platform_context_create(void)
++{
++    if (!gles_egl_init()) return false;
++    /*
++     * CGL keeps a sharegroup alive by retaining its first context as the
++     * group's root. EGL has no retain, so the group gets a context of its own
++     * to play that part: every member shares with it, and it is destroyed only
++     * when the group is.
++     */
++    if (gh.group && !gh.group->root) {
++        gh.group->root = gles_egl_new_context(NULL);
++        if (!gh.group->root) {
++            fprintf(stderr, "[gles] EGL: sharegroup root failed (0x%x)\n", eglGetError());
++            return false;
++        }
++    }
++    gh.cgl = gles_egl_new_context(gh.group ? gh.group->root : NULL);
++    if (!gh.cgl) {
++        fprintf(stderr, "[gles] eglCreateContext failed (0x%x)\n", eglGetError());
++        return false;
++    }
++    if (!eglMakeCurrent(gles_egl_dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, gh.cgl)) {
++        fprintf(stderr, "[gles] eglMakeCurrent (surfaceless) failed (0x%x)\n",
++                eglGetError());
++        eglDestroyContext(gles_egl_dpy, gh.cgl);
++        gh.cgl = NULL;
++        return false;
++    }
++    return true;
++}
++
++/* Same reasoning as the CGL version: one vCPU thread, so this is almost always
++ * already current and the check is a thread-local read. */
++static inline void gles_platform_make_current(void)
++{
++    if (eglGetCurrentContext() != gh.cgl) {
++        gles_native_set_current(gh.cgl);
++    }
++}
++
++/* Readback present, same as macOS: an immediate-mode GPU has no tile resolve to
++ * avoid, so there is nothing to gain from a shared-memory render target. */
++static bool gles_platform_attach_iosurface(void)
++{
++    return false;
++}
++
++static inline void *gles_platform_frame_lock(size_t *stride)
++{
++    return NULL;
++}
++
++static inline void gles_platform_frame_unlock(void)
++{
++}
++
+ #else /* CGL */
+ 
++static inline void gles_native_set_current(CGLContextObj ctx)
++{
++    CGLSetCurrentContext(ctx);
++}
++
++static inline void gles_native_release(CGLContextObj ctx)
++{
++    CGLReleaseContext(ctx);
++}
++
+ static bool gles_platform_context_create(void)
+ {
+     CGLPixelFormatAttribute attrs[] = {
+@@ -3547,7 +3752,42 @@ static bool gles_surface_read(CPUState *cpu, uint32_t base, uint32_t stride,
+     return true;
+ }
+ 
+-#ifndef GLES_HOST_EAGL
++#ifdef GLES_HOST_EGL
++/*
++ * The VideoToolbox transfer below, in plain C: bi-planar 4:2:0 (a Y plane then
++ * interleaved Cb,Cr at half resolution, both with stride w) to B,G,R,A bytes,
++ * ITU-R BT.601 -- the matrix the macOS path pins. '420v' is video range
++ * (Y 16..235, C 16..240), '420f' full range.
++ */
++static bool gles_surface_nv12(unsigned w, unsigned h, uint32_t format,
++                              uint8_t *input, uint8_t *bgra)
++{
++    const bool full = format == 0x34323066;           /* '420f' */
++    const int ky = full ? 256 : 298;                   /* 8.8 fixed point */
++    const int y0 = full ? 0 : 16;
++    const int kr = full ? 359 : 409, kb = full ? 454 : 516;
++    const int kgu = full ? 88 : 100, kgv = full ? 183 : 208;
++    const uint8_t *yp = input, *uvp = input + (size_t)w * h;
++
++    for (unsigned y = 0; y < h; y++) {
++        const uint8_t *yrow = yp + (size_t)y * w;
++        const uint8_t *uvrow = uvp + (size_t)(y / 2) * w;
++        uint8_t *out = bgra + (size_t)y * w * 4;
++        for (unsigned x = 0; x < w; x++) {
++            int c = ky * ((int)yrow[x] - y0);
++            int u = (int)uvrow[x & ~1u] - 128, v = (int)uvrow[(x & ~1u) + 1] - 128;
++            int r = (c + kr * v + 128) >> 8;
++            int g = (c - kgu * u - kgv * v + 128) >> 8;
++            int b = (c + kb * u + 128) >> 8;
++            out[x * 4 + 0] = b < 0 ? 0 : b > 255 ? 255 : b;
++            out[x * 4 + 1] = g < 0 ? 0 : g > 255 ? 255 : g;
++            out[x * 4 + 2] = r < 0 ? 0 : r > 255 ? 255 : r;
++            out[x * 4 + 3] = 255;
++        }
++    }
++    return true;
++}
++#elif !defined(GLES_HOST_EAGL)
+ static bool gles_surface_nv12(unsigned w, unsigned h, OSType format,
+                               uint8_t *input, uint8_t *bgra)
+ {
+@@ -5336,7 +5576,7 @@ static uint32_t gles_handle = 0x80000000;
+ static void gles_group_unref(GLESGroup *group)
+ {
+     if (!group || --group->refs) return;
+-    if (group->root) CGLReleaseContext(group->root);
++    if (group->root) gles_native_release(group->root);
+     g_hash_table_destroy(group->buffers);
+     g_hash_table_destroy(group->surfaces);
+     g_hash_table_destroy(group->rb_sized);
+@@ -5361,12 +5601,12 @@ static void gles_context_free(GLESHost *state)
+     g_free(state->decbuf); g_free(state->readback);
+     if (state->fbo_drawable) g_hash_table_destroy(state->fbo_drawable);
+     if (state->cgl) {
+-        CGLSetCurrentContext(state->cgl);
++        gles_native_set_current(state->cgl);
+         glDeleteFramebuffersEXT(1, &state->fbo);
+         glDeleteTextures(1, &state->tex);
+         glDeleteRenderbuffersEXT(1, &state->depth);
+-        CGLSetCurrentContext(NULL);
+-        CGLReleaseContext(state->cgl);
++        gles_native_set_current(NULL);
++        gles_native_release(state->cgl);
+     }
+     gles_group_unref(state->group);
+     if (!state->group) {
+diff --git a/hw/arm/meson.build b/hw/arm/meson.build
+index cfbcf3e..dd2baa1 100644
+--- a/hw/arm/meson.build
++++ b/hw/arm/meson.build
+@@ -76,11 +76,12 @@ system_ss.add(when: 'CONFIG_SX1', if_true: files('omap_sx1.c'))
+ system_ss.add(when: 'CONFIG_VERSATILE', if_true: files('versatilepb.c'))
+ system_ss.add(when: 'CONFIG_VEXPRESS', if_true: files('vexpress.c'))
+ 
+-# gles-host.c is one renderer with two context backends: a legacy CGL context
+-# on macOS (created in gles-host.c itself) and an EAGLContext on iOS
+-# (gles-host-eagl.m). It picks between them on TARGET_OS_IPHONE, so the choice
+-# here is only which framework and which extra file to add. A host with neither
+-# framework gets a stub and the guest's GLES HLE probe fails cleanly.
++# gles-host.c is one renderer with three context backends: a legacy CGL context
++# on macOS (created in gles-host.c itself), an EAGLContext on iOS
++# (gles-host-eagl.m), and a surfaceless EGL context on Linux. It picks between
++# them on __APPLE__/TARGET_OS_IPHONE, so the choice here is only which
++# dependencies and which extra file to add. A host with none of them gets a
++# stub and the guest's GLES HLE probe fails cleanly.
+ if host_opengl.found()
+   arm_ss.add(when: 'CONFIG_IPOD_TOUCH_2G', if_true: [files('gles-host.c'), host_opengl])
+ elif host_gles.found()
+@@ -90,6 +91,10 @@ elif host_gles.found()
+   # sysroot's --extra-ldflags vanish from the link.
+   arm_ss.add(when: 'CONFIG_IPOD_TOUCH_2G',
+              if_true: [files('gles-host.c', 'gles-host-eagl.c'), host_gles])
++elif gles_linux_egl.found() and gles_linux_gl.found()
++  # Linux: gles-host.c's GLES_HOST_EGL branch (surfaceless EGL context).
++  arm_ss.add(when: 'CONFIG_IPOD_TOUCH_2G',
++             if_true: [files('gles-host.c'), gles_linux_egl, gles_linux_gl])
+ else
+   arm_ss.add(when: 'CONFIG_IPOD_TOUCH_2G', if_true: files('gles-host-stub.c'))
+ endif
+diff --git a/meson.build b/meson.build
+index d9f16b4..d0b4e50 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1223,6 +1223,15 @@ host_gles = dependency('appleframeworks',
+                        modules: ['OpenGLES', 'Foundation', 'IOSurface',
+                                  'CoreFoundation'],
+                        required: false)
++# Linux: the macOS renderer unchanged, with its context made by EGL
++# (surfaceless) and its GL from libglvnd's libOpenGL -- a compatibility-profile
++# desktop GL, so fixed-function forwarding still needs no shader translation.
++gles_linux_egl = not_found
++gles_linux_gl = not_found
++if host_os == 'linux'
++  gles_linux_egl = dependency('egl', required: false)
++  gles_linux_gl = dependency('opengl', required: false)
++endif
+ 
+ vmnet = dependency('appleframeworks', modules: 'vmnet', required: get_option('vmnet'))
+ if vmnet.found() and not cc.has_header_symbol('vmnet/vmnet.h',

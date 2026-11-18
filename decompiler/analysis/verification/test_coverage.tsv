@@ -1,0 +1,1396 @@
+addr	function	verdict	v0	instructions	covered	pct	rows_with_cov	uncovered_runs(first 12)
+0x25bc	entry	untestable	V0	17	0	0.0	0	25bc-25fc
+0x2608	dyld_stub_binding_helper	fail	V0	6	0	0.0	0	2608-261c
+0x2628	_main	fail	V0	56	0	0.0	0	2628-26e2
+0x2704	__Texture2D_setClamp:_	pass		4	4	100.0	8	
+0x2710	__Texture2D_maxT_	pass		4	4	100.0	12	
+0x271c	__Texture2D_maxS_	pass		4	4	100.0	12	
+0x2728	__Texture2D_name_	pass		4	4	100.0	12	
+0x2734	__Texture2D_pixelFormat_	pass		4	4	100.0	12	
+0x2740	__Texture2D_contentSize_	pass		8	8	100.0	12	
+0x2754	__Texture2D_Drawing__getImgW_	pass		23	19	82.6	201	277a-2782
+0x2798	__Texture2D_Drawing__getImgH_	pass		23	19	82.6	201	27be-27c6
+0x27dc	__Texture2D_Text__initWithString:dimensions:alignment:fontName:fontSize:a:r:g:b:_	pass		32	32	100.0	6	
+0x2828	__Texture2D_Image__initWithImageA8Filename:ofType:_	pass		77	36	46.8	2	2846-287c 289e-28c0
+0x28fc	__Texture2D_Image__initWithImageFilename:ofType:_	pass		92	38	41.3	9	291a-296a 2990-29b6
+0x29f8	__Texture2D_description_	pass		54	54	100.0	12	
+0x2a90	__Texture2D_initWithData:pixelFormat:pixelsWide:pixelsHigh:contentSize:_	pass		144	122	84.7	6	2b18-2b30 2b5e-2b6e
+0x2c34	__Texture2D_initialize_	pass		38	27	71.1	2	2c5c-2c74
+0x2ca0	__Texture2D_dealloc_	pass		22	22	100.0	9	
+0x2cdc	__Texture2D_Drawing__drawInRectRot:ST:_	pass		113	97	85.8	9	2d70-2d80 2db0-2dc0
+0x2dfc	__Texture2D_Drawing__drawInRect:ST:_	pass		105	89	84.8	18	2e86-2e96 2ec6-2ed6
+0x2f0c	__Texture2D_Drawing__drawInRect:Clip:Anchor:Rot_X:Rot_Y:Rot_Z:_	pass		433	343	79.2	201	2f68-2f7a 3020-3028 3148-31a6 31b4-3212
+0x3370	__Texture2D_Drawing__drawInRect:Clip:Rot:Scale:Anchor:_	pass		62	62	100.0	201	
+0x33fc	__Texture2D_Drawing__drawAtPoint:Clip:Rot:Scale:Anchor:_	pass		73	65	89.0	123	3444-3456
+0x34b8	__Texture2D_Drawing__drawAtPoint:_	pass		86	79	91.9	12	3506-3514
+0x359c	__Texture2D_Rect__initWithCircle:a:r:g:b:_	pass		120	108	90.0	12	35c6-35d0 35e4-35ee
+0x36bc	__Texture2D_Rect__initWithRect:a:r:g:b:_	pass		120	108	90.0	4	36e6-36f0 3704-370e
+0x37dc	__Texture2D_Image__initWithImageA8:_	pass		311	199	64.0	2	37fc-380e 3828-3836 3874-387e 3894-38a0 38ac-38e0 38fa-394c 3974-3998 3a42-3a4c
+0x3ad4	__Texture2D_Image__initWithImage:_	pass		331	205	61.9	9	3b20-3b2e 3b3a-3b3c 3b7a-3b84 3b9a-3ba6 3bb2-3be6 3c00-3c4e 3c70-3c8c 3d32-3d74
+0x3df8	__Texture2D_Text__initWithString:dimensions:alignment:fontName:fontSize:a:r:g:b:lineSpace:_	pass		266	168	63.2	6	3e3a-3e72 3f5e-3ffe
+0x4088	__Texture2D_Text__initWithString:dimensions:alignment:fontName:fontSize:_	pass		185	149	80.5	12	40ca-4102 4128-4132 4146-4150
+0x425c	__DWconnect_DataConnect_	pass		1	1	100.0	12	
+0x425e	__DWconnect_ConvertDataNSNumber::_	pass		22	22	100.0	6	
+0x42a4	__DWconnect_ConvertDataNSArray::_	pass		22	22	100.0	6	
+0x42ec	__DWconnect_DataRead::_	pass		21	21	100.0	7	
+0x4330	__DWconnect_DWWebTo:_	pass		22	22	100.0	9	
+0x4378	__DWWebView_dealloc_	pass		13	13	100.0	12	
+0x439c	__DWWebView_webView:didFailLoadWithError:_	pass		43	43	100.0	9	
+0x4420	__DWWebView_webViewDidFinishLoad:_	pass		12	12	100.0	9	
+0x4448	__DWWebView_webViewDidStartLoad:_	pass		12	12	100.0	12	
+0x4470	__DWWebView_closeWebView_	pass		6	6	100.0	12	
+0x4484	__DWWebView_openWebView:url:_	pass		40	40	100.0	9	
+0x44f8	__DWWebView_initWithFrame:_	pass		90	37	41.1	2	4532-45a8
+0x45f0	__CrashLandingAppDelegate_alertView:clickedButtonAtIndex:_	pass		4	4	100.0	12	
+0x45fc	__CrashLandingAppDelegate_ReturnDiaLogResult_	pass		9	9	100.0	12	
+0x4614	__CrashLandingAppDelegate_GetFigue:_	pass		15	15	100.0	6	
+0x4634	__CrashLandingAppDelegate_Fade_Control_	pass		56	35	62.5	201	467a-46a6
+0x46c8	__CrashLandingAppDelegate_Fade_Set:_	pass		36	27	75.0	6	46fc-470c
+0x4728	__CrashLandingAppDelegate_sh_getExplosionRectScale::_	pass		10	10	100.0	13	
+0x4744	__CrashLandingAppDelegate_Title_AnimControl_	pass		187	53	28.3	117	4774-4808 482a-482c 483c-48d4
+0x4910	__CrashLandingAppDelegate_GetMenuNum:_	pass		15	7	46.7	117	4932-4936 4954-4960
+0x4964	__CrashLandingAppDelegate_get_WPNum:_	pass		11	9	81.8	12	497a-497c
+0x498c	__CrashLandingAppDelegate_getMovieURL:_	pass		2	2	100.0	12	
+0x4990	__CrashLandingAppDelegate_drebin_is_announce::_	pass		49	10	20.4	12	4998-49c2 49cc-49ec
+0x4a00	__CrashLandingAppDelegate_Get_StoryBgmNo:_	pass		4	4	100.0	2	
+0x4a0c	__CrashLandingAppDelegate_title_manual_is_back_	pass		18	9	50.0	12	4a1c-4a2c
+0x4a38	__CrashLandingAppDelegate_title_manual_is_next_	pass		17	15	88.2	12	4a44-4a46
+0x4a64	__CrashLandingAppDelegate_title_manual_is_inspect_	pass		20	20	100.0	2	
+0x4a90	__CrashLandingAppDelegate_checkMoji:_	pass		61	11	18.0	6	4aa4-4b06
+0x4b0a	__CrashLandingAppDelegate_checkKana:_	pass		25	10	40.0	12	4b1c-4b38
+0x4b40	__CrashLandingAppDelegate_checkAlphabet::_	pass		75	26	34.7	6	4b5c-4b68 4b6e-4b84 4b8e-4ba2 4ba8-4bcc
+0x4bd6	__CrashLandingAppDelegate_GetAnimColor:_	pass		9	9	100.0	9	
+0x4bec	__CrashLandingAppDelegate_GetAnimColorBlink:_	pass		38	36	94.7	120	4c04-4c06
+0x4c44	__CrashLandingAppDelegate_GetAnimColorBack_	pass		31	12	38.7	99	4c5a-4c80
+0x4c8c	__CrashLandingAppDelegate_updateAnimeColor_	pass		36	30	83.3	201	4c96-4ca0
+0x4ce8	__CrashLandingAppDelegate_drebin_drawAnnounce_side_	pass		151	151	100.0	12	
+0x4eac	__CrashLandingAppDelegate_drebin_drawAnnounce_	pass		150	150	100.0	12	
+0x5068	__CrashLandingAppDelegate_drawLoadingAct:_	pass		39	15	38.5	12	507e-50b0
+0x50dc	__CrashLandingAppDelegate_drawAdvice_	pass		184	184	100.0	12	
+0x5308	__CrashLandingAppDelegate_draw_dp_resalt::::_	pass		325	147	45.2	12	544a-55e8
+0x5638	__CrashLandingAppDelegate_drebin_drawView_	pass		40	24	60.0	12	564a-5668
+0x56b4	__CrashLandingAppDelegate_draw_Dp:::::_	pass		151	151	100.0	6	
+0x583c	__CrashLandingAppDelegate_drebin_drawBar_	pass		724	564	77.9	6	593c-594c 5958-59d4 5b4c-5b4e 5bf2-5c5c 5c7a-5ce0
+0x5f60	__CrashLandingAppDelegate_drebin_drawBottommenu_	pass		192	145	75.5	6	5fc2-5ff0 6000-6030
+0x6164	__CrashLandingAppDelegate_GetAnimColorNext:_	pass		31	11	35.5	120	6172-619a
+0x61b4	__CrashLandingAppDelegate_GetAnimColorBlink_	pass		7	7	100.0	12	
+0x61c8	__CrashLandingAppDelegate_title_drawLogo_	pass		90	90	100.0	117	
+0x62c0	__CrashLandingAppDelegate_wordWrap::_	pass		69	66	95.7	6	6310-6314
+0x635c	__CrashLandingAppDelegate_wordWrapCheck:_	pass		29	21	72.4	6	6388-6398
+0x63a0	__CrashLandingAppDelegate_title_manual_main_	pass		99	45	45.5	12	63f4-6412 641c-646c
+0x64c4	__CrashLandingAppDelegate_title_manual_release_	pass		26	26	100.0	12	
+0x6514	__CrashLandingAppDelegate_Credit_Release_	pass		36	36	100.0	12	
+0x6568	__CrashLandingAppDelegate_title_radio_main_	pass		25	25	100.0	12	
+0x65b4	__CrashLandingAppDelegate_title_movie_main_	pass		25	25	100.0	9	
+0x6600	__CrashLandingAppDelegate_title_history_main_	pass		99	45	45.5	12	6654-6672 667c-66cc
+0x6724	__CrashLandingAppDelegate_GetStoryText:_	pass		16	14	87.5	2	672e-6730
+0x6750	__CrashLandingAppDelegate_story_release_	pass		54	54	100.0	2	
+0x67f4	__CrashLandingAppDelegate_drebin_announce_release_	pass		34	34	100.0	12	
+0x6858	__CrashLandingAppDelegate_drebin_is_announce:_	pass		10	10	100.0	12	
+0x6874	__CrashLandingAppDelegate_getWPName:thum:_	pass		25	10	40.0	12	6886-68a2
+0x68bc	__CrashLandingAppDelegate_title_bg_move_	pass		111	108	97.3	117	6944-6948
+0x69e8	__CrashLandingAppDelegate_title_shoot_stage_select_	pass		25	25	100.0	84	
+0x6a34	__CrashLandingAppDelegate_title_shoot_mode_select_	pass		25	25	100.0	12	
+0x6a80	__CrashLandingAppDelegate_title_main_	pass		25	25	100.0	27	
+0x6acc	__CrashLandingAppDelegate_sh_procDrum_	pass		106	44	41.5	75	6b08-6b90
+0x6bcc	__CrashLandingAppDelegate_sh_checkHitDrum:rect:_	pass		223	40	17.9	3	6c08-6dba
+0x6e00	__CrashLandingAppDelegate_sh_hitCheckWithExplosion_	pass		541	166	30.7	75	6ee8-70b6 70f2-7194 7218-72fc 7324-733c
+0x7368	__CrashLandingAppDelegate_StageObjLoad_	pass		167	95	56.9	12	73aa-73c2 73cc-7410 748a-74be
+0x7550	__CrashLandingAppDelegate_GitaiLoad_	pass		29	29	100.0	12	
+0x75b0	__CrashLandingAppDelegate_game_start_release_	pass		47	47	100.0	2	
+0x7628	__CrashLandingAppDelegate_ImageLoad_	pass		136	136	100.0	3	
+0x779c	__CrashLandingAppDelegate_SoundLoad_	pass		100	100	100.0	2	
+0x78b4	__CrashLandingAppDelegate_TouchLoop_	pass		14	14	100.0	12	
+0x78dc	__CrashLandingAppDelegate_sh_release_enemy_	pass		172	124	72.1	12	7918-7920 7948-795e 7964-7968 7980-79ba
+0x7a78	__CrashLandingAppDelegate_sh_release_	pass		221	189	85.5	3	7b22-7b58 7b68-7b78
+0x7cf4	__CrashLandingAppDelegate_sh_load_enemy:_	pass		74	74	100.0	2	
+0x7db8	__CrashLandingAppDelegate_sh_load_enemy_setting_	pass		353	236	66.9	2	7e36-7e42 7e7c-7ec4 7ed0-7f5c 7f6a-7f6e 8096-809e
+0x812c	__CrashLandingAppDelegate_LocalizeString:_	pass		64	64	100.0	6	
+0x81d8	__CrashLandingAppDelegate_accelerometer:didAccelerate:_	pass		325	273	84.0	6	82f6-8340 83ae-83b6 83c4-83c6 845c-8466 849a-84a0
+0x84f4	__CrashLandingAppDelegate_initDiaLog::::_	pass		37	37	100.0	12	
+0x8560	__CrashLandingAppDelegate_applicationWillTerminate:_	pass		10	10	100.0	12	
+0x8580	__CrashLandingAppDelegate_initAccelero_	pass		67	67	100.0	2	
+0x864c	compare	pass		17	17	100.0	75	
+0x867c	__CrashLandingAppDelegate_getStringWidth:::_	pass		56	56	100.0	6	
+0x871c	__CrashLandingAppDelegate_GetTouch_Purchase_	pass		43	31	72.1	12	875c-8774
+0x8794	__CrashLandingAppDelegate_Get_TitleTouch_Logo_	pass		33	22	66.7	12	87c0-87d6
+0x87ec	__CrashLandingAppDelegate_Get_TitleTouch_Help_	pass		33	22	66.7	5	8818-882e
+0x8844	__CrashLandingAppDelegate_Get_TitleTouch_Back_	pass		33	22	66.7	5	8870-8886
+0x889c	__CrashLandingAppDelegate_setMimicObjects_	pass		117	68	58.1	12	8900-896a
+0x89b4	__CrashLandingAppDelegate_setStageObjects_	pass		145	145	100.0	3	
+0x8b14	__CrashLandingAppDelegate_sh_drawFadeForChangingBG_	pass		369	26	7.0	75	8b3e-8e28
+0x8ed4	__CrashLandingAppDelegate_sh_drawInterface_	pass		1650	1277	77.4	75	8f6e-8f8c 8fce-8fd6 9040-9046 9092-9098 90b6 90e0-90e6 910c-915e 916e-9182 91b8-91ca 9206-9208 9252-9254 9360-9362
+0x9f10	__CrashLandingAppDelegate_title_drawHelp_	pass		216	176	81.5	117	9fce-a006 a012-a01c a09c-a0ac
+0xa154	__CrashLandingAppDelegate_title_manual_set_inspect:_	pass		36	21	58.3	12	a160-a174 a192-a198
+0xa1a8	__CrashLandingAppDelegate_drebin_announce_skip_	pass		39	28	71.8	12	a1c2-a1c6 a1d4-a1d8 a1e6-a1ea a1f0-a1f2
+0xa20c	__CrashLandingAppDelegate_dealloc_	pass		63	63	100.0	12	
+0xa2c0	__CrashLandingAppDelegate_renderScene_	pass	V0	128	108	84.4	201	a344-a346 a362-a364 a392-a3b0
+0xa458	__CrashLandingAppDelegate_applicationWillResignActive:_	pass		16	16	100.0	12	
+0xa488	__CrashLandingAppDelegate_applicationDidBecomeActive:_	pass		24	17	70.8	2	a498 a4ac-a4b6
+0xa4cc	__CrashLandingAppDelegate_applicationDidReceiveMemoryWarning:_	pass		5	5	100.0	12	
+0xa4dc	__CrashLandingAppDelegate_ReturnStageGame:_	pass		204	32	15.7	12	a500-a512 a520-a68a
+0xa730	__CrashLandingAppDelegate_playMovieAtURL:_	pass		47	47	100.0	9	
+0xa7c8	__CrashLandingAppDelegate_startGameBGM_	pass		22	22	100.0	2	
+0xa808	__CrashLandingAppDelegate_myMovieFinishedCallback:_	pass		51	46	90.2	12	a842-a84a
+0xa8a4	__CrashLandingAppDelegate_sh_drawResult_	pass		115	29	25.2	12	a8c2-a976 a982-a984
+0xa9f0	__CrashLandingAppDelegate_title_manual_view_main_	pass		254	51	20.1	12	aa06-aa76 aa84-ab2a ab64-abfe
+0xac7c	__CrashLandingAppDelegate_Credit_Main_	pass		185	122	65.9	9	ac98-acf0 ad26-ad54
+0xae70	__CrashLandingAppDelegate_title_history_view_main_	pass		311	93	29.9	12	aea8-aef0 af00-af30 af92-afea affa-b0fa
+0xb188	__CrashLandingAppDelegate_story_main_	pass		330	118	35.8	9	b1d0-b208 b218-b254 b2a2-b2e6 b30c-b340 b34e-b37a b39a-b446
+0xb4bc	__CrashLandingAppDelegate_drebin_announce_main_	pass		140	31	22.1	12	b4d4-b552 b57a-b5e6
+0xb640	__CrashLandingAppDelegate_drebin_movie_	pass		60	32	53.3	12	b67a-b688 b696-b6c2
+0xb6f4	__CrashLandingAppDelegate_drebin_view_	pass		59	30	50.8	12	b72a-b738 b744-b772
+0xb7a0	__CrashLandingAppDelegate_drebin_main_	pass		117	29	24.8	6	b7d0-b88e
+0xb8d0	__CrashLandingAppDelegate_sh_procClearCondition_	pass		131	63	48.1	6	b912-b930 b946-b956 b962-b9c4
+0xba30	__CrashLandingAppDelegate_getNextStageBG:random:_	pass		117	117	100.0	12	
+0xbb3c	__CrashLandingAppDelegate_sh_gameMain_	pass		374	236	63.1	75	bb70-bbb8 bcc8-bcd4 bd62-bd9e bdb2-bdba bdc0-be40 be84-be86
+0xbf5c	__CrashLandingAppDelegate_drebin_drawBuymenu_	pass		853	0	0.0	0	bf5c-c776
+0xc790	__CrashLandingAppDelegate_drebin_drawBackground_	pass		181	181	100.0	6	
+0xc988	__CrashLandingAppDelegate_drebin_buy_	pass		295	81	27.5	9	ca1a-ca5c ca70-cbf2
+0xcc84	__CrashLandingAppDelegate_Load_	pass		286	189	66.1	9	cd34-cd38 cd40-cd4e cda2-cda4 cdde-ce8a
+0xcf34	__CrashLandingAppDelegate_ALRL_Load::_	pass		76	73	96.1	9	cfca-cfce
+0xd00c	__CrashLandingAppDelegate_sh_initgame_	pass		276	252	91.3	2	d100-d112 d12c-d134 d142-d14a d1f0-d1f8
+0xd32c	__CrashLandingAppDelegate_drebin_DataLoad_	pass		629	521	82.8	12	d462-d480 d49e-d4bc d4da-d4f8 d516-d534 d552-d570 d58e-d5aa d5e8-d604 d824-d82a
+0xd894	__CrashLandingAppDelegate_title_loadMenuData_	pass		483	287	59.4	2	d984-d998 d9c4-d9d8 da12-da24 da4e-da50 da72-da78 da9c-daa8 daae-dac2 dad8-db72 db80-db86 dbba-dbec dc4c-dc84 dca4-dcae
+0xdcc0	__CrashLandingAppDelegate_loadStageData_	pass		2014	677	33.6	2	ddf4-de74 df44-df5e dfce-e026 e10c-e182 e1e4-e25a e2d4-e346 e374-e838 e8c2-e8f6 e938-e9c0 e9d0-ea0e ea22-ea80 ea88-eaea
+0xf008	__CrashLandingAppDelegate_option_release_	pass		228	228	100.0	12	
+0xf248	__CrashLandingAppDelegate_drebin_release_	pass		251	245	97.6	12	f3da-f3e6
+0xf4cc	__CrashLandingAppDelegate_title_release_	pass		234	234	100.0	2	
+0xf724	__CrashLandingAppDelegate_releaseStageData_	pass		189	189	100.0	12	
+0xf8ec	__CrashLandingAppDelegate_ReleasePack_	pass		89	50	56.2	12	f90c-f932 f956-f976 f98c-f996
+0xf9c8	__CrashLandingAppDelegate_LoadSet::::::::::_	pass		107	107	100.0	12	
+0xfaac	__CrashLandingAppDelegate_LoadSet::::::_	pass		142	142	100.0	6	
+0xfc04	__CrashLandingAppDelegate_Menu_Touch:_	pass		921	187	20.3	117	fc4a fc52 fc5a fcc0-102ca 103a0-104c8
+0x104f4	__CrashLandingAppDelegate_title_option_main_	pass		212	44	20.8	12	1054e-106b6
+0x10700	__CrashLandingAppDelegate_GetAutoLineFeedText:::_	pass		53	53	100.0	4	
+0x10798	__CrashLandingAppDelegate_Hyphenation:::_	pass		106	79	74.5	6	10806-10842
+0x10898	__CrashLandingAppDelegate_AutoLineFeed:::_	pass		111	111	100.0	6	
+0x109a0	__CrashLandingAppDelegate_bottomNGwordCheck::_	pass		59	53	89.8	6	109de-109e4 10a04-10a06
+0x10a20	__CrashLandingAppDelegate_topNGwordCheck:_	pass		53	51	96.2	12	10a78-10a7a
+0x10a94	__CrashLandingAppDelegate_sh_drawMain_	pass		238	230	96.6	75	10b24-10b2c 10c0a-10c12
+0x10d14	__CrashLandingAppDelegate_initialize_	pass		43	43	100.0	2	
+0x10da0	audioInterruptionCallback	pass		24	17	70.8	12	10dbe-10dca
+0x10ddc	__CrashLandingAppDelegate_Get_StringLinestr:::_	pass		85	43	50.6	246	10e22-10e7c
+0x10eac	__CrashLandingAppDelegate_Get_StringLineNum:_	pass		54	54	100.0	252	
+0x10f2c	__CrashLandingAppDelegate_GameScene_	pass		2858	234	8.2	201	10f8e 10fac-10fae 11002-1101a 11028-11030 1105e-1113a 11170-111b8 111de-11360 1138c-113c0 113d6-11598 115a8-115b2 115c8-118a6 11904
+0x13468	__CrashLandingAppDelegate_title_manual_load:_	pass		222	205	92.3	12	134ee-1350e
+0x136b0	__CrashLandingAppDelegate_Credit_Load_	pass		107	107	100.0	12	
+0x137dc	__CrashLandingAppDelegate_option_load_	pass		1084	63	5.8	12	137f8-13880 138b2-138d4 138dc-13946 13950-13b32 13baa-13d36 13d3e-13f6c 13fe0-1407c 14082-140a4 140ac-141fc
+0x142cc	__CrashLandingAppDelegate_title_history_release_	pass		95	95	100.0	12	
+0x143dc	__CrashLandingAppDelegate_title_history_load:_	pass		225	220	97.8	12	143f2-143f6 143fc-143fe
+0x14640	__CrashLandingAppDelegate_story_load_	pass		632	333	52.7	6	1470c-1477c 1478a-147fc 148f4-14900 14906-14908 1490e-1491a 14920-14926 14abc-14c36
+0x14ca4	__CrashLandingAppDelegate_drebin_announce_load_	pass		244	225	92.2	12	14ccc-14cd0 14ce6-14cec 14d06-14d16 14d4c-14d50
+0x14f60	__CrashLandingAppDelegate_Drebin_AnimControl_	pass		346	37	10.7	6	14f80-151d4 151ea-1522a 15236-1523c
+0x152cc	__CrashLandingAppDelegate_Drebin_Touch_	pass		588	228	38.8	6	15378-1537a 153da-157ae 1588c-1588e
+0x158fc	__CrashLandingAppDelegate_drebin_load_	pass		1983	160	8.1	12	1591c-159ba 15a8c-15b34 15b3c-15bac 15bb4-15c24 15c2e-15c9e 15d38-15da8 15db0-15e20 15e2a-15f66 15fca-16250 162b6-1641c 16422-1649e 164a4-16586
+0x16c68	__CrashLandingAppDelegate_Change_scene:_	pass		200	157	78.5	6	16cf6-16d2c 16d9c-16d9e 16de4-16e02
+0x16e78	__CrashLandingAppDelegate_title_load_	pass		2213	126	5.7	2	16e96-16f1c 16f22-16f9c 16fa4-17034 1703a-1705e 17066-1708a 17092-1712c 17136-17252 17304-173aa 173b2-1745a 17512-175c2 175ca-18382
+0x183f8	__CrashLandingAppDelegate_createTexWithText:fontSize:_	pass		56	56	100.0	6	
+0x18494	__CrashLandingAppDelegate_game_start_load_	pass		343	306	89.2	2	186ca-1871c
+0x18808	__CrashLandingAppDelegate_LoadChange_	pass		551	84	15.2	12	1884e-18884 188a8-188ec 18912-189c0 189ce-18a84 18a92-18ad6 18ae4-18b06 18b14-18b30 18b3e-18b5c 18c04-18c76 18c86-18dd6
+0x18eb4	__CrashLandingAppDelegate_sh_load_	pass		1580	372	23.5	10	18f74-18f8a 18fa2-18fc4 19178 1918a-1921c 19230-19264 19362-194c2 194ca-19550 19558-19576 19612-197d6 197de-19958 199c2-19bcc 19bd2-19bd4
+0x19f1c	__CrashLandingAppDelegate_sh_procResult_	pass		275	157	57.1	12	19f38-19f3a 19f4a-19f7e 1a086-1a13a 1a154-1a1a2
+0x1a5a8	__CrashLandingAppDelegate_applicationDidFinishLaunching:_	pass		624	565	90.5	12	1a602-1a616 1a62c-1a634 1ab94-1abf6
+0x1aca4	__CrashLandingAppDelegate_sh_drawResult_Clear_	pass		1830	179	9.8	12	1ad1a-1ad48 1ad76-1ad7e 1ae24-1b93c 1b94e-1ba90 1baa2-1bc52 1bc5a-1bdaa 1bdc8-1be1a
+0x1be70	__CrashLandingAppDelegate_sh_drawClearCondition_	pass		648	249	38.4	6	1bed2-1beda 1bf64-1bf88 1bfa4-1bfbe 1bfd0-1bfea 1bffc-1c016 1c028-1c064 1c07a-1c3c0
+0x1c4f4	__CrashLandingAppDelegate_drawHistory_	pass		451	205	45.5	12	1c512-1c538 1c55c-1c584 1c5c6-1c81c 1c95a-1c95c
+0x1c9c4	__CrashLandingAppDelegate_story_draw_	pass		514	381	74.1	9	1ca2a-1ca48 1cace-1caf6 1cb38-1cbd4 1cc6c-1cc7c 1cc8a-1cc9a 1cdc0-1cdc2 1ceba-1cebc
+0x1cf18	__CrashLandingAppDelegate_drawManual_	pass		351	258	73.5	12	1cf32-1cfba 1cffa-1d002 1d108-1d138
+0x1d2c8	__CrashLandingAppDelegate_title_drawHelptxt_	pass		288	20	6.9	117	1d2e4-1d528
+0x1d5c4	__CrashLandingAppDelegate_title_drawBar_	pass		767	542	70.7	117	1d676-1d6ca 1d70e-1d724 1d758-1d772 1d78a-1d794 1d7a2-1d80a 1d944-1d952 1da16-1dad2 1daea-1db16 1dc4a-1dc52
+0x1dd7c	__CrashLandingAppDelegate_sh_drawResult_Failed_	pass		464	214	46.1	12	1ddd0-1ddd8 1deb2-1deb4 1dece-1df00 1df0e-1df32 1df86-1dfea 1dffe-1e1f8
+0x1e24c	__CrashLandingAppDelegate_Draw_Fade_	pass		111	106	95.5	201	1e2c2-1e2ca
+0x1e384	__CrashLandingAppDelegate_title_drawBackground_	pass		189	185	97.9	117	1e486-1e48c
+0x1e568	__CrashLandingAppDelegate_DrawGame_	pass		190	141	74.2	201	1e600-1e606 1e628-1e676 1e6a6-1e6a8 1ec10-1ec12 1f1dc-1f1de 1f1f4-1f1f6
+0x1f238	ALSound::updateStream	pass		10	10	100.0	12	
+0x1f24c	ALSound::isPlaying	pass		23	21	91.3	47	1f26e-1f270
+0x1f284	ALSound::set2DSettings	pass		33	28	84.8	15	1f2aa-1f2ac 1f2c4-1f2ca
+0x1f2e4	ALSound::setPosition	pass		30	27	90.0	23	1f31c-1f322
+0x1f334	ALSound::setDistanceGain	pass		31	26	83.9	32	1f358-1f35a 1f372-1f378
+0x1f38c	ALSound::setDistance	pass		19	16	84.2	32	1f3ae-1f3b4
+0x1f3c0	ALSound::setRolloffFactor	pass		19	16	84.2	23	1f3e2-1f3e8
+0x1f3f4	ALSound::setPitch	pass		14	12	85.7	12	1f402-1f404
+0x1f418	ALSound::setVolume	pass		14	12	85.7	32	1f426-1f428
+0x1f43c	ALSound::stop	pass		12	10	83.3	12	1f448-1f44a
+0x1f456	ALSound::reset	pass		29	26	89.7	48	1f480-1f484
+0x1f4a0	ALSound::pause	pass		18	16	88.9	12	1f4ae-1f4b0
+0x1f4c8	ALSound::play	pass		17	14	82.4	32	1f4e6-1f4ec
+0x1f4f4	ALSound::release	pass		24	24	100.0	12	
+0x1f52c	ALSound::init	pass		32	0	0.0	0	1f52c-1f572
+0x1f574	_alBufferDataStaticProc	pass		35	35	100.0	32	
+0x1f5c4	ALSound::ready	pass		144	81	56.2	33	1f608-1f618 1f648-1f6c0 1f6ca-1f6cc 1f6e6-1f6e8
+0x1f728	ALSound::ALSound	pass		3	3	100.0	6	
+0x1f734	AQSound::init	pass		4	4	100.0	4	
+0x1f73c	AQSound::release	pass		7	7	100.0	12	
+0x1f74a	AQSound::queueStatusChange	pass		1	1	100.0	12	
+0x1f74c	AQSound::setPitch	pass		2	2	100.0	12	
+0x1f750	AQSound::setPosition	pass		2	2	100.0	12	
+0x1f754	AQSound::setRolloffFactor	pass		2	2	100.0	12	
+0x1f758	AQSound::setDistance	pass		2	2	100.0	6	
+0x1f75c	AQSound::setDistanceGain	pass		2	2	100.0	6	
+0x1f760	AQSound::set2DSettings	pass		2	2	100.0	6	
+0x1f764	AQSound::updateStream	pass		2	2	100.0	12	
+0x1f768	AQSound::isPlaying	pass		5	5	100.0	201	
+0x1f772	AQSound::setVolume	pass		14	11	78.6	6	1f788-1f78e
+0x1f798	AQSound::stop	pass		23	21	91.3	6	1f7b2-1f7b4
+0x1f7d0	AQSound::pause	pass		18	14	77.8	12	1f7e4-1f7ec
+0x1f800	AQSound::play	pass		24	18	75.0	6	1f826-1f834
+0x1f840	AQSound::readPackets	pass		103	84	81.6	6	1f88e-1f898 1f8ba-1f8ca 1f8fc-1f906
+0x1f924	AQSound::queueCallback	pass		94	59	62.8	6	1f94a-1f94c 1f978-1f98e 1f9a4-1f9a6 1f9ae-1f9b8 1f9c2-1f9dc
+0x1f9fc	AQSound::reset	pass		48	45	93.8	6	1fa3c-1fa42
+0x1fa70	AQSound::ready	pass		317	30	9.5	6	1fa88-1fa8c 1faa8-1fd10
+0x1fd70	AQSound::AQSound	pass		3	3	100.0	4	
+0x1fd7c	Sound::Sound	pass		15	0	0.0	0	1fd7c-1fd98
+0x1fda0	Sound::Sound	pass		4	4	100.0	12	
+0x1fdaa	Sound::reset	pass		27	14	51.9	9	1fdb6-1fdce
+0x1fde0	Sound::updateStatus	pass		26	26	100.0	48	
+0x1fe16	Sound::isPlaying	pass		17	17	100.0	540	
+0x1fe38	Sound::set2DSettings	pass		16	11	68.8	12	1fe4e-1fe56
+0x1fe60	Sound::setVolume	pass		23	19	82.6	32	1fe70-1fe78
+0x1fe98	Sound::setMixVolume	pass		7	7	100.0	12	
+0x1fea8	Sound::updateVolume	pass		71	52	73.2	6	1feba-1fec0 1ff10-1ff32
+0x1ff50	Sound::setFade	pass		46	42	91.3	4	1ff6a-1ff72
+0x1ffc4	Sound::stop	pass		41	26	63.4	4	1ffd2-1ffd8 1fffc-2000e 20016-20018
+0x20024	Sound::die	pass		19	0	0.0	0	20024-2004c
+0x2004e	Sound::play2D	pass		56	39	69.6	15	2005e-20060 20096-20098 200a0-200b2 200ba-200c2
+0x200d4	Sound::ready	pass	V0	241	121	50.2	50	20122-201b4 201be-201ee 201f8-20266
+0x20334	Sound::play3D	pass		73	55	75.3	25	2034e-20350 20396-2039a 203a2-203b4 203bc-203c4
+0x203dc	SoundLabel::releaseBuffer	pass		17	17	100.0	12	
+0x20400	SoundLabel::die	pass		4	4	100.0	12	
+0x2040a	SoundLabel::loadBuffer	pass		114	36	31.6	16	20444-20488 20492-204ec
+0x2051c	SoundLabel::dataBuffer	pass		11	11	100.0	33	
+0x20534	SoundLabel::init	pass		78	0	0.0	0	20534-205d6
+0x205d8	SoundManager::masterVolume	pass		8	6	75.0	80	205e0-205e2
+0x205f0	SoundManager::releaseBufferWithSoundID	pass		9	9	100.0	12	
+0x20608	SoundManager::loadBufferWithSoundID	pass		9	9	100.0	6	
+0x20620	SoundManager::categoryVolume	pass		11	9	81.8	50	2062e-20630
+0x20640	SoundManager::attributeVolumeFromCategory	pass		11	9	81.8	32	2064e-20650
+0x20660	SoundManager::setAttributeVolume	pass		14	14	100.0	12	
+0x20684	SoundManager::setMasterVolume	pass		11	11	100.0	12	
+0x206a0	SoundManager::play3DSound	pass		21	21	100.0	28	
+0x206d0	SoundManager::play2DSound	pass		11	11	100.0	15	
+0x206ec	SoundManager::update	pass		6	6	100.0	201	
+0x20700	SoundManager::die	pass		17	17	100.0	12	
+0x20734	SoundManager::init	pass		39	30	76.9	2	20744-2074a 20768-20772
+0x207a4	SoundMisc::calculateByteForTime	pass		73	56	76.7	6	207fa-20808 20816-2081e 20826-2082c
+0x20848	SoundMisc::loadFileData	pass		24	22	91.7	12	20872-20874
+0x20884	SoundMisc::loadFileDataInfo	pass		29	25	86.2	12	208a0-208a2 208b8-208ba
+0x208d4	SoundMisc::openFile	pass		81	68	84.0	16	20958-20976
+0x209b0	SoundResourceManager::label	pass		12	10	83.3	33	209b8-209ba
+0x209c8	SoundResourceManager::category	pass		11	9	81.8	201	209ce-209d0
+0x209de	SoundResourceManager::attributeVolume	pass		8	8	100.0	42	
+0x209f4	SoundResourceManager::stopPlayingObject	pass		23	14	60.9	12	20a08-20a1a
+0x20a28	SoundResourceManager::releaseBufferWithSoundID	pass		24	24	100.0	12	
+0x20a5c	SoundResourceManager::loadBufferAll	pass		17	17	100.0	12	
+0x20a80	SoundResourceManager::loadBufferWithSoundID	pass		15	13	86.7	12	20a8c-20a8e
+0x20aa0	SoundResourceManager::analyze	pass		845	424	50.2	9	20c20-20c86 20cf4-20d48 20d92-20e2e 20f1c-20f5e 20fbe-21012 2103e-211a4 21238-212b2
+0x212ec	SoundResourceManager::init	pass		4	4	100.0	12	
+0x212f6	SoundResourceManager::die	pass		35	35	100.0	12	
+0x21348	SoundService::setPlayingSoundList	pass		24	23	95.8	32	21360
+0x21378	SoundService::removePlayingSoundList	pass		23	23	100.0	6	
+0x213a6	SoundService::updateStream	pass		1	1	100.0	12	
+0x213a8	SoundService::categoryVolume	pass		10	8	80.0	50	213b6-213b8
+0x213c4	SoundService::attributeVolumeFromCategory	pass		14	12	85.7	32	213d4-213d6
+0x213e8	SoundService::setCategoryVolume	pass		43	43	100.0	12	
+0x21448	SoundService::categoryVolumeUpdate	pass		60	42	70.0	9	2147a-21496 214ba-214c4
+0x214d4	SoundService::setAttributeVolume	pass		55	55	100.0	12	
+0x2154a	SoundService::setAttributeVolume	pass		71	71	100.0	9	
+0x21600	SoundService::attributeVolumeUpdate	pass		66	44	66.7	12	2162e-21652 2167c-21686
+0x21698	SoundService::setMasterVolume	pass		47	47	100.0	12	
+0x21700	SoundService::setMasterVolume	pass		59	59	100.0	12	
+0x2179c	SoundService::masterVolumeUpdate	pass		51	34	66.7	12	217c0-217dc 21800-21808
+0x21814	SoundService::loadBufferAll	pass		5	5	100.0	12	
+0x21820	SoundService::releaseBufferWithSoundID	pass		7	7	100.0	12	
+0x21830	SoundService::loadBufferWithSoundID	pass		5	5	100.0	6	
+0x2183c	SoundService::updateVolume	pass		49	0	0.0	0	2183c-218a6
+0x218a8	SoundService::updateStatus	pass		54	0	0.0	0	218a8-21914
+0x21916	SoundService::setOrientation	pass		25	22	88.0	12	21942-21948
+0x21958	SoundService::setListenerPos	pass		13	10	76.9	12	2196e-21974
+0x21980	SoundService::searchPort	pass		119	54	45.4	33	219b2-219d0 219f0-21a2e 21a46-21a70
+0x21a8a	SoundService::die	pass		58	58	100.0	12	
+0x21b14	alcMacOSMixerOutputRateProc	pass		19	16	84.2	12	21b34-21b38
+0x21b44	SoundService::init	pass	V0	283	170	60.1	30	21bb8-21be2 21bf6-21c94 21cb2-21ce8 21d2e-21d30 21d46-21d48
+0x21df8	SoundService::play2DSound	pass		35	35	100.0	15	
+0x21e48	SoundService::play3DSound	pass		46	46	100.0	28	
+0x21eb0	__SoundThread_exit_	pass		18	18	100.0	12	
+0x21ee8	__SoundThread_init:_	pass		22	22	100.0	12	
+0x21f2c	__SoundThread_exec_	pass		66	42	63.6	12	21f60-21f98
+0x21ff0	__TableReader_readFile:_	pass		13	13	100.0	12	
+0x22014	__TableReader_maxLineNum:_	pass		38	28	73.7	12	2203c-22050
+0x2206c	__TableReader_lineData:lineRange:newLocation:_	pass		40	40	100.0	12	
+0x220d4	__DWGraphics_setColor:_	pass		41	41	100.0	12	
+0x2214c	__DWGraphics_setColor:ir:ig:ib:_	pass		29	29	100.0	12	
+0x221a8	__DWGraphics_setColor:fr:fg:fb:_	pass		15	15	100.0	12	
+0x221d8	__DWGraphics_GetdrawString:_	pass		6	6	100.0	12	
+0x221e8	__DWGraphics_getColorIndex:x:y:_	pass		68	42	61.8	6	22202-2220c 2222c-2224e 2226a-2226c
+0x22270	__DWGraphics_getPaletteRGB:index:_	pass		2	2	100.0	12	
+0x22274	__DWGraphics_dealloc_	pass		13	13	100.0	12	
+0x22298	__DWGraphics_finalize_	pass		13	13	100.0	12	
+0x222bc	__DWGraphics_init_	pass		37	37	100.0	2	
+0x22334	__DWGraphics_getPaletteB:index:_	pass		7	7	100.0	12	
+0x22348	__DWGraphics_getPaletteG:index:_	pass		8	8	100.0	12	
+0x22360	__DWGraphics_getPaletteR:index:_	pass		8	8	100.0	12	
+0x22378	__DWGraphics_getColorRGB:x:y:_	pass		61	35	57.4	12	22396-223a0 223c8-223ee
+0x223f8	__DWGraphics_getColorB:x:y:_	pass		11	11	100.0	12	
+0x22414	__DWGraphics_getColorG:x:y:_	pass		12	12	100.0	12	
+0x22434	__DWGraphics_getColorR:x:y:_	pass		12	12	100.0	12	
+0x22454	__DWGraphics_DelLoad_	pass		30	30	100.0	12	
+0x224a4	__DWGraphics_delfillRect:_	pass		11	11	100.0	12	
+0x224c4	__DWGraphics_LoadfillRect::_	pass		56	56	100.0	12	
+0x22558	__DWGraphics_delString:_	pass		16	16	100.0	2	
+0x22584	__DWGraphics_LoadString::_	pass		68	68	100.0	12	
+0x22644	__DWGraphics_fillRect::_	pass		37	37	100.0	12	
+0x226a4	__DWGraphics_drawString::_	pass		37	37	100.0	12	
+0x22704	__DWGraphics_Set_TexEnvf_Color_NoFade:_	pass		39	39	100.0	117	
+0x2276c	__DWGraphics_Retrun_TexEnvf_Color_	pass		38	38	100.0	192	
+0x227d4	__DWGraphics_Add_TexEnvf_Color:_	pass		120	120	100.0	186	
+0x22910	__DWGraphics_Set_TexEnvf_Color:_	pass		39	39	100.0	201	
+0x22978	__DWGraphics_loadBitmapData:_	pass		124	121	97.6	1	22a10-22a14
+0x22a80	__DWGraphics_releaseBitmapData:_	pass		12	11	91.7	12	22a8c
+0x22a9a	__DWGraphics_Loadset:_	pass		146	146	100.0	12	
+0x22c18	__DWGraphics_DrawLoad:_	pass		183	183	100.0	12	
+0x22e0c	__DWUtilities_getPartsNun::_	pass		7	7	100.0	1	
+0x22e20	__DWUtilities_getPartsData:::_	pass		14	14	100.0	1	
+0x22e40	__DWUtilities_getItemNun:::_	pass		29	29	100.0	75	
+0x22e80	__DWUtilities_getItemData::::_	pass		40	40	100.0	75	
+0x22ed4	__DWUtilities_rlDataAtIndex:_	pass		5	5	100.0	6	
+0x22ee4	__DWUtilities_getKomaData:::_	pass		58	58	100.0	77	
+0x22f5c	__DWUtilities_getMaxFrame::_	pass		17	17	100.0	21	
+0x22f84	__DWUtilities_getPackImageWH::::_	pass		71	71	100.0	62	
+0x2302c	__DWUtilities_readAnimeData::_	pass		158	158	100.0	9	
+0x23190	__DWUtilities_readRectData::_	pass		174	174	100.0	9	
+0x23314	__DWUtilities_releaseAnimeData:_	pass		36	36	100.0	12	
+0x23364	__DWUtilities_releaseRectData:_	pass		36	36	100.0	12	
+0x233b4	__DWUtilities_readShort:_	pass		15	15	100.0	255	
+0x233d4	GSoundCtrl::TurnOffSe	pass		14	14	100.0	12	
+0x233f8	GSoundCtrl::TurnOnSe	pass		13	13	100.0	12	
+0x23420	GSoundCtrl::CloseOption	pass		15	15	100.0	12	
+0x23448	GSoundCtrl::OpenOption	pass		15	15	100.0	12	
+0x23470	GSoundCtrl::VibrationSet	pass		12	12	100.0	3	
+0x23494	GSoundCtrl::BgmStop	pass		29	0	0.0	0	23494-234d0
+0x234e0	GSoundCtrl::BgmSet	pass		33	26	78.8	2	234fc-2350a
+0x2353c	GSoundCtrl::SeStop	pass		50	0	0.0	0	2353c-235a2
+0x235ac	GSoundCtrl::LoopSeStopAll	pass		15	15	100.0	12	
+0x235d6	GSoundCtrl::ChangeScale	pass		13	7	53.8	12	235e2-235ec
+0x235fc	GSoundCtrl::SeSet	pass		52	0	0.0	0	235fc-23664
+0x23674	GSoundCtrl::Se3DSet	pass		240	0	0.0	0	23674-238a4
+0x238fc	GSoundCtrl::releaseBufferSe	pass		5	5	100.0	12	
+0x23908	GSoundCtrl::loadBufferSe	pass		5	5	100.0	6	
+0x23914	GSoundCtrl::resume	pass		10	10	100.0	12	
+0x23934	GSoundCtrl::suspend	pass		10	10	100.0	12	
+0x23954	GSoundCtrl::EndInterruption	pass		107	0	0.0	0	23954-23a42
+0x23a6c	GSoundCtrl::init	pass		25	0	0.0	0	23a6c-23a9e
+0x23ab8	GSoundCtrl::die	pass		4	4	100.0	12	
+0x23ac2	GSoundCtrl::update	pass		51	27	52.9	201	23ae6-23afc 23b0e-23b2a
+0x23b44	GSoundCtrl::BeginInterruption	pass		29	0	0.0	0	23b44-23b7e
+0x23b90	__Effect_initDrawData:_	pass		43	43	100.0	6	
+0x23bf4	__Effect_setEffDrawPos:x:y:z:ratio:addx:addy:_	pass		24	24	100.0	12	
+0x23c30	__Effect_setEffDrawPos:x:y:scale:_	pass		9	9	100.0	66	
+0x23c42	__Effect_setEffAnimeData:img:pat:max:speed:_	pass		14	14	100.0	12	
+0x23c64	__Effect_setEffAnimeImage:img:_	pass		2	2	100.0	66	
+0x23c68	__Effect_setEffAnimeState:state:_	pass		2	2	100.0	12	
+0x23c6c	__Effect_procEffAnimeData:_	pass		41	21	51.2	75	23c98-23cc6
+0x23cca	__Effect_setEffect:_	pass		49	43	87.8	20	23cfc-23d06
+0x23d48	__Effect_procEffect:_	pass		85	19	22.4	75	23d68-23df4
+0x23e04	__Effect_OffSetXY::_	pass		56	20	35.7	75	23e12-23e66
+0x23e98	__Effect_setEnemyWaitMeterColor::::::_	pass		116	105	90.5	17	23f58-23f6e
+0x23fcc	__Effect_stopEffDataSE::_	pass		9	9	100.0	13	
+0x23fe4	__Effect_getEffData:_	pass		9	7	77.8	75	23fe8-23fea
+0x23ffc	__Effect_initExpLink_	pass		15	15	100.0	2	
+0x24020	__Effect_setExpLink:_	pass		15	8	53.3	12	2402e-2403a
+0x24044	__Effect_checkExpLink:num:_	pass		23	17	73.9	12	2405e-24068
+0x24078	__Effect_addExpLink:num:_	pass		48	19	39.6	12	24094-240cc
+0x240dc	__Effect_getExpScale:_	pass		10	10	100.0	13	
+0x240f4	__Effect_clearExplode:_	pass		15	15	100.0	13	
+0x2411c	__Effect_initSpecialDamage_	pass		11	11	100.0	4	
+0x24138	__Effect_getSpecialDamageData:_	pass		10	8	80.0	6	2413c-2413e
+0x24150	__Effect_initGroundHit_	pass		11	11	100.0	4	
+0x2416c	__Effect_procGroundHit_	pass		21	21	100.0	75	
+0x2419c	__Effect_initEnemyEffect:_	pass		3	3	100.0	1	
+0x241a2	__Effect_procEnemyEffect:_	pass		17	10	58.8	18	241b4-241c0
+0x241c4	__Effect_procEnemyEffect:::::_	pass		14	14	100.0	3	
+0x241e8	__Effect_procEnemyEffect::::_	pass		14	14	100.0	12	
+0x24210	__Effect_setEnemyEffect::::::::_	pass		36	36	100.0	12	
+0x24264	__Effect_setEnemyEffect:::::::_	pass		21	21	100.0	12	
+0x24294	__Effect_setEnemyEffect::::::_	pass		20	20	100.0	12	
+0x242c4	__Effect_procSpecialDamage_	pass		40	35	87.5	75	242ec-242f0 242fa-242fc
+0x24324	__Effect_setEffItem:index:type:_	pass		115	86	74.8	8	24392-2439a 243e6-243f2 243fa-2441a
+0x24450	__Effect_setExplode:scale:len:dmg:link:rect:_	pass		41	35	85.4	13	2448c-24496
+0x244b8	__Effect_drawEffData:_	pass		15	15	100.0	75	
+0x244e0	__Effect_setEffData:x:y:z:scale:delay:se:_	pass		23	23	100.0	14	
+0x24514	__Effect_initEffData_	pass		76	76	100.0	4	
+0x245c4	__Effect_drawWaitEffect::_	pass		499	229	45.9	57	24738-24792 2482a-24922 2492e-24aa4
+0x24ae4	__Effect_setWaitEffect:type:timer:signTime:attackTime:_	pass		101	53	52.5	12	24afa-24b04 24b4a-24b68 24b72-24b9c 24ba8-24bb0
+0x24bc8	__Effect_procEffEnemyHP:_	pass		37	23	62.2	66	24bf4-24c0e
+0x24c24	__Effect_setEffEnemyHP:index:type:_	pass		37	37	100.0	16	
+0x24c8c	__Effect_drawEffEnemyChar:scale:_	pass		12	12	100.0	75	
+0x24cb0	__Effect_setEffEnemyChar:index:type:_	pass		169	140	82.8	11	24d52-24d54 24dea-24e1a 24e3c-24e3e
+0x25490	__Effect_procEffAnime:_	pass		33	25	75.8	75	254c2-254d0
+0x254e4	__Effect_setEffAnime:index:type:_	pass		30	30	100.0	14	
+0x25534	__Effect_release_	pass		23	23	100.0	12	
+0x25574	__Effect_reset_	pass		17	17	100.0	4	
+0x255ac	__Effect_initWithParameter:_	pass		82	82	100.0	2	
+0x25684	__Effect_procEffEnemyChar:_	pass		158	71	44.9	66	2570a-25790 25796-257e0 258ca-258cc 2592c-2593a
+0x25974	__Effect_drawEffItemIcon:_	pass		334	132	39.5	75	25a8a-25b26 25b2c-25bc8 25bce-25c6c
+0x25cdc	__Effect_setEffData:x:y:z:scale:delay:se:len:dmg:link:_	pass		144	141	97.9	15	25d2c-25d30
+0x265e0	__Effect_drawEffAnime:_	pass		219	189	86.3	75	26720-26728 2676a-2679a
+0x26814	__Effect_drawEnemyEffectSlide:_	pass		213	18	8.5	3	2682c-269fa
+0x26a68	__Effect_drawEnemyEffectWindBlast:_	pass		217	213	98.2	9	26b5a-26b5c 26b78-26b7a
+0x26cc0	__Effect_drawEnemyEffectLand:_	pass		252	18	7.1	6	26cd8-26efa
+0x26f58	__Effect_drawEnemyEffectJump:_	pass		168	18	10.7	6	26f70-270d6
+0x27134	__Effect_drawEffItem:_	pass		225	161	71.6	75	27180-27196 27272-272a2 272ac-272ee
+0x2738c	__Effect_drawEffEnemyHP:::_	pass		336	312	92.9	57	273b6-273d0 2751a-27522 2752a-27534
+0x276f0	__Effect_drawEffEnemyChar:scale:horizontalReversing:_	pass		719	460	64.0	75	27860-278f8 27abc-27aca 27b74-27bac 27c24-27d8e
+0x27dec	__Effect_procEffItem:_	pass		185	66	35.7	75	27e1e-27ecc 27efc-27f1c 27f34-27f48 27f9a-27fb4
+0x27ff0	__Effect_porcWaitEffect:_	pass		156	42	26.9	66	28026-28034 28044-28050 2805e-28136
+0x2815c	__Effect_drawGroundHit_	pass		297	172	57.9	75	28256-28284 282a8-283be
+0x28480	__Effect_drawSpecialDamage:_	pass		221	205	92.8	75	284a8-284c4 284dc-284de
+0x286cc	__Effect_drawEnemyWaitMeter:x:y:scale:color:_	pass		261	261	100.0	17	
+0x28978	__Effect_procEffData_	pass		108	106	98.1	75	28a2e-28a30
+0x28a70	__Effect_setSpecialDamage:::::::_	pass		33	26	78.8	13	28a80-28a8c
+0x28ab8	__Effect_setGroundHit::::_	pass		168	120	71.4	6	28b58-28b66 28b78-28b82 28bea-28c3a
+0x28c88	__TextureManager_getTexture:_	pass		4	4	100.0	75	
+0x28c94	__TextureManager_getTexturePtr:_	pass		5	5	100.0	66	
+0x28ca4	__TextureManager_setClip::::_	pass		80	70	87.5	84	28ccc-28cd6 28d16-28d20
+0x28d68	__TextureManager_setImgClip::::_	pass		18	18	100.0	75	
+0x28d98	__TextureManager_clearImgClip_	pass		4	4	100.0	75	
+0x28da4	__TextureManager_setClip2::::_	pass		71	69	97.2	123	28dde-28de0
+0x28e54	__TextureManager_drawClipImage:::::::::::_	pass		112	98	87.5	75	28e7e-28e88 28e8e-28e9c
+0x28f70	__TextureManager_drawImageClipWithID:x:y:scaleW:scaleH:rot:_	pass		19	19	100.0	12	
+0x28fa0	__TextureManager_drawImageWithID:x:y:scaleW:scaleH:rot:_	pass		19	19	100.0	40	
+0x28fd0	__TextureManager_drawImageWithID:x:y:scale:rot:_	pass		17	17	100.0	12	
+0x28ffc	__TextureManager_drawImageWithID:x:y:scale:_	pass		18	18	100.0	12	
+0x2902c	__TextureManager_drawTexture::_	pass		16	16	100.0	12	
+0x29058	__TextureManager_drawImage:x:y:scale:rot:_	pass		15	15	100.0	30	
+0x2907c	__TextureManager_drawImage:x:y:scale:_	pass		15	15	100.0	78	
+0x290a0	__TextureManager_releaseTexture:_	pass		13	8	61.5	12	290ae-290b8
+0x290c4	__TextureManager_loadRectTexture::::::_	pass		32	32	100.0	2	
+0x29118	__TextureManager_loadTextureAsA8:name:ofType:_	pass		18	18	100.0	12	
+0x29150	__TextureManager_loadTexture:name:ofType:_	pass		18	18	100.0	9	
+0x29188	__TextureManager_initialize_	pass		40	31	77.5	1	291c2-291d6
+0x291f8	__TextureManager_StringdrawImage2:x:y:scale:rot:_	pass		27	27	100.0	123	
+0x29244	__TextureManager_drawAnimeImage::::::::::_	pass		137	132	96.4	75	29274-2927c
+0x2938c	__TextureManager_drawImage:x:y:scaleW:scaleH:rot:_	pass		107	107	100.0	84	
+0x294a8	__TextureManager_StringdrawImage:x:y:scale:_	pass		108	108	100.0	84	
+0x295d4	__TextureManager_drawImage2:x:y:scale:rot:_	pass		257	203	79.0	123	29714-2973a 2977c-297b4 297c2-297e8
+0x29868	__TextureManager_drawImageClip:x:y:scaleW:scaleH:rot:_	pass		125	100	80.0	75	29882-298b6
+0x299b0	GSaveCtrl::LoadInt	pass		23	23	100.0	102	
+0x299e4	GSaveCtrl::SaveInt	pass		17	17	100.0	24	
+0x29a0c	GSaveCtrl::LoadShort	pass		10	10	100.0	24	
+0x29a24	GSaveCtrl::SaveShort	pass		10	10	100.0	24	
+0x29a3c	writeByteArray	pass		7	7	100.0	12	
+0x29a4c	readByteArray	pass		7	7	100.0	2	
+0x29a5c	getFileSize	pass		19	17	89.5	14	29a64-29a66
+0x29a88	GSaveCtrl::applicationDataFromFile	pass		47	39	83.0	14	29adc-29aec
+0x29b18	GSaveCtrl::writeApplicationData	pass		34	34	100.0	24	
+0x29b84	GSaveCtrl::initAll	pass		48	48	100.0	24	
+0x29bfc	__PMC_switchToPMC_A_	pass		41	0	0.0	0	29bfc-29c4c
+0x29c5c	__PMC_switchToPMC_B_	pass		41	0	0.0	0	29c5c-29cac
+0x29cbc	__PMC_changeAnimation_	pass		56	27	48.2	30	29cee-29d26
+0x29d40	__PMC_updateDie_	pass		46	32	69.6	30	29d6a-29d86
+0x29db8	__PMC_updateAttackPostProcess_	pass		33	28	84.8	3	29dd8-29de0
+0x29e10	__PMC_updateAttackProcess_	pass		44	23	52.3	5	29e36-29e60
+0x29e88	__PMC_dealloc_	pass		20	20	100.0	12	
+0x29ec4	__PMC_activate_	pass		17	17	100.0	6	
+0x29ef8	__PMC_initWithParameter:index:rpgExplosion:_	pass		56	56	100.0	6	
+0x29f9c	__PMC_updateAttackPreProcess_	pass		45	32	71.1	5	29fc8-29fd4 29fda-29fe6
+0x2a008	__PMC_initAppearance_	pass		60	60	100.0	5	
+0x2a0a0	__PMC_checkPMC_B_	pass		54	28	51.9	6	2a0c8-2a0d8 2a0e6-2a100 2a108-2a10e
+0x2a128	__NPC_getEnemyScale_	pass		6	6	100.0	15	
+0x2a138	__NPC_copyEnemyInfo::_	pass		145	141	97.2	3	2a15a-2a160
+0x2a298	__NPC_render_	pass		30	30	100.0	75	
+0x2a2e8	__NPC_initWithParameter:index:_	pass		48	48	100.0	2	
+0x2a36c	__NPC_changeAnimation_	pass		39	16	41.0	12	2a38a-2a3b8
+0x2a3d0	__NPC_checkCollisionWithBullet:hit:distance:_	pass		32	15	46.9	7	2a3e8-2a40a
+0x2a420	__NPC_renderGauge_	pass		20	20	100.0	75	
+0x2a458	__NPC_reset_	pass		42	42	100.0	6	
+0x2a4d4	__NPC_update:_	pass		162	25	15.4	75	2a4fe-2a65c
+0x2a724	__NPC_activate_	pass		65	65	100.0	3	
+0x2a7cc	__NPC_checkCollisionWithExplosion::_	pass		83	15	18.1	3	2a7e4-2a876
+0x2a8a4	__NPC_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		86	33	38.4	6	2a8be-2a8c0 2a8e8-2a956
+0x2a984	__HavenSoldier_deadSound:_	pass		31	0	0.0	0	2a984-2a9c4
+0x2a9d0	__HavenSoldier_attackSound_	pass		36	21	58.3	3	2a9f4-2aa10
+0x2aa24	__HavenSoldier_calculateDamage:::::_	pass		40	26	65.0	13	2aa54-2aa6e
+0x2aa88	comp	pass		6	6	100.0	6	
+0x2aa94	__EnemyManager_checkMissionComplete_	pass		3	3	100.0	3	
+0x2aaa0	__EnemyManager_checkFlags:_	pass		7	7	100.0	12	
+0x2aab4	__EnemyManager_clearFlags:_	pass		5	5	100.0	2	
+0x2aac4	__EnemyManager_setFlags:_	pass		5	5	100.0	12	
+0x2aad4	__EnemyManager_npc_	pass		3	3	100.0	12	
+0x2aae0	__EnemyManager_clearItemFlag:_	pass		35	28	80.0	12	2aaee-2aaf2 2ab1c-2ab22
+0x2ab34	__EnemyManager_itemFlag_	pass		4	4	100.0	12	
+0x2ab40	__EnemyManager_removeItem:_	pass		44	25	56.8	7	2ab52-2ab58 2ab78-2ab96
+0x2abb0	__EnemyManager_setItem:enemyType:itemType:_	pass		49	39	79.6	1	2abc2-2abcc 2abee-2abf4
+0x2ac24	__EnemyManager_getRate:_	pass		46	46	100.0	7	
+0x2aca0	__EnemyManager_takeover_	pass		105	60	57.1	12	2ad00-2ad68
+0x2adac	__EnemyManager_updateAppearData:_	pass		114	105	92.1	10	2ae52-2ae58 2ae80-2ae8a
+0x2aec8	__EnemyManager_shortCutTime:_	pass		102	65	63.7	3	2af1a-2af6c
+0x2afc4	__EnemyManager_clearCheck:_	pass		93	66	71.0	75	2b040-2b07e
+0x2b0c0	__EnemyManager_updatePattern_	pass		112	28	25.0	12	2b0f2-2b1a0
+0x2b1f4	__EnemyManager_updateRespawnRequest_	pass		111	29	26.1	72	2b21c-2b2c8
+0x2b304	__EnemyManager_updateSpawnRequest_	pass		316	50	15.8	45	2b348-2b56a 2b580-2b59a
+0x2b608	__EnemyManager_release_	pass		29	29	100.0	12	
+0x2b668	__EnemyManager_getItem:::_	pass		12	12	100.0	12	
+0x2b68c	__EnemyManager_addWeapon:_	pass		16	16	100.0	2	
+0x2b6bc	__EnemyManager_enemyAtIndex:_	pass		8	8	100.0	75	
+0x2b6d8	__EnemyManager_add:_	pass		8	8	100.0	6	
+0x2b6f4	__EnemyManager_renderItemIcon_	pass		8	8	100.0	75	
+0x2b710	__EnemyManager_update:_	pass		108	94	87.0	75	2b750-2b75c 2b7b0-2b7b2 2b7e6-2b7f2
+0x2b848	__EnemyManager_initWithParameter:npcData:itemData:npc:_	pass		190	190	100.0	2	
+0x2ba40	__EnemyManager_searchWeapon:_	pass		79	63	79.7	6	2baa0-2baa4 2baba-2bad4
+0x2baf4	__EnemyManager_checkOverlappedEnemy::_	pass		176	29	16.5	3	2bb22-2bc5e
+0x2bc98	__EnemyManager_enemyOfType:_	pass		79	76	96.2	12	2bcf8-2bcfc
+0x2bd4c	__EnemyManager_renderGauge_	pass		81	76	93.8	75	2bdaa-2bdae 2bddc-2bdde
+0x2be08	__EnemyManager_render_	pass		72	69	95.8	12	2be64-2be68
+0x2beac	__EnemyManager_reset_	pass		188	170	90.4	4	2bf14-2bf1a 2bf30-2bf44 2bfdc-2bfe0
+0x2c0a8	__EnemyManager_updateEachCharacter:_	pass		510	252	49.4	75	2c14e-2c152 2c19a-2c388 2c3b6-2c3b8 2c3f0-2c3f6 2c49e-2c4b6 2c504-2c508
+0x2c574	__EnemyManager_setItem:enemyType:_	pass		68	45	66.2	1	2c5ba-2c5ea
+0x2c618	__EnemyManager_checkItem::_	pass		103	94	91.3	9	2c640-2c64c 2c6e0-2c6e2
+0x2c710	__EnemyManager_checkNPC:_	pass		34	20	58.8	9	2c732-2c752
+0x2c76c	__EnemyBase_activate_	pass		37	37	100.0	7	
+0x2c7cc	__EnemyBase_inactivate_	pass		5	5	100.0	12	
+0x2c7dc	__EnemyBase_appearPoint_	pass		6	6	100.0	75	
+0x2c7ec	__EnemyBase_type_	pass		5	5	100.0	35	
+0x2c7fc	__EnemyBase_getDistance_	pass		6	6	100.0	5	
+0x2c80c	__EnemyBase_getEnemyData_	pass		4	4	100.0	75	
+0x2c818	__EnemyBase_getHp_	pass		5	5	100.0	3	
+0x2c828	__EnemyBase_getPosX_	pass		5	5	100.0	3	
+0x2c838	__EnemyBase_getPosY_	pass		5	5	100.0	3	
+0x2c848	__EnemyBase_getPosZ_	pass		5	5	100.0	3	
+0x2c858	__EnemyBase_onlyItem_	pass		5	5	100.0	9	
+0x2c868	__EnemyBase_ignoreShortCut_	pass		7	7	100.0	8	
+0x2c87c	__EnemyBase_isActivatable_	pass		9	9	100.0	12	
+0x2c894	__EnemyBase_lifespan_	pass		4	4	100.0	2	
+0x2c8a0	__EnemyBase_clearFactor_	pass		7	7	100.0	6	
+0x2c8b4	__EnemyBase_limit_	pass		4	4	100.0	12	
+0x2c8c0	__EnemyBase_respawnTime_	pass		7	7	100.0	3	
+0x2c8d4	__EnemyBase_canTakeover_	pass		12	12	100.0	3	
+0x2c8f0	__EnemyBase_didHitMissile_	pass		4	4	100.0	13	
+0x2c8fc	__EnemyBase_hitMissile:_	pass		4	4	100.0	14	
+0x2c908	__EnemyBase_isActiveCollision_	pass		15	13	86.7	9	2c914-2c916
+0x2c92c	__EnemyBase_setAiControl:_	pass		8	8	100.0	8	
+0x2c944	__EnemyBase_updateMoveAttack_	pass		1	1	100.0	12	
+0x2c946	__EnemyBase_updateMoveAttack2_	pass		1	1	100.0	12	
+0x2c948	__EnemyBase_updateLifeAct_	pass		1	1	100.0	12	
+0x2c94a	__EnemyBase_updateSelfDestruction_	pass		1	1	100.0	12	
+0x2c94c	__EnemyBase_updateSpecialAttack_	pass		1	1	100.0	12	
+0x2c94e	__EnemyBase_updateDataMove_	pass		1	1	100.0	12	
+0x2c950	__EnemyBase_updateAppearancePreProcess_	pass		1	1	100.0	12	
+0x2c952	__EnemyBase_updateAttackPreProcess_	pass		1	1	100.0	6	
+0x2c954	__EnemyBase_updateMovePreProcess_	pass		1	1	100.0	7	
+0x2c956	__EnemyBase_updateMovePostProcess_	pass		16	16	100.0	2	
+0x2c984	__EnemyBase_initAttack_	pass		1	1	100.0	1	
+0x2c986	__EnemyBase_initMove_	pass		30	30	100.0	3	
+0x2c9d0	__EnemyBase_initMoveAttack_	pass		1	1	100.0	12	
+0x2c9d2	__EnemyBase_initMoveAttack2_	pass		1	1	100.0	12	
+0x2c9d4	__EnemyBase_initMoveEnd_	pass		1	1	100.0	12	
+0x2c9d6	__EnemyBase_initLifeAct_	pass		1	1	100.0	12	
+0x2c9d8	__EnemyBase_initSelfDestruction_	pass		1	1	100.0	12	
+0x2c9da	__EnemyBase_initSpecialAttack_	pass		1	1	100.0	12	
+0x2c9dc	__EnemyBase_initDataMove_	pass		1	1	100.0	12	
+0x2c9de	__EnemyBase_initDie_	pass		1	1	100.0	12	
+0x2c9e0	__EnemyBase_move_	pass		138	97	70.3	21	2ca04-2ca22 2ca6e-2ca72 2ca84-2ca9e 2cad4-2caee
+0x2cb1c	__EnemyBase_initPosition:_	pass		48	48	100.0	8	
+0x2cb90	__EnemyBase_updateAnimationFrame_	pass		43	36	83.7	66	2cbc8-2cbd4
+0x2cbec	__EnemyBase_changeAnimation_	pass		38	38	100.0	66	
+0x2cc3c	__EnemyBase_getEnemyScale_	pass		24	24	100.0	66	
+0x2cc7c	__EnemyBase_subDamage:_	pass		30	27	90.0	4	2cc9a-2ccaa
+0x2ccd4	__EnemyBase_checkCollisionWithBullet:hit:distance:_	pass		266	266	100.0	8	
+0x2cf74	__EnemyBase_setAnimation:_	pass		11	11	100.0	10	
+0x2cf90	__EnemyBase_setAnimation::_	pass		11	11	100.0	11	
+0x2cfac	__EnemyBase_setAnimation:::_	pass		65	65	100.0	20	
+0x2d03c	__EnemyBase_updateAnimation_	pass		51	51	100.0	57	
+0x2d0d4	__EnemyBase_checkCollisionWithPlayer_	pass		79	64	81.0	8	2d10c-2d110 2d122-2d12e 2d140-2d148
+0x2d18c	__EnemyBase_resetEnemyBase_	pass		210	210	100.0	6	
+0x2d368	__EnemyBase_attackGun:_	pass		45	45	100.0	8	
+0x2d3e0	__EnemyBase_attack_	pass		19	19	100.0	8	
+0x2d410	__EnemyBase_initAppearance_	pass		27	27	100.0	7	
+0x2d458	__EnemyBase_updateAttackPostProcess_	pass		12	12	100.0	3	
+0x2d47c	__EnemyBase_updateAttackProcess_	pass		6	6	100.0	3	
+0x2d490	__EnemyBase_updateAppearancePostProcess_	pass		6	6	100.0	7	
+0x2d4a4	__EnemyBase_updateAppearanceProcess_	pass		72	63	87.5	9	2d4e2-2d4f2
+0x2d558	__EnemyBase_updateDie_	pass		101	42	41.6	42	2d5aa-2d626
+0x2d658	__EnemyBase_updateMoveEnd_	pass		26	17	65.4	12	2d67a-2d68c
+0x2d6a4	__EnemyBase_updateMove_	pass		32	21	65.6	7	2d6be-2d6d6
+0x2d704	__EnemyBase_updateAttack_	pass		75	55	73.3	8	2d74a-2d772
+0x2d7c8	__EnemyBase_updateAppearance_	pass		35	22	62.9	9	2d7de-2d7f0 2d80a-2d810
+0x2d830	__EnemyBase_setNextAction_	pass		24	24	100.0	8	
+0x2d86c	__EnemyBase_checkCollisionWithEnemy:_	pass		199	0	0.0	0	2d86c-2da28
+0x2da5c	__EnemyBase_checkCollisionWithExplosion::_	pass		188	28	14.9	3	2da86-2dc02
+0x2dc3c	__EnemyBase_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		76	70	92.1	7	2dc72-2dc74 2dcb8-2dcbe
+0x2dcfc	__EnemyBase_takeover:_	pass		16	16	100.0	12	
+0x2dd28	__EnemyBase_renderGauge_	pass		48	48	100.0	57	
+0x2dda8	__EnemyBase_render_	pass		39	39	100.0	57	
+0x2de10	__EnemyBase_update:_	pass		62	38	61.3	75	2de46-2de48 2de4e-2de5c 2de78-2de92
+0x2dedc	__EnemyBase_reset_	pass		6	6	100.0	6	
+0x2def0	__EnemyBase_initWithParameter:index:_	pass		62	62	100.0	6	
+0x2df9c	__EnemyBase_setGunMuzzleFlash_	pass		257	257	100.0	7	
+0x2e20c	__EnemyBase_imageRect:_	pass		75	75	100.0	3	
+0x2e2c4	__EnemyBase_dealloc_	pass		13	13	100.0	3	
+0x2e2e8	__EnemyBase_calculateDamage:::::_	pass		92	55	59.8	5	2e31a-2e334 2e36e-2e3a0
+0x2e3d4	__EnemyBase_deadSound:_	pass		30	30	100.0	3	
+0x2e41c	__EnemyBase_attackSound_	pass		35	22	62.9	4	2e430-2e43c 2e450-2e45a
+0x2e46c	__EnemyBase_updateMoveProcess_	pass		76	67	88.2	7	2e4aa-2e4ba
+0x2e52c	__EnemyBase_caluclateDamageWithExplosion:_	pass		64	29	45.3	3	2e54a-2e598
+0x2e5d0	__EnemyBase_getDamage::_	pass		21	19	90.5	4	2e5ea-2e5ec
+0x2e600	__Canard_initMoveEnd_	pass		23	0	0.0	0	2e600-2e630
+0x2e640	__Canard_move_	pass		104	0	0.0	0	2e640-2e720
+0x2e744	__Canard_initHovering_	pass		12	12	100.0	12	
+0x2e76c	__Canard_resetCanard_	pass		12	12	100.0	12	
+0x2e794	__Canard_getEnemyScale_	pass		203	190	93.6	6	2e8c2-2e8cc 2e8ee-2e8fa
+0x2e97c	__Canard_updateDie_	pass		30	0	0.0	0	2e97c-2e9ba
+0x2e9d4	__Canard_updateMoveEnd_	pass		91	0	0.0	0	2e9d4-2ea96
+0x2eacc	__Canard_updateAttackPostProcess_	pass		60	0	0.0	0	2eacc-2eb44
+0x2eb5c	__Canard_updateAttackProcess_	pass		47	47	100.0	12	
+0x2ebd4	__Canard_updateAttack_	pass		17	17	100.0	12	
+0x2ec08	__Canard_dealloc_	pass		20	20	100.0	12	
+0x2ec44	__Canard_render_	pass		22	22	100.0	6	
+0x2ec88	__Canard_update:_	pass		22	22	100.0	6	
+0x2eccc	__Canard_reset_	pass		18	18	100.0	12	
+0x2ed00	__Canard_initWithParameter:index:rpgExplosion:_	pass		75	75	100.0	13	
+0x2ede4	__Canard_calculateDamage:::::_	pass		135	0	0.0	0	2ede4-2ef22
+0x2ef44	__Canard_attackSound_	pass		5	5	100.0	12	
+0x2ef50	__Canard_initAppearance_	pass		100	0	0.0	0	2ef50-2f02a
+0x2f05c	__Canard_updateAppearancePostProcess_	pass		122	0	0.0	0	2f05c-2f164
+0x2f1ac	__Canard_updateMoveAttack2_	pass		315	0	0.0	0	2f1ac-2f470
+0x2f4f8	__Canard_updateHovering_	pass		205	0	0.0	0	2f4f8-2f6ae
+0x2f6f4	__Canard_setVelocity:::_	pass		175	0	0.0	0	2f6f4-2f88e
+0x2f8bc	__PoweredSuit_resetLoopSE_	pass		6	6	100.0	12	
+0x2f8cc	__PoweredSuit_setLoopSE:_	pass		37	33	89.2	12	2f8e0-2f8e6
+0x2f91c	__PoweredSuit_stopLoopSE:_	pass		46	35	76.1	12	2f930-2f934 2f962-2f970
+0x2f97c	__PoweredSuit_checkLoopSE:_	pass		34	29	85.3	12	2f98a-2f992
+0x2f9c4	__PoweredSuit_resetPoweredSuit_	pass		22	22	100.0	12	
+0x2fa0c	__PoweredSuit_updateAttack_	pass		57	30	52.6	3	2fa48-2fa7c
+0x2fab4	__PoweredSuit_render_	pass		22	22	100.0	3	
+0x2faf8	__PoweredSuit_update:_	pass		22	22	100.0	3	
+0x2fb3c	__PoweredSuit_reset_	pass		18	18	100.0	12	
+0x2fb70	__PoweredSuit_initWithParameter:index:_	pass		27	27	100.0	1	
+0x2fbbc	__PoweredSuit_calculateDamage:::::_	pass		40	26	65.0	13	2fbec-2fc06
+0x2fc20	__PoweredSuit_initAppearance_	pass		25	0	0.0	0	2fc20-2fc54
+0x2fc68	__PoweredSuit_updateAppearanceProcess_	pass		200	0	0.0	0	2fc68-2fe26
+0x2fe68	__PoweredSuit_updateDie_	pass		37	0	0.0	0	2fe68-2feb6
+0x2fed0	__PoweredSuit_updateAttackPostProcess_	pass		64	0	0.0	0	2fed0-2ff56
+0x2ff80	__PoweredSuit_attackSound_	pass		46	0	0.0	0	2ff80-2ffe2
+0x2fff8	__PoweredSuit_deadSound:_	pass		5	5	100.0	12	
+0x30004	__Gekko_getCount_	pass		4	4	100.0	12	
+0x30010	__Gekko_setCount:_	pass		3	3	100.0	12	
+0x3001c	__Gekko_incCount_	pass		5	5	100.0	12	
+0x3002c	__Gekko_decCount_	pass		8	6	75.0	12	30036-30038
+0x30040	__Gekko_getMovablePoints_	pass		4	4	100.0	12	
+0x3004c	__Gekko_initMovablePoints_	pass		6	6	100.0	12	
+0x3005c	__Gekko_setMovablePoint:_	pass		25	22	88.0	12	3006a-3006e
+0x30094	__Gekko_clearMovablePoint:_	pass		27	24	88.9	12	300a2-300a6
+0x300d0	__Gekko_getMoveRateFarCoefficient_	pass		4	4	100.0	1	
+0x300dc	__Gekko_getMoveRateMiddleCoefficient_	pass		4	4	100.0	1	
+0x300e8	__Gekko_getMoveRateNearCoefficient_	pass		4	4	100.0	1	
+0x300f4	__Gekko_getMoveBaseRateFar_	pass		4	4	100.0	12	
+0x30100	__Gekko_getMoveBaseRateMiddle_	pass		4	4	100.0	12	
+0x3010c	__Gekko_getMoveBaseRateNear_	pass		4	4	100.0	12	
+0x30118	__Gekko_appearPoint_	pass		4	4	100.0	6	
+0x30124	__Gekko_initMove_	pass		48	0	0.0	0	30124-30186
+0x30190	__Gekko_getEnemyScale_	pass		25	25	100.0	6	
+0x301d4	__Gekko_updateAnimationFrame_	pass		28	21	75.0	3	301ea-301f6
+0x3021c	__Gekko_updateMoveRate_	pass		94	25	26.6	3	30246-302d4
+0x30308	__Gekko_resetMoveRate_	pass		34	34	100.0	12	
+0x30374	__Gekko_resetGekko_	pass		55	47	85.5	12	303dc-303ea
+0x30424	__Gekko_updateDie_	pass		49	24	49.0	12	3044e-30482
+0x304ac	__Gekko_initAppearance_	pass		74	0	0.0	0	304ac-30548
+0x3056c	__Gekko_activate_	pass		242	38	15.7	12	305ac-3074c 30752-30754
+0x3079c	__Gekko_render_	pass		30	30	100.0	6	
+0x307fc	__Gekko_update:_	pass		30	30	100.0	6	
+0x30858	__Gekko_reset_	pass		18	18	100.0	12	
+0x3088c	__Gekko_initWithParameter:index:_	pass		63	55	87.3	1	308d2-308d6 308e2-308ea
+0x3092c	__Gekko_resetMoveRateCoefficient_	pass		51	32	62.7	12	30940-30964
+0x309b4	__Gekko_getMovePoint_	pass		129	0	0.0	0	309b4-30ac4
+0x30af8	__Gekko_attackSound_	pass		16	0	0.0	0	30af8-30b18
+0x30b24	__Gekko_updateMove_	pass		146	0	0.0	0	30b24-30c5a
+0x30c94	__Gekko_updateAttack_	pass		429	45	10.5	3	30cce-31006
+0x310ac	__Gekko_caluclateDamageWithExplosion:_	pass		55	0	0.0	0	310ac-3111e
+0x31138	__Gekko_calculateDamage:::::_	pass		403	0	0.0	0	31138-314c0
+0x31500	__Gekko_changeAnimation_	pass		226	33	14.6	3	31534-3165e 31802-3187a
+0x318ec	__Octopus_resetPattern_	pass		16	16	100.0	12	
+0x31910	__Octopus_resetChangeBGCount_	pass		4	4	100.0	12	
+0x3191c	__Octopus_incChangeBGCount_	pass		5	5	100.0	12	
+0x3192c	__Octopus_getChangeBGCount_	pass		3	3	100.0	12	
+0x31938	__Octopus_updateAnimationFrame_	pass		26	26	100.0	6	
+0x3197c	__Octopus_updateDie_	pass		41	23	56.1	3	319a8-319ca
+0x319e4	__Octopus_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		32	0	0.0	0	319e4-31a24
+0x31a34	__Octopus_checkCollisionWithBullet:hit:distance:_	pass		32	0	0.0	0	31a34-31a74
+0x31a84	__Octopus_resetOctopus_	pass		61	61	100.0	12	
+0x31b38	__Octopus_updateMove_	pass		100	43	43.0	3	31b60-31b88 31bac-31bf8
+0x31c34	__Octopus_initMove_	pass		6	6	100.0	12	
+0x31c48	__Octopus_updateAppearanceProcess_	pass		119	40	33.6	12	31c8a-31cde 31ce4-31d32
+0x31d70	__Octopus_updateAppearance_	pass		40	0	0.0	0	31d70-31dc4
+0x31de0	__Octopus_dealloc_	pass		62	62	100.0	12	
+0x31e7c	__Octopus_update:_	pass		128	51	39.8	12	31eb0-31ed0 31eec-31f64
+0x31fa4	__Octopus_reset_	pass		18	18	100.0	12	
+0x31fd8	__Octopus_initWithParameter:index:hp:gitai:rpgExplosion:_	pass		159	156	98.1	1	320a4-320a8
+0x32178	__Octopus_canPutFBombs_	pass		10	10	100.0	12	
+0x32198	__Octopus_checkPattern:_	pass		13	13	100.0	12	
+0x321c0	__Octopus_setPattern:_	pass		14	14	100.0	12	
+0x321ec	__Octopus_resetOctopusAppearPoint_	pass		495	0	0.0	0	321ec-3265e
+0x3267c	__Octopus_updateAttack_	pass		282	118	41.8	3	326ec-3270a 3271a-32758 32764-3276c 327b6-32802 32810-328ae
+0x32908	__Octopus_calculateDamage:::::_	pass		548	0	0.0	0	32908-32e1a
+0x32e4c	__Octopus_initAppearance_	pass		195	0	0.0	0	32e4c-32fe4
+0x33038	__Octopus_changeAnimation_	pass		178	30	16.9	6	3304a-33088 3309c-330dc 330f4-331a8
+0x331d4	__Octopus_attackSound_	pass		32	0	0.0	0	331d4-33216
+0x33220	__Octopus_moveSet_	pass		380	0	0.0	0	33220-33556
+0x33580	__MyEAGLView_clearTouchEvent_	pass		20	20	100.0	201	
+0x335b0	__MyEAGLView_initTouchEvent_	pass		112	112	100.0	2	
+0x336c4	__MyEAGLView_getTouchIn:_	pass		26	13	50.0	126	336da-336f2
+0x33708	__MyEAGLView_getTouchOut:_	pass		32	32	100.0	195	
+0x33758	__MyEAGLView_getTouchPich_	pass		71	30	42.3	12	3376c-337c6 337ec-337ee
+0x33818	__MyEAGLView_setPichValue:_	pass		21	21	100.0	13	
+0x33854	__MyEAGLView_initPich_	pass		5	5	100.0	12	
+0x33868	__MyEAGLView_isMultiTouch_	pass		4	4	100.0	75	
+0x33874	__MyEAGLView_getTouchFlag:_	pass		5	5	100.0	192	
+0x33884	__MyEAGLView_Key_Speac_	pass		15	9	60.0	12	33894-3389e
+0x338a8	__MyEAGLView_getTouchMoveDist_	pass		28	28	100.0	12	
+0x338f4	__MyEAGLView_getMovewidth::_	pass		75	59	78.7	2	33932-3394c 33968-3396c
+0x339a8	__MyEAGLView_context_	pass		4	4	100.0	12	
+0x339b4	__MyEAGLView_dealloc_	pass		35	35	100.0	12	
+0x33a20	__MyEAGLView_getTouchFrip::_	pass		87	27	31.0	75	33a3c-33a3e 33a4c-33ac8
+0x33af4	__MyEAGLView_getTouchSlide::_	pass		32	11	34.4	12	33b04-33b2e
+0x33b48	__MyEAGLView_touchesCancelled:withEvent:_	pass		6	6	100.0	12	
+0x33b5c	__MyEAGLView_initWithFrame:_	pass		155	41	26.5	2	33b9e-33c9c
+0x33d18	__MyEAGLView_layerClass_	pass		8	8	100.0	2	
+0x33d34	__MyEAGLView_preRender_	pass		17	17	100.0	201	
+0x33d70	__MyEAGLView_postRender_	pass		22	19	86.4	201	33d9a-33d9e
+0x33dbc	__MyEAGLView_createFramebuffer_	pass		127	68	53.5	2	33e50-33eda
+0x33f4c	__MyEAGLView_destroyFramebuffer_	pass		29	25	86.2	12	33f80-33f88
+0x33f98	__MyEAGLView_setContext:_	pass		12	12	100.0	12	
+0x33fb8	__MyEAGLView_touchesBegan:withEvent:_	pass		296	157	53.0	6	34034-34036 34064-340a6 34112-34202
+0x34284	__MyEAGLView_getOldMovePos:_	pass		10	10	100.0	123	
+0x3429c	__MyEAGLView_getMovePos:_	pass		10	10	100.0	192	
+0x342b4	__MyEAGLView_getTouchPos:_	pass		10	10	100.0	195	
+0x342cc	__MyEAGLView_touchesEnded:withEvent:_	pass		224	122	54.5	6	34338-3433a 34350-3438e 343b0-34458
+0x344f4	__MyEAGLView_touchesMoved:withEvent:_	pass		229	126	55.0	1	34564-34566 3457c-345ba 345da-34684
+0x34714	__Missile_reset_	pass		56	56	100.0	2	
+0x3479c	__Missile_initWithParameter:_	pass		45	45	100.0	2	
+0x3482c	__Missile_render_	pass		537	81	15.1	39	348a0-349ee 34a14-34d4c
+0x34d7c	__Missile_update_	pass		581	113	19.4	39	34e02-34e04 34e42-34e44 34e62-352f8
+0x35358	__Missile_set:index:scale:_	pass		688	486	70.6	1	354d2-35522 355e6-35692 356f8-357be
+0x359e4	__WeaponBase_init_	pass		1	1	100.0	12	
+0x359e6	__WeaponBase_reset_	pass		1	1	100.0	12	
+0x359e8	__WeaponBase_update_	pass		1	1	100.0	12	
+0x359ea	__WeaponBase_render_	pass		1	1	100.0	12	
+0x359ec	__WeaponBase_type_	pass		4	4	100.0	6	
+0x359f8	__FullScreenEffect_reset_	pass		14	14	100.0	2	
+0x35a28	__FullScreenEffect_messCameraDust_walldamage_	pass		15	15	100.0	4	
+0x35a58	__FullScreenEffect_messCameraDust_wallbreak_	pass		15	15	100.0	12	
+0x35a88	__FullScreenEffect_cleanCameraDust_	pass		5	5	100.0	12	
+0x35a9c	__FullScreenEffect_setDamageEffect:_	pass		6	6	100.0	3	
+0x35ab0	__FullScreenEffect_setDestructEffect_	pass		4	4	100.0	12	
+0x35abc	__FullScreenEffect_setWhiteFadeOut:_	pass		14	14	100.0	12	
+0x35ae4	__FullScreenEffect_setWhiteFadeIn:_	pass		15	15	100.0	12	
+0x35b0c	__FullScreenEffect_release_	pass		44	30	68.2	12	35b18-35b24 35b30-35b38 35b46-35b4e
+0x35b84	__FullScreenEffect_proc_	pass		197	126	64.0	75	35b9c-35ba0 35c74-35ce8 35d06-35d10 35d1a-35d32
+0x35da4	__FullScreenEffect_init_	pass		281	105	37.4	2	35e30-35e50 35e82-35f46 35f54-35fce 35fe4-36000 3600e
+0x360a0	__FullScreenEffect_drawWhiteFadeOut_	pass		43	9	20.9	75	360ae-360f8
+0x36134	__FullScreenEffect_drawPlayerDamage_	pass		41	9	22.0	75	36142-36188
+0x361c0	__FullScreenEffect_drawCameraDust_	pass		119	109	91.6	75	36212-36216 36222-3622c 362a0-362a2
+0x36310	__FullScreenEffect_drawDestruct_	pass		72	15	20.8	75	36324-3639a
+0x363d0	__FullScreenEffect_drawRain_	pass		113	110	97.3	75	36452-36456
+0x36514	__FallingObjects_release_	pass		12	7	58.3	12	36520-3652a
+0x36538	__FallingObjects_init_	pass		29	29	100.0	2	
+0x365b0	__FallingObjects_private_setFallingObject::_	pass		187	187	100.0	32	
+0x367c8	__FallingObjects_proc_	pass		501	499	99.6	75	36a80-36a82
+0x36d10	__FallingObjects_reset_	pass		70	58	82.9	4	36d60-36d6a 36d8a-36d94
+0x36dbc	__FallingObjects_draw_	pass		455	451	99.1	75	36fbe-36fc0 37062-37064
+0x37270	__GameMsg_init_	pass		18	18	100.0	2	
+0x372a8	__GameMsg_setAdviceContinueBgNum:_	pass		3	3	100.0	12	
+0x372b4	__GameMsg_isAdviceOfExtraSurvival::::_	pass		27	27	100.0	12	
+0x372f0	__GameMsg_isAdviceContinuePermitOfStage:BgNum:AdviceNum:_	pass		106	9	8.5	12	3732c-373fa
+0x37414	__GameMsg_numAdviceOfStage:isSurvival:_	pass		99	18	18.2	2	37428-374d2
+0x374f8	__GameMsg_numAdviceContinueOfStage:_	pass		133	132	99.2	12	375d6
+0x37638	__Camera_shake:_	pass		30	26	86.7	3	37662 3766a-3766e
+0x37698	__Camera_getDrawPosX_pl:_	pass		17	17	100.0	66	
+0x376cc	__Camera_getDrawPosY_pl:_	pass		17	17	100.0	66	
+0x37700	__Camera_getPosX_	pass		3	3	100.0	75	
+0x3770c	__Camera_getPosY_	pass		3	3	100.0	75	
+0x37718	__Camera_getDrawScale_	pass		3	3	100.0	75	
+0x37724	__Camera_getDrawAdjX_	pass		3	3	100.0	75	
+0x37730	__Camera_getDrawAdjY_	pass		3	3	100.0	75	
+0x3773c	__Camera_getShakePower_	pass		3	3	100.0	12	
+0x37748	__Camera_getShakeX_	pass		3	3	100.0	33	
+0x37754	__Camera_getShakeY_	pass		3	3	100.0	33	
+0x37760	__Camera_getPosBaseX_	pass		3	3	100.0	33	
+0x3776c	__Camera_getPosBaseY_	pass		3	3	100.0	33	
+0x37778	__Camera_getDrawPosY:_	pass		28	28	100.0	75	
+0x377d4	__Camera_getDrawPosX:_	pass		28	28	100.0	75	
+0x37830	__Camera_release_	pass		6	6	100.0	12	
+0x37844	__Camera_init_	pass		72	63	87.5	4	37860-37872
+0x3794c	__Camera_proc_	pass		1339	710	53.0	75	379b4-379ba 379c8-379d6 379ea-37a2c 37b94-37bb4 37bbc-37bdc 37be4-37c60 37c76-37c7a 37c8c-37de2 37df6-37e1c 37e34-37e5c 37e70-37e98 37f04-37f12
+0x387d4	__Player_setgGlView:_	pass		3	3	100.0	2	
+0x387e0	__Player_initHP:_	pass		6	6	100.0	2	
+0x387f0	__Player_setHP:_	pass		4	4	100.0	12	
+0x387fc	__Player_setCure:_	pass		19	8	42.1	12	3880a-3881e
+0x38828	__Player_setStealth_	pass		18	18	100.0	12	
+0x38854	__Player_setREX_	pass		26	26	100.0	12	
+0x38894	__Player_setDoll_	pass		20	20	100.0	12	
+0x388c8	__Player_missDoll_	pass		9	6	66.7	12	388d2-388d6
+0x388e0	__Player_setBoxing_	pass		21	21	100.0	12	
+0x38918	__Player_getHP_	pass		4	4	100.0	75	
+0x38924	__Player_getMaxHP_	pass		4	4	100.0	25	
+0x38930	__Player_isDanger_	pass		18	13	72.2	75	38946-3894e
+0x38958	__Player_setControlMode:_	pass		3	3	100.0	12	
+0x38964	__Player_getControlMode_	pass		3	3	100.0	12	
+0x38970	__Player_getSightPosX_	pass		3	3	100.0	66	
+0x3897c	__Player_getSightPosY_	pass		3	3	100.0	66	
+0x38988	__Player_getSightScale_	pass		3	3	100.0	75	
+0x38994	__Player_getStat_	pass		4	4	100.0	75	
+0x389a0	__Player_getStatLife_	pass		4	4	100.0	75	
+0x389ac	__Player_finishRise_	pass		8	8	100.0	12	
+0x389c0	__Player_getWeapon_	pass		4	4	100.0	66	
+0x389cc	__Player_isAvoid_orDucking_	pass		12	7	58.3	12	389d6-389de
+0x389e8	__Player_isNoDamage_	pass		5	5	100.0	12	
+0x389f8	__Player_getSitCnt_	pass		5	5	100.0	12	
+0x38a08	__Player_isDamaged_	pass		8	8	100.0	57	
+0x38a1c	__Player_getDeadCnt_	pass		5	5	100.0	12	
+0x38a2c	__Player_isStealth_	pass		4	4	100.0	57	
+0x38a38	__Player_getStealthAlpha_	pass		4	4	100.0	12	
+0x38a44	__Player_getSightChangeAnimeStat_	pass		3	3	100.0	57	
+0x38a50	__Player_private_MoveSight_	pass		122	94	77.0	28	38aa0-38ab0 38b0a-38b0c 38b20-38b52
+0x38ba8	__Player_private_setSightChangeAnim:_	pass		15	9	60.0	12	38bb6-38bc0
+0x38bcc	__Player_private_procSightChangeAnim_	pass		58	11	19.0	66	38bdc-38c50
+0x38c74	__Player_private_getDamageVal_	pass		41	12	29.3	6	38c8e-38ccc
+0x38ce4	__Player_drawSight_	pass		33	22	66.7	75	38cfe-38d00 38d16-38d26
+0x38d50	__Player_drawPlayer_	pass		20	18	90.0	75	38d72-38d74
+0x38d98	__Player_isAvoid_	pass		21	21	100.0	9	
+0x38dd0	__Player_release_	pass		205	155	75.6	12	38de6-38df2 38e1a-38e22 38e2c-38e34 38e3e-38e46 38e50-38e58 38e80-38e88 38e94-38e9c 38ea8-38eb0 38ebc-38ec4 38ed0-38ed8 38ee4-38eec 38f06-38f0e
+0x38fe8	__Player_private_LifeArart_	pass		27	23	85.2	75	39016-3901e
+0x3902c	__Player_private_CheckPichAndChangeWeapon_	pass		94	20	21.3	13	39050-390f2
+0x3911c	__Player_setRailgun_	pass		44	44	100.0	12	
+0x3918c	__Player_setRPG7_	pass		45	45	100.0	12	
+0x391fc	__Player_setDamage_FriendFire:_	pass		42	10	23.8	12	3920e-39252
+0x39270	__Player_private_drawM4Sight_	pass		244	226	92.6	57	3928a-392b0
+0x394dc	__Player_private_ControlPlayer_	pass		309	111	35.9	75	3952c-39530 39544 395e2-3964c 39656-3966a 39684-397b2
+0x3a128	__Player_private_procStealth_	pass		132	18	13.6	75	3a142-3a248
+0x3a274	__Player_private_Breath_	pass		77	43	55.8	75	3a2c6-3a30e
+0x3a340	__Player_private_setSightMode:_	pass		38	25	65.8	12	3a352-3a364 3a380-3a386
+0x3a3a8	__Player_drawREX_Switch_	pass		446	315	70.6	21	3a3de-3a3e2 3a414-3a418 3a466-3a46e 3a48a-3a4a8 3a4c0-3a4e4 3a5d2-3a5da 3a692-3a7d2
+0x3a818	__Player_private_drawREX_M_Sight_	pass		644	19	3.0	12	3a832-3adfe
+0x3ae50	__Player_private_drawREX_B_Sight_	pass		88	15	17.0	12	3ae64-3af14
+0x3af64	__Player_private_drawRailgunSight_	pass		657	0	0.0	0	3af64-3b67a
+0x3b698	__Player_private_drawRpgSight_	pass		467	467	100.0	12	
+0x3bb64	__Player_private_drawSvdSight_	pass		463	463	100.0	12	
+0x3c024	__Player_private_drawREX_	pass		318	153	48.1	9	3c0aa-3c0ac 3c0ba-3c0be 3c0cc-3c0ce 3c0de-3c248
+0x3c36c	__Player_private_drawSnake_Boxing_	pass		206	180	87.4	9	3c3a0-3c3a6 3c404-3c416 3c450-3c470
+0x3c590	__Player_private_drawSnake_Doll_	pass		371	0	0.0	0	3c590-3c8e2
+0x3c93c	__Player_private_drawSnake_	pass		846	169	20.0	57	3c970-3c986 3c9c6-3ca06 3ca34-3cb1c 3cb30-3cb3e 3cb4a-3cc96 3cd14-3cd1a 3cd62-3cf9a 3d014-3d12a
+0x3d164	__Player_private_getRotPoint:rot:_	pass		45	22	48.9	75	3d178-3d188 3d192-3d19e 3d1a8-3d1b8
+0x3d1cc	__Player_private_CheckTouchAndChangeWeapon_	pass		35	29	82.9	12	3d1fa-3d204
+0x3d224	__Player_private_UpdateController_	pass		226	168	74.3	75	3d37a-3d3a8 3d3b2-3d3fa
+0x3d448	__Player_setDamage:::_	pass		268	94	35.1	5	3d494-3d56a 3d578-3d588 3d59a-3d61c 3d654-3d656
+0x3d6cc	__Player_proc_	pass		712	387	54.4	75	3d6f0-3d706 3d714-3d71a 3d760-3d762 3d76a-3d76c 3d782-3d78e 3d7cc 3d81c-3d81e 3d838-3d83a 3d8e0-3d8e2 3d934-3d954 3dab0-3dae2 3daf8-3db08
+0x3de28	__Player_init_	pass		791	268	33.9	2	3df36-3df38 3df5e-3df6a 3e032-3e03e 3e044-3e050 3e05a-3e064 3e072-3e076 3e092-3e844
+0x3e8bc	__Player_resetForStageChange_	pass		227	219	96.5	12	3e9ac-3e9ae 3e9d8-3e9e4
+0x3eac8	__Player_private_CheckShootHit:_	pass		170	77	45.3	6	3eb42-3ec18
+0x3ec74	__Player_private_Shoot_	pass		100	57	57.0	6	3ecaa-3ecb6 3ecf0-3ed04 3ed1e-3ed56
+0x3f0bc	__Stage_resetGameParams_	pass		7	7	100.0	4	
+0x3f0d0	__Stage_proc_	pass		10	10	100.0	75	
+0x3f0ec	__Stage_setNum:_	pass		6	6	100.0	2	
+0x3f0fc	__Stage_getNum_	pass		3	3	100.0	81	
+0x3f108	__Stage_setBgNum:_	pass		7	7	100.0	2	
+0x3f11c	__Stage_getBgNum_	pass		3	3	100.0	13	
+0x3f128	__Stage_getBgNum_Log_	pass		3	3	100.0	12	
+0x3f134	__Stage_setSubNum:_	pass		3	3	100.0	2	
+0x3f140	__Stage_getSubNum_	pass		3	3	100.0	6	
+0x3f14c	__Stage_setClearCheck:_	pass		3	3	100.0	2	
+0x3f158	__Stage_getClearCheck_	pass		3	3	100.0	75	
+0x3f164	__Stage_setClearDestNum:_	pass		5	5	100.0	2	
+0x3f174	__Stage_getClearDestNum_	pass		3	3	100.0	12	
+0x3f180	__Stage_getRestDestNum_	pass		7	7	100.0	75	
+0x3f194	__Stage_addDestNum:_	pass		7	7	100.0	6	
+0x3f1a8	__Stage_addDestNum_Ptn:_	pass		7	7	100.0	6	
+0x3f1bc	__Stage_getDestNum_Ptn_	pass		3	3	100.0	72	
+0x3f1c8	__Stage_setEnemyMax:_	pass		5	5	100.0	2	
+0x3f1d8	__Stage_getEnemyMax_	pass		3	3	100.0	78	
+0x3f1e4	__Stage_incNowPtn_	pass		5	5	100.0	12	
+0x3f1f4	__Stage_getNowPtn_	pass		3	3	100.0	75	
+0x3f200	__Stage_setMaxPtn:_	pass		5	5	100.0	2	
+0x3f210	__Stage_getMaxPtn_	pass		3	3	100.0	6	
+0x3f21c	__Stage_setLoadChange:_	pass		4	4	100.0	12	
+0x3f228	__Stage_isLoadChange_	pass		4	4	100.0	75	
+0x3f234	__Stage_getLoadChangeCnt_	pass		3	3	100.0	12	
+0x3f240	__Stage_clearLoadChangeCnt_	pass		4	4	100.0	12	
+0x3f24c	__Stage_incLoadChangeCnt_	pass		5	5	100.0	12	
+0x3f25c	__Stage_decLoadChangeCnt_	pass		5	5	100.0	12	
+0x3f26c	__Stage_setLoadedBG::_	pass		9	9	100.0	6	
+0x3f284	__Stage_isLoadedBG:_	pass		11	11	100.0	12	
+0x3f2a0	__Stage_getDepthInfo:_	pass		44	41	93.2	6	3f304-3f314
+0x3f330	__Stage_releaseData_	pass		33	15	45.5	12	3f33c-3f346 3f350-3f35a 3f364-3f374
+0x3f390	__Stage_init_	pass		27	27	100.0	2	
+0x3f3d0	__Stage_loadData_	pass		228	142	62.3	3	3f3f8-3f3fc 3f49e-3f556
+0x3f62c	__Stage_draw_	pass		270	270	100.0	75	
+0x3f8f8	__MenuScroll_setScrollPos:_	pass		30	30	100.0	6	
+0x3f95c	__MenuScroll_setOverRangeSize:_	pass		4	4	100.0	6	
+0x3f968	__MenuScroll_updateWithTouch:touchPoint:touchMoveOld:touchMoveNow:_	pass		701	152	21.7	123	3f9ca-3f9fc 3fa32-3fa34 3fa72-3faa2 3faae-3fb3a 3fb42-3fb44 3fb5a-3fc24 3fc3a-3ff8a 3ffa0-3ffa6 3ffb2-3ffba
+0x3fff4	__MenuScroll_scrollPos_	pass		12	10	83.3	123	40000-40002
+0x40018	__MenuScroll_isMove_	pass		13	11	84.6	123	40024-40026
+0x4003c	__MenuScroll_isMoveOfBlock:_	pass		30	28	93.3	123	40072-40074
+0x40088	__MenuScroll_isScroll_	pass		4	4	100.0	6	
+0x40094	__MenuScroll_setScrollWithSize:_	pass		10	10	100.0	6	
+0x400b0	__MenuScroll_init_	pass		25	25	100.0	6	
+0x40100	__MenuScroll_setScrollWithSize:setSizeMin:_	pass		120	107	89.2	6	401a2-401a4 401b2-401b4 401ce-401e0
+0x40234	__ObjectBase_render_	pass		1	1	100.0	12	
+0x40236	__ObjectBase_getDistance_	pass		3	3	100.0	12	
+0x4023c	__ObjectBase_checkCollisionWithBullet:hit:distance:_	pass		2	2	100.0	15	
+0x40240	__ObjectBase_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		2	2	100.0	6	
+0x40244	__ObjectBase_checkCollision:withPoint:_	pass		72	22	30.6	12	4026c-402de
+0x402e8	__ObjectBase_checkCollision:withRect:_	pass		83	83	100.0	9	
+0x403a6	__ObjectBase_getZ_	pass		9	7	77.8	75	403b0-403b2
+0x403c0	__ObjectBase_z_	pass		4	4	100.0	75	
+0x403cc	__ObjectBase__type_	pass		4	4	100.0	12	
+0x403d8	__Item_getDistance_	pass		5	5	100.0	3	
+0x403e8	__Item_remove_	pass		17	17	100.0	12	
+0x40418	__Item_get:::_	pass		34	34	100.0	3	
+0x40470	__Item_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		49	13	26.5	6	40484-404d0
+0x404ec	__Item_checkCollisionWithBullet:hit:distance:_	pass		79	19	24.1	4	40506-4052e 40534-4058c
+0x405b0	__Item_renderIcon_	pass		12	12	100.0	75	
+0x405d8	__Item_render_	pass		17	17	100.0	75	
+0x4060c	__Item_update_	pass		131	92	70.2	75	40666-4067e 4069c-406a0 406b0-406c8 406e6-406ea 406fa-40712
+0x40748	__Item_reset_	pass		30	30	100.0	6	
+0x4079c	__Item_initWithParameter:_	pass		18	18	100.0	2	
+0x407d0	__Item_set::_	pass		109	105	96.3	1	4086e-40874
+0x408f4	__Item_get_	pass		71	25	35.2	3	40910-40972
+0x409b4	__Drum_initWithParameter::_	pass		13	13	100.0	2	
+0x409dc	__Drum_getDistance_	pass		5	0	0.0	0	409dc-409e4
+0x409ec	__Drum_checkCollisionWithExplosion:_	pass		100	0	0.0	0	409ec-40ac6
+0x40ae4	__Drum_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		37	23	62.2	6	40af8-40afa 40b12-40b28
+0x40b38	__Drum_checkCollisionWithBullet:hit:distance:_	pass		106	94	88.7	6	40b64-40b72 40bd8-40bda 40c10-40c14
+0x40c44	__Drum_update_	pass		86	0	0.0	0	40c44-40d00
+0x40d24	__Drum_render_	pass		279	152	54.5	33	40e40-40e46 40e7a-40f7c
+0x40fd4	__BGObject_getDistance_	pass		4	4	100.0	13	
+0x40fe0	__BGObject_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		12	12	100.0	6	
+0x41000	__BGObject_initWithParameter::_	pass		168	154	91.7	6	4103c-4104c 4115c-41164
+0x411b0	__BGObject_checkCollisionWithBullet:hit:distance:_	pass		261	169	64.8	7	411da-412ac
+0x41464	__BGObject_render_	pass		140	140	100.0	63	
+0x415e8	__MimicObject_reset_	pass		23	23	100.0	12	
+0x41630	__MimicObject_fadeout_	pass		11	0	0.0	0	41630-41644
+0x41650	__MimicObject_setVisible:_	pass		11	11	100.0	12	
+0x4166c	__MimicObject_initWithParameter::_	pass		14	14	100.0	12	
+0x41698	__MimicObject_render_	pass		338	149	44.1	12	41778-4177a 417aa-417d6 417e2-418b0 418c0-41966 41980-41982
+0x419f0	__MimicObject_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		282	0	0.0	0	419f0-41c7a
+0x41cd8	__Raven_isObstacleOfPosX:_	pass		56	35	62.5	1	41cea-41cec 41cfc-41d24
+0x41d70	__Raven_isRoom_	pass		17	17	100.0	9	
+0x41d9c	__Raven_setStageChangeCheck_	pass		43	14	32.6	3	41da8-41dac 41dbc-41dee
+0x41e04	__Raven_getEnemyScale_	pass		31	25	80.6	9	41e22-41e2c
+0x41e58	__Raven_activate_	pass		27	27	100.0	12	
+0x41e9c	__Raven_caluclateDamageWithExplosion:_	pass		33	33	100.0	12	
+0x41efc	__Raven_updateMoveEnd_	pass		73	24	32.9	3	41f10-41f66 41f74-41f82
+0x41fbc	__Raven_initMove_	pass		198	109	55.1	1	41fda-42042 4204e-42062 4207e-42080 42120-42150
+0x421a8	__Raven_updateAttack_	pass		133	49	36.8	9	42200-422b4
+0x422fc	__Raven_updateAppearance_	pass		15	15	100.0	12	
+0x4232c	__Raven_render_	pass		29	29	100.0	9	
+0x42384	__Raven_updateAnimation_	pass		58	58	100.0	9	
+0x4242c	__Raven_update:_	pass		128	104	81.2	9	42458-4248a
+0x42590	__Raven_reset_	pass		18	18	100.0	12	
+0x425c4	__Raven_dealloc_	pass		47	47	100.0	12	
+0x42644	__Raven_initWithParameter:index:hp:rpgExplosion:_	pass		179	166	92.7	13	426ac-426bc 4270c-4270e 4278e-42794
+0x42818	__Raven_setNextAction_	pass		129	85	65.9	1	4283e-42852 4287a-4288e 42896-428c2
+0x42964	__Raven_calculateDamageRaven_	pass		114	56	49.1	3	429ba-429c8 429e2-42a4c
+0x42a80	__Raven_updateSpecialAttack_	pass		223	156	70.0	3	42b7c-42c10
+0x42f38	__Raven_updateMoveAttack_	pass		62	50	80.6	9	42f64-42f7c
+0x42ff0	__Raven_updateMove_	pass		196	87	44.4	3	43096-4317a
+0x4332c	__Raven_itemSliderBonus_	pass		51	47	92.2	12	4336e-43374
+0x433a0	__Raven_setOutsideRange_	pass		73	45	61.6	3	433da-43414
+0x43450	__Raven_numSlider_	pass		55	19	34.5	3	43464-4346c 43480-434c2
+0x434d0	__Raven_isClusterBomb_	pass		34	14	41.2	3	434e8-43514
+0x43524	__Raven_resetRaven_	pass		101	89	88.1	3	43536-43540 4357a-43586
+0x43648	__Raven_calculateDamage:::::_	pass		254	147	57.9	4	436da-437b0 437dc-437ea 43876-4387c
+0x438c4	__Raven_updateMoveAttack2_	pass		300	211	70.3	12	438ec-43900 43978-4397c 4399c-439c4 43a40-43a42 43a9a 43aa6-43ab6 43ad8-43b3a
+0x43ba8	__EffectObject_update_	pass		1	1	100.0	75	
+0x43baa	__EffectObject_render_	pass		22	22	100.0	75	
+0x43bec	__EffectObject_initWithParameter:_	pass		46	27	58.7	6	43c1e-43c44
+0x43c64	__Wall_isAlive_	pass		12	12	100.0	7	
+0x43c84	__Wall_getHP_	pass		8	8	100.0	12	
+0x43c9c	__Wall_getHP_level_	pass		14	14	100.0	33	
+0x43cc0	__Wall_getPackLoad_	pass		2	2	100.0	12	
+0x43cc4	__Wall_private_resetPos::_	pass		14	14	100.0	9	
+0x43cec	__Wall_private_procHitEffect_	pass		43	30	69.8	75	43d14-43d2e
+0x43d50	__Wall_setDamage::_	pass		26	9	34.6	12	43d60-43d82
+0x43d94	__Wall_reset_	pass		113	107	94.7	5	43e64-43e6e
+0x43eb0	__Wall_change:_	pass		149	129	86.6	3	43efe-43f2a
+0x44060	__Wall_init_	pass		44	44	100.0	3	
+0x440e0	__Wall_release_	pass		31	11	35.5	12	440ec-440f2 440fc-44120
+0x44140	__Wall_private_setHitEffect:::::_	pass		52	50	96.2	4	4419e-441a0
+0x441b4	__Wall_hit:_	pass		224	192	85.7	7	4423a-44246 44352-4437e 44388-4438e
+0x443f8	__Wall_proc_	pass		231	96	41.6	75	44460-44542 4456a-44574 44586-4459a 445ac-445de
+0x44638	__Wall_draw_	pass		644	338	52.5	75	44668-44670 4477c-44780 44926-449b4 449ca-44ad0 44ae8-44ca6
+0x44cfc	__Wall_private_drawHitEffect_	pass		206	80	38.8	33	44d80-44eae
+0x44f38	__RavenSlider_initWithNo:_	pass		29	29	100.0	12	
+0x44f94	__RavenSlider_isFinish_	pass		33	16	48.5	12	44fb0-44fd4
+0x44ff0	__RavenSlider_isBroken_	pass		4	4	100.0	12	
+0x44ffc	__RavenSlider_scaleSlider_	pass		22	20	90.9	12	45012-45014
+0x45044	__RavenSlider_pointSlider_	pass		26	26	100.0	12	
+0x45094	__RavenSlider_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		245	22	9.0	15	450b2-4529c
+0x452e8	__RavenSlider_calculateDamage::_	pass		151	151	100.0	3	
+0x4547c	__RavenSlider_update_	pass		359	20	5.6	9	45498-45ae6
+0x45b68	__RavenSlider_render_	pass		247	20	8.1	9	45b84-45d5a
+0x45dd0	__RavenSlider_set::sliderAnime::_	pass		371	0	0.0	0	45dd0-460d8
+0x4617c	__ClusterBomb_isBomb_	pass		12	9	75.0	12	4618c-46190
+0x4619c	__ClusterBomb_init_	pass		23	23	100.0	12	
+0x461e0	__ClusterBomb_update_	pass		147	20	13.6	12	461fc-46312
+0x46358	__RavenBomb_dealloc_	pass		35	35	100.0	3	
+0x463b4	__RavenBomb_initWithParameter:_	pass		85	85	100.0	12	
+0x464a0	__RavenBomb_render_	pass		217	31	14.3	9	464ba-464d4 464ee-46680
+0x466e4	__ClusterBomb_render_	pass		195	20	10.3	12	46700-46880
+0x468e8	__ClusterBomb_set:anmBomb1:anmBomb2:index:_	pass		265	213	80.4	12	46a4e-46ad4
+0x46c50	__RavenBomb_update_	pass		437	46	10.5	9	46c7a-46cee 46d16-4708c
+0x470c4	__RavenBomb_set:index:scale:anmMissile:anmBomb1:anmBomb2:_	pass		416	0	0.0	0	470c4-47448
+0x474c4	__Wolf_setStageChangeActive_	pass		16	0	0.0	0	474c4-474e2
+0x474f0	__Wolf_getEnemyScale_	pass		25	19	76.0	12	47502-4750c
+0x47534	__Wolf_activate_	pass		27	22	81.5	12	4755c-47564
+0x47578	__Wolf_updateAnimation_	pass		13	13	100.0	12	
+0x4759c	__Wolf_isHalfHaven_	pass		58	55	94.8	12	475e4-475e8
+0x47628	__Wolf_isAliveHaven_	pass		26	26	100.0	12	
+0x47670	__Wolf_setSummonHaven_	pass		223	0	0.0	0	47670-4783e
+0x4787c	__Wolf_setStateRailgun_	pass		67	0	0.0	0	4787c-47902
+0x47918	__Wolf_resetBoss_	pass		155	0	0.0	0	47918-47a50
+0x47ab4	__Wolf_caluclateDamageWithExplosion:_	pass		34	34	100.0	12	
+0x47b18	__Wolf_initAppearance_	pass		20	20	100.0	12	
+0x47b50	__Wolf_renderGauge_	pass		62	0	0.0	0	47b50-47bd0
+0x47bf0	__Wolf_render_	pass		46	46	100.0	12	
+0x47c6c	__Wolf_update:_	pass		44	35	79.5	13	47cae-47cbe
+0x47cf0	__Wolf_reset_	pass		21	21	100.0	12	
+0x47d30	__Wolf_dealloc_	pass		20	20	100.0	12	
+0x47d6c	__Wolf_initWithParameter:index:hp:rpgExplosion:_	pass		69	65	94.2	13	47dc6-47dce
+0x47e34	__Wolf_setNextAction_	pass		111	0	0.0	0	47e34-47f14
+0x47f50	__Wolf_setItem_	pass		179	28	15.6	12	47f6c-47f82 47f96-480ca
+0x4810c	__Wolf_setStageChange_	pass		97	30	30.9	12	48134-481ac 481c8-481e6
+0x48210	__Wolf_updateAppearance_	pass		197	0	0.0	0	48210-483ac
+0x483f0	__Wolf_calculateDamageWolf:_	pass		166	0	0.0	0	483f0-4854a
+0x4858c	__Wolf_calculateDamage:::::_	pass		248	0	0.0	0	4858c-487c4
+0x487fc	__Wolf_updateAttack_	pass		291	0	0.0	0	487fc-48b70
+0x48be4	__Wolf_updateMove_	pass		158	0	0.0	0	48be4-49032
+0x49048	__Wolf_updateMoveAttack_	pass		355	0	0.0	0	49048-4934e
+0x493dc	__Ray_setChangeChara:_	pass		3	3	100.0	12	
+0x493e8	__Ray_getChangeChara_	pass		3	3	100.0	21	
+0x493f4	__Ray_isExtraWeapon_	pass		4	4	100.0	13	
+0x49400	__Ray_setExtraWeapon:_	pass		3	3	100.0	12	
+0x4940c	__Ray_setLockon_	pass		5	5	100.0	12	
+0x4941c	__Ray_isDemoFlag_	pass		4	4	100.0	15	
+0x49428	__Ray_renderGauge_	pass		1	1	100.0	21	
+0x4942a	__Ray_isBrokenArms_	pass		31	31	100.0	1	
+0x49480	__Ray_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		15	15	100.0	14	
+0x494a8	__Ray_checkCollisionWithBullet:hit:distance:_	pass		15	15	100.0	14	
+0x494d0	__Ray_updateAnimation_	pass		13	13	100.0	21	
+0x494f4	__Ray_update:_	pass		19	19	100.0	22	
+0x49528	__Ray_setAnimation_GunActive_	pass		32	25	78.1	12	4954c-49558
+0x49580	__Ray_setAnimation_Pose_	pass		46	25	54.3	14	495a4-495ce
+0x495fc	__Ray_getAppearPointOfAttack_	pass		8	8	100.0	12	
+0x49614	__Ray_getAppearPointOfStart_	pass		8	8	100.0	12	
+0x4962c	__Ray_setWeapon_	pass		304	102	33.6	1	4964e-496c2 496d2-497aa 497d6-497e4 497fa-49808 4982a-49876
+0x49910	__Ray_setStageChangeActive_	pass		31	0	0.0	0	49910-49950
+0x4996c	__Ray_resetBoss_	pass		148	0	0.0	0	4996c-49a98
+0x49b10	__Ray_getEnemyScale_	pass		104	85	81.7	9	49b6e-49b70 49b96-49bae 49bc6-49bd0
+0x49c0c	__Ray_calculateDamageRay:_	pass		131	36	27.5	5	49c3c-49c58 49c68-49d0e
+0x49d50	__Ray_caluclateDamageWithExplosion:_	pass		34	34	100.0	12	
+0x49db4	__Ray_updateDie_	pass		362	0	0.0	0	49db4-4a0ca
+0x4a124	__Ray_updateMove_	pass		203	108	53.2	3	4a1dc-4a222 4a22e-4a2a6 4a2ce-4a2e0
+0x4a55c	__Ray_updateSpecialAttack_	pass		212	0	0.0	0	4a55c-4a9d6
+0x4aa08	__Ray_updateAttack_	pass		228	151	66.2	9	4aa40-4aa4e 4aaa2-4aaa8 4ab08-4ab0c 4ab16-4ab18 4aedc-4af48 4b0a8-4b0c6
+0x4b138	__Ray_updateAppearance_	pass		205	51	24.9	3	4b162-4b2a6
+0x4b584	__Ray_activate_	pass		40	22	55.0	12	4b5ac-4b5d2
+0x4b5f4	__Ray_render_	pass		45	45	100.0	21	
+0x4b678	__Ray_reset_	pass		30	30	100.0	12	
+0x4b6d4	__Ray_dealloc_	pass		35	35	100.0	12	
+0x4b730	__Ray_isExtraWeaponStart_	pass		99	81	81.8	1	4b786-4b792 4b7e4-4b7ec 4b7f6-4b800
+0x4b834	__Ray_isChangeCharaNeed_	pass		20	20	100.0	12	
+0x4b868	__Ray_isChangeChara_	pass		12	12	100.0	21	
+0x4b88c	__Ray_setChangeCharaComplete_	pass		13	10	76.9	12	4b8a0-4b8a4
+0x4b8b4	__Ray_initWithParameter:index:hp:_	pass		127	124	97.6	13	4b994-4b99a
+0x4ba04	__Ray_setNextAction_	pass		57	54	94.7	2	4ba1a 4ba20-4ba22
+0x4ba98	__Ray_getAppearPointOfAttack:_	pass		91	47	51.6	1	4badc-4bb1e 4bb26-4bb34 4bb42-4bb50
+0x4bb80	__Ray_getAppearPointOfStart:_	pass		34	34	100.0	12	
+0x4bbd0	__Ray_getAppearPoint::_	pass		33	24	72.7	13	4bbf6-4bc08
+0x4bc24	__Ray_getAppearPoint:_	pass		44	29	65.9	13	4bc3c-4bc5e
+0x4bc94	__Ray_setStageChange_	pass		112	0	0.0	0	4bc94-4bd9a
+0x4bdc8	__Ray_calculateDamage:::::_	pass		239	201	84.1	1	4be38-4be7a 4bee0-4beee
+0x4c030	__Ray_drawFall_	pass		286	33	11.5	21	4c068-4c2ac
+0x4c324	__Ray_drawJump_	pass		227	33	14.5	21	4c35c-4c518
+0x4c580	__Ray_drawAppear_	pass		184	32	17.4	21	4c5b6-4c718
+0x4c77c	__Ray_Se3DSet:_	pass		69	69	100.0	7	
+0x4c824	__Mantis_getEnemyScale_	pass		6	0	0.0	0	4c824-4c82e
+0x4c834	__Mantis_setStageChange_	pass		16	0	0.0	0	4c834-4c852
+0x4c860	__Mantis_setPosAttack_	pass		39	0	0.0	0	4c860-4c8b4
+0x4c8d0	__Mantis_resetSummon_	pass		11	11	100.0	12	
+0x4c8f4	__Mantis_initPosition:_	pass		52	0	0.0	0	4c8f4-4c960
+0x4c97c	__Mantis_caluclateDamageWithExplosion:_	pass		13	13	100.0	12	
+0x4c9a0	__Mantis_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		40	13	32.5	13	4c9aa-4c9c8 4c9d4-4c9ea
+0x4ca08	__Mantis_render_	pass		22	0	0.0	0	4ca08-4ca34
+0x4ca44	__Mantis_updateAnimationFrame_	pass		22	0	0.0	0	4ca44-4ca70
+0x4ca80	__Mantis_updateAnimation_	pass		42	0	0.0	0	4ca80-4cad8
+0x4caf8	__Mantis_update:_	pass		55	0	0.0	0	4caf8-4cb66
+0x4cb7c	__Mantis_checkIfDollIsFallen:_	pass		26	18	69.2	12	4cb9e-4cbac
+0x4cbc0	__Mantis_checkIfDollIsFallen_	pass		20	18	90.0	12	4cbd6-4cbd8
+0x4cbf0	__Mantis_resurrectDoll:_	pass		20	20	100.0	12	
+0x4cc2c	__Mantis_pickUpDoll:_	pass		28	28	100.0	12	
+0x4cc80	__Mantis_attackReaver_	pass		118	0	0.0	0	4cc80-4cd84
+0x4cdc4	__Mantis_attackReaverWarp_	pass		33	33	100.0	12	
+0x4ce24	__Mantis_attackReaverInit_	pass		38	38	100.0	12	
+0x4ce90	__Mantis_getKarambitNumber_	pass		13	13	100.0	12	
+0x4ceb8	__Mantis_getWarpInterval_	pass		13	13	100.0	12	
+0x4cee0	__Mantis_summonManager_	pass		89	19	21.3	12	4cefa-4cf8c
+0x4cfc8	__Mantis_setPosHome_	pass		26	0	0.0	0	4cfc8-4cffe
+0x4d014	__Mantis_calculateDamage:::::_	pass		49	0	0.0	0	4d014-4d078
+0x4d098	__Mantis_updateLifeAct_	pass		110	45	40.9	12	4d0bc-4d0be 4d0f2-4d150 4d156-4d17a
+0x4d1b0	__Mantis_updateSpecialAttack_	pass		442	123	27.8	12	4d1e0-4d25c 4d274-4d28e 4d2a2-4d2be 4d2e0-4d2f0 4d368-4d466 4d692-4d758 4d774-4d78c
+0x4d7f0	__Mantis_updateMove_	pass		197	93	47.2	12	4d816-4d820 4d868-4d896 4d8f0-4d98c
+0x4dc64	__Mantis_updateAttack_	pass		315	0	0.0	0	4dc64-4e0ae
+0x4e0cc	__Mantis_updateAppearance_	pass		171	0	0.0	0	4e0cc-4e234
+0x4e278	__Mantis_setNextAction_	pass		102	0	0.0	0	4e278-4e34a
+0x4e380	__Mantis_reset_	pass		18	18	100.0	12	
+0x4e3b4	__Mantis_dealloc_	pass		46	46	100.0	12	
+0x4e434	__Mantis_initWithParameter:index:hp:_	pass		121	121	100.0	13	
+0x4e574	__Mantis_activate_	pass		44	22	50.0	12	4e59c-4e5ce
+0x4e5f4	__Mantis_setPosAppear_	pass		63	0	0.0	0	4e5f4-4e67a
+0x4e694	__Mantis_resetBoss_	pass		157	0	0.0	0	4e694-4e7da
+0x4e830	__Mantis_Se3DSet:_	pass		41	0	0.0	0	4e830-4e892
+0x4e8a4	__Liquid_renderGauge_	pass		1	1	100.0	21	
+0x4e8a6	__Liquid_activate_	pass		2	2	100.0	13	
+0x4e8aa	__Liquid_getEnemyScale_	pass		2	2	100.0	21	
+0x4e8b4	__Liquid_isAttackEx_	pass		12	10	83.3	12	4e8c4-4e8c6
+0x4e8d0	__Liquid_attackStep_	pass		4	4	100.0	21	
+0x4e8dc	__Liquid_isFlagZoom_	pass		9	9	100.0	12	
+0x4e8f4	__Liquid_isFlagDemo_	pass		4	4	100.0	21	
+0x4e900	__Liquid_getAttackPhase_	pass		43	0	0.0	0	4e900-4e964
+0x4e978	__Liquid_updateMoveEnd_	pass		13	13	100.0	12	
+0x4e99c	__Liquid_updateMoveAttack2_	pass		13	13	100.0	12	
+0x4e9c0	__Liquid_update:_	pass		31	31	100.0	22	
+0x4ea10	__Liquid_dealloc_	pass		13	13	100.0	12	
+0x4ea34	__Liquid_setAttackSE_	pass		80	0	0.0	0	4ea34-4eae0
+0x4eaf4	__Liquid_getDamage:_	pass		50	24	48.0	12	4eb04-4eb26 4eb2c-4eb2e 4eb3a-4eb42 4eb54-4eb56
+0x4eb6c	__Liquid_updateMoveAttack_	pass		69	62	89.9	21	4ebd8-4ebe4
+0x4ec18	__Liquid_updateMove_	pass		83	55	66.3	12	4ec76-4ecae
+0x4ecf0	__Liquid_updateAttack_	pass		152	18	11.8	12	4ed0e-4f00a
+0x4f0a0	__Liquid_updateAppearance_	pass		113	0	0.0	0	4f0a0-4f18a
+0x4f1bc	__Liquid_render_	pass		47	47	100.0	9	
+0x4f240	__Liquid_updateAnimation_	pass		36	21	58.3	9	4f268-4f284
+0x4f2a4	__Liquid_reset_	pass		18	18	100.0	12	
+0x4f2d8	__Liquid_initWithParameter:index:hp:_	pass		24	24	100.0	13	
+0x4f31c	__Liquid_setAttack::_	pass		459	82	17.9	12	4f352-4f37a 4f39c-4f39e 4f3c8-4f69c 4f72a-4f79e 4f7b8-4f7c4
+0x4f7f4	__Liquid_getTypeAttack_	pass		53	35	66.0	12	4f816-4f81a 4f840-4f85c
+0x4f874	__Liquid_resetBoss_	pass		167	0	0.0	0	4f874-4f9ca
+0x4fa38	__Liquid_calculateDamage:::::_	pass		340	0	0.0	0	4fa38-4fd28
+0x4fdac	__Liquid_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		179	0	0.0	0	4fdac-4ff32
+0x4ff88	__Liquid_setNextAction_	pass		88	0	0.0	0	4ff88-5003e
+0x50064	__Liquid_updateSpecialAttack_	pass		148	0	0.0	0	50064-501a4
+0x501e8	__Liquid_Se3DSet:_	pass		69	0	0.0	0	501e8-50282
+0x50290	__Liquid_isAttack:_	pass		75	32	42.7	12	502ba-502c2 502c8-502e2 502f6-50326
+0x50358	__Liquid_updateDie_	pass		154	0	0.0	0	50358-50498
+0x504dc	GResult::convertHPnormal	pass		15	15	100.0	24	
+0x5050c	GResult::convertHPlarge	pass		10	10	100.0	24	
+0x5052c	GResult::addFireCnt	pass		9	0	0.0	0	5052c-5053c
+0x50548	GResult::subFireCnt	pass		10	10	100.0	24	
+0x50560	GResult::addHitCnt	pass		14	0	0.0	0	50560-5057a
+0x50584	GResult::addAvoidTime	pass		5	5	100.0	67	
+0x50594	GResult::addHealCnt	pass		5	0	0.0	0	50594-5059c
+0x505a4	GResult::addItemUseCnt	pass		5	0	0.0	0	505a4-505ac
+0x505b4	GResult::addNpcKillCnt	pass		5	0	0.0	0	505b4-505bc
+0x505c4	GResult::addDamageCnt	pass		5	0	0.0	0	505c4-505cc
+0x505d4	GResult::addHeadShotCnt	pass		5	0	0.0	0	505d4-505dc
+0x505e4	GResult::setCode	pass		3	3	100.0	24	
+0x505f0	GResult::getCode	pass		3	3	100.0	24	
+0x505fc	GResult::getTotalFireCnt	pass		7	7	100.0	24	
+0x50610	GResult::calculateHitPer	pass		27	27	100.0	24	
+0x50668	GResult::setSurvival	pass		3	3	100.0	14	
+0x50674	GResult::unlockDrebinWallPaper	pass		93	21	22.6	16	5069e-50730
+0x50748	GResult::Init_Survival_continue	pass		23	23	100.0	24	
+0x50780	GResult::Load_Survival_continue	pass		116	116	100.0	24	
+0x508f0	GResult::getRankFromDP	pass		84	52	61.9	24	50938-5093a 5094a-50980 50988-5098c
+0x509b4	GResult::survivalLastCheck	pass		13	13	100.0	24	
+0x509d8	GResult::GetRank_Head	pass		46	40	87.0	24	509f2-509f8 50a32-50a36
+0x50a58	GResult::GetDorebinPoint_Hit	pass		79	70	88.6	24	50a7c-50a82 50a8e-50a90 50ac2-50ac8
+0x50b1c	GResult::GetDorebinPoint_Life	pass		95	81	85.3	24	50b3e-50b44 50bb0-50bbe 50bc4-50bc8
+0x50c18	GResult::GetDorebinPoint_Time	pass		106	55	51.9	24	50c40-50c9c 50cca-50cd2
+0x50d10	GResult::getSurvivalBonus	pass		24	8	33.3	24	50d1c-50d3e
+0x50d50	GResult::calculateCode	pass		194	64	33.0	24	50db6-50dd0 50de2-50de4 50df2-50df4 50dfe-50eee
+0x50f34	GResult::Result_Save_Survival_continue	pass		177	147	83.1	24	51058-51098 510ce
+0x51134	GResult::Result_Save_Survival_result	pass		227	86	37.9	24	51156-51170 511ee-512e0 5130a-5132c
+0x51378	GResult::Result_Save	pass		319	307	96.2	24	51402 5160e-5161a 51620-51626
+0x51650	GResult::initResultData	pass		18	18	100.0	24	
+0x51678	__HavenSoldierA_updateMovePostProcess_	pass		19	0	0.0	0	51678-5169c
+0x516ac	__HavenSoldierA_updateAttackPostProcess_	pass		62	34	54.8	1	516d4-51700 5170e-51716
+0x5174c	__HavenSoldierA_disappear_	pass		44	0	0.0	0	5174c-517a8
+0x517c0	__HavenSoldierA_calculateDamage:::::_	pass		40	31	77.5	13	517dc-517ec
+0x51828	__HavenSoldierA_changeAnimation_	pass		56	27	48.2	12	5185a-51892
+0x518ac	__HavenSoldierA_updateMoveProcess_	pass		35	31	88.6	3	518d0-518d8
+0x51908	__HavenSoldierA_updateAttackProcess_	pass		28	28	100.0	3	
+0x51958	__HavenSoldierA_updateAttackPreProcess_	pass		33	29	87.9	3	51970-51976
+0x519ac	__HavenSoldierA_initAppearance_	pass		76	51	67.1	1	519e0-519e6 519fc-51a22 51a4c
+0x51a74	__HavenSoldierB_getCount_	pass		4	4	100.0	6	
+0x51a80	__HavenSoldierB_setCount:_	pass		3	3	100.0	6	
+0x51a8c	__HavenSoldierB_incCount_	pass		5	5	100.0	6	
+0x51a9c	__HavenSoldierB_decCount_	pass		8	6	75.0	6	51aa6-51aa8
+0x51ab0	__HavenSoldierB_getMovablePoints_	pass		5	5	100.0	6	
+0x51ac0	__HavenSoldierB_initMovablePoints_	pass		8	8	100.0	6	
+0x51ad8	__HavenSoldierB_setMovablePoint:_	pass		9	9	100.0	6	
+0x51af0	__HavenSoldierB_clearMovablePoint:_	pass		9	9	100.0	6	
+0x51b08	__HavenSoldierB_getLastPoint_	pass		6	6	100.0	6	
+0x51b18	__HavenSoldierB_setLastPoint:_	pass		3	3	100.0	6	
+0x51b24	__HavenSoldierB_appearPoint_	pass		4	4	100.0	3	
+0x51b30	__HavenSoldierB_updateMoveProcess_	pass		43	0	0.0	0	51b30-51b88
+0x51ba0	__HavenSoldierB_resetHavenSoldier_	pass		14	14	100.0	6	
+0x51bcc	__HavenSoldierB_updateDie_	pass		49	24	49.0	6	51bf6-51c2a
+0x51c54	__HavenSoldierB_updateMovePostProcess_	pass		32	0	0.0	0	51c54-51c9c
+0x51cbc	__HavenSoldierB_updateMovePreProcess_	pass		57	0	0.0	0	51cbc-51d2e
+0x51d44	__HavenSoldierB_activate_	pass		32	26	81.2	6	51d76-51d82
+0x51da0	__HavenSoldierB_reset_	pass		18	18	100.0	6	
+0x51dd4	__HavenSoldierB_initWithParameter:index:_	pass		34	34	100.0	1	
+0x51e34	__HavenSoldierB_changeAnimation_	pass		96	0	0.0	0	51e34-51ef8
+0x51f10	__HavenSoldierB_initAppearance_	pass		144	0	0.0	0	51f10-5204c
+0x52080	__HavenSoldierB_getMovePoint_	pass		114	0	0.0	0	52080-5216a
+0x5217c	__HavenSoldierB_updateAttackPostProcess_	pass		45	0	0.0	0	5217c-521de
+0x521f8	__PlayerMissile_init_	pass		12	12	100.0	2	
+0x52214	__PlayerMissile_draw_	pass		1	1	100.0	6	
+0x52216	__PlayerMissile_cancelREX_M_	pass		18	18	100.0	6	
+0x52240	__PlayerMissile_startRPG::_	pass		236	204	86.4	6	52262-52268 5230a-52310 52332-52342 523a0-523be
+0x52490	__PlayerMissile_proc_	pass		701	322	45.9	75	52520-527b2 52906-5290c 52948-5294a 52968-52976 529a6-529ae 529b8-529ce 529d4-52a4a 52a5a-52a6a 52b06-52b0e
+0x52b64	__PlayerMissile_startREX_M:::_	pass		235	148	63.0	6	52b86-52b8c 52c12-52c86 52cc8-52ce6 52d3c-52d54
+0x52db8	__DebugDisp_init_	pass		22	22	100.0	6	
+0x52dec	__DebugDisp_release_	pass		22	22	100.0	6	
+0x52e20	__DebugDisp_proc_	pass		30	26	86.7	6	52e2c-52e2e 52e4a-52e4c
+0x52e64	__DebugDisp_setDebugRect:::_	pass		33	31	93.9	6	52ea0-52ea2
+0x52eb0	__DebugDisp_setDebugExpRect::_	pass		29	27	93.1	6	52ee4-52ee6
+0x52ef4	__DebugDisp_draw_	pass		337	94	27.9	6	52f44-53054 5309e-531dc
+0x5325c	__DwarfGekko_resetTurnSE_	pass		4	4	100.0	6	
+0x53268	__DwarfGekko_getCountMax_	pass		4	4	100.0	6	
+0x53274	__DwarfGekko_getCount_	pass		4	4	100.0	6	
+0x53280	__DwarfGekko_incCount_	pass		5	5	100.0	6	
+0x53290	__DwarfGekko_decCount_	pass		8	6	75.0	6	5329a-5329c
+0x532a4	__DwarfGekko_groupAppearPoints_	pass		6	6	100.0	6	
+0x532b4	__DwarfGekko_groupMemberCount_	pass		4	4	100.0	6	
+0x532c0	__DwarfGekko_isLeader_	pass		4	4	100.0	6	
+0x532cc	__DwarfGekko_updateAttackPostProcess_	pass		45	20	44.4	6	532f2-53322
+0x53348	__DwarfGekko_updateAttackProsess_	pass		25	0	0.0	0	53348-5337a
+0x5338c	__DwarfGekko_updateAppearanceProcess_	pass		27	0	0.0	0	5338c-533c4
+0x533d8	__DwarfGekko_setMoveAnimation_	pass		28	0	0.0	0	533d8-53412
+0x53420	__DwarfGekko_resetDwarfGekko_	pass		17	17	100.0	6	
+0x53458	__DwarfGekko_attack_	pass		17	0	0.0	0	53458-5347a
+0x53484	__DwarfGekko_initMove_	pass		22	22	100.0	6	
+0x534c4	__DwarfGekko_isTheLastMember:_	pass		51	0	0.0	0	534c4-5352c
+0x5354c	__DwarfGekko_groupIsActivatable_	pass		28	26	92.9	6	53570-53572
+0x53598	__DwarfGekko_groupIsAnnihilated_	pass		45	17	37.8	6	535ae-535e8
+0x53608	__DwarfGekko_addGroupMenber:_	pass		73	20	27.4	6	53624-5368e
+0x536b0	__DwarfGekko_activate_	pass		74	26	35.1	6	536c6-53704 5371a-53728 5372e-53744
+0x53778	__DwarfGekko_reset_	pass		18	18	100.0	6	
+0x537ac	__DwarfGekko_initWithParameter:index:_	pass		105	73	69.5	1	537de-537e2 53804-5383a 5385c-53860
+0x538bc	__DwarfGekko_resetCount_	pass		19	16	84.2	6	538d6-538da
+0x538f4	__DwarfGekko_deadSound:_	pass		26	0	0.0	0	538f4-5392a
+0x5393c	__DwarfGekko_calculateDamage:::::_	pass		96	0	0.0	0	5393c-53a0a
+0x53a30	__DwarfGekko_changeAnimation_	pass		53	16	30.2	6	53a4e-53aac
+0x53ad8	__DwarfGekko_attackSound_	pass		27	0	0.0	0	53ad8-53b0e
+0x53b18	__DwarfGekko_updateAppearancePostProcess_	pass		33	0	0.0	0	53b18-53b5e
+0x53b78	__DwarfGekko_initAppearance_	pass		72	0	0.0	0	53b78-53c10
+0x53c3c	__DwarfGekko_updateDie_	pass		222	0	0.0	0	53c3c-53e28
+0x53e84	__DwarfGekko_nextTurnSE_	pass		19	19	100.0	6	
+0x53eb4	__SelfDestructionGekko_resetUsedPoints_	pass		4	4	100.0	6	
+0x53ec0	__SelfDestructionGekko_setUsedPoint:_	pass		8	8	100.0	6	
+0x53ed4	__SelfDestructionGekko_getUsedPoints_	pass		3	3	100.0	6	
+0x53ee0	__SelfDestructionGekko_resetMovablePoints_	pass		4	4	100.0	6	
+0x53eec	__SelfDestructionGekko_setMovablePoint:_	pass		8	8	100.0	6	
+0x53f00	__SelfDestructionGekko_clearMovablePoint:_	pass		8	8	100.0	6	
+0x53f14	__SelfDestructionGekko_getMovablePoints_	pass		4	4	100.0	6	
+0x53f20	__SelfDestructionGekko_resetCountDown_	pass		15	15	100.0	6	
+0x53f48	__SelfDestructionGekko_appearPoint_	pass		4	4	100.0	6	
+0x53f54	__SelfDestructionGekko_updateAttackProcess_	pass		1	1	100.0	6	
+0x53f56	__SelfDestructionGekko_initSelfDestruction_	pass		1	1	100.0	6	
+0x53f58	__SelfDestructionGekko_updateEffect_	pass		93	19	20.4	6	53f6c-53f7e 53f8c-5400c
+0x5403c	__SelfDestructionGekko_resetEffect_	pass		33	33	100.0	6	
+0x540a4	__SelfDestructionGekko_resetSelfDestructionGekko_	pass		29	0	0.0	0	540a4-540e4
+0x54104	__SelfDestructionGekko_updateAppearancePostProcess_	pass		19	19	100.0	6	
+0x5413c	__SelfDestructionGekko_initAppearance_	pass		76	0	0.0	0	5413c-541dc
+0x54200	__SelfDestructionGekko_takeover:_	pass		26	0	0.0	0	54200-54236
+0x54248	__SelfDestructionGekko_activate_	pass		25	16	64.0	6	54266-54278
+0x54290	__SelfDestructionGekko_render_	pass		39	32	82.1	6	542a2-542a6 542c6-542cc
+0x5430c	__SelfDestructionGekko_update:_	pass		26	26	100.0	7	
+0x54360	__SelfDestructionGekko_reset_	pass		18	18	100.0	6	
+0x54394	__SelfDestructionGekko_initWithParameter:index:_	pass		33	33	100.0	1	
+0x543f0	__SelfDestructionGekko_clearCountDown:_	pass		10	10	100.0	6	
+0x54410	__SelfDestructionGekko_setCountDown::_	pass		11	11	100.0	6	
+0x54434	__SelfDestructionGekko_getMovePoint_	pass		104	0	0.0	0	54434-5451c
+0x54530	__SelfDestructionGekko_updateDie_	pass		79	0	0.0	0	54530-545d8
+0x54608	__SelfDestructionGekko_updateSelfDestruction_	pass		81	0	0.0	0	54608-546b6
+0x546ec	__SelfDestructionGekko_calculateDamage:::::_	pass		103	0	0.0	0	546ec-547ce
+0x547f0	__SelfDestructionGekko_updateAttack_	pass		95	0	0.0	0	547f0-548bc
+0x548ec	__SelfDestructionGekko_renderPlasma_	pass		216	0	0.0	0	548ec-54adc
+0x54b1c	__SelfDestructionGekko_renderLight_	pass		242	0	0.0	0	54b1c-54d46
+0x54d94	__SelfDestructionGekko_changeAnimation_	pass		173	0	0.0	0	54d94-54f0c
+0x54f54	__SelfDestructionGekko_updateCountDown_	pass		46	38	82.6	6	54f7e-54f80 54f86-54f88 54f8e-54f90 54fac-54fae
+0x54fc4	__Railgun_initWithParameter::_	pass		59	59	100.0	6	
+0x55084	__Railgun_shot_	pass		10	10	100.0	6	
+0x550a0	__Railgun_cancel_	pass		13	13	100.0	6	
+0x550c8	__Railgun_isShot_	pass		4	4	100.0	6	
+0x550d4	__Railgun_isEnd_	pass		22	20	90.9	6	550e4-550e6
+0x55110	__Railgun_render_	pass		414	68	16.4	6	5519c-554ac
+0x55554	__Railgun_set:scale:anmCharge:anmAtk:anmRay:_	pass		365	365	100.0	7	
+0x55920	__Railgun_update_	pass		223	20	9.0	6	5593c-55ae0
+0x55b74	__RayMissile_init_	pass		68	68	100.0	6	
+0x55c50	__RayMissile_isShot_	pass		4	4	100.0	6	
+0x55c5c	__RayMissile_isBomb_	pass		4	4	100.0	6	
+0x55c68	__RayMissile_isEnd_	pass		4	4	100.0	6	
+0x55c74	__RayMissile_set:::_	pass		438	385	87.9	7	55ee6-55efe 55f5a-55fb0
+0x56114	__RayMissile_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		241	35	14.5	7	5614c-56316
+0x56380	__RayMissile_render_	pass		588	33	5.6	15	563b6-5691e
+0x5698c	__RayMissile_update_	pass		632	20	3.2	9	569a8-56fac
+0x57030	__Doll_reset_	pass		44	44	100.0	6	
+0x570c0	__Doll_isActive_	pass		9	9	100.0	6	
+0x570d8	__Doll_isDropped_	pass		9	9	100.0	6	
+0x570f0	__Doll_isStolen_	pass		9	9	100.0	6	
+0x57108	__Doll_isHit_	pass		9	9	100.0	6	
+0x57120	__Doll_getHP_	pass		4	4	100.0	6	
+0x5712c	__Doll_setAnimation:_	pass		12	12	100.0	6	
+0x57150	__Doll_updateAnimation_	pass		68	59	86.8	6	57196-5719a 571b6-571ba 571ce-571de
+0x57210	__Doll_getGroundPos:_	pass		59	0	0.0	0	57210-5728c
+0x572a8	__Doll_getRootNode_	pass		170	0	0.0	0	572a8-57420
+0x57450	__Doll_warpIn_	pass		24	24	100.0	6	
+0x57498	__Doll_pickUp_	pass		21	21	100.0	6	
+0x574d8	__Doll_initWithParameter:::_	pass		57	57	100.0	7	
+0x57570	__Doll_willFall_	pass		40	0	0.0	0	57570-575c4
+0x575ec	__Doll_resurrect_	pass		38	0	0.0	0	575ec-5763a
+0x5765c	__Doll_update_	pass		335	0	0.0	0	5765c-57940
+0x579b0	__Doll_render_	pass		290	27	9.3	6	579dc-57c2c
+0x57cac	__Doll_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		384	33	8.6	7	57ce0-57fc4 57fca-57fee
+0x58084	__Doll_warpOut_	pass		69	0	0.0	0	58084-58120
+0x58160	__Doll_updateNodes_	pass		96	81	84.4	6	5820c-5820e 58218-58234
+0x5826c	__Karambit_reset_	pass		5	5	100.0	6	
+0x5827c	__Karambit_disappear_	pass		30	7	23.3	6	58288-582b4
+0x582cc	__Karambit_isVisible_	pass		15	9	60.0	6	582dc-582e6
+0x582f4	__Karambit_isActive_	pass		4	4	100.0	6	
+0x58300	__Karambit_status_	pass		4	4	100.0	6	
+0x5830c	__Karambit_didHitPlayer_	pass		17	10	58.8	6	5831c-58328
+0x58338	__Karambit_initWithParameter:_	pass		44	44	100.0	6	
+0x583b4	__Karambit_update_	pass		111	23	20.7	6	583d6-58718
+0x587c0	__Karambit_set:_	pass		364	0	0.0	0	587c0-58aea
+0x58b7c	__Karambit_render_	pass		263	20	7.6	6	58b9a-58dbe
+0x58e40	__Karambit_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		386	24	6.2	7	58e62-5917a 59180-59192
+0x5921c	__FBomb_resetAliveFlags_	pass		4	4	100.0	6	
+0x59228	__FBomb_setAliveFlag:_	pass		8	8	100.0	6	
+0x5923c	__FBomb_clearAliveFlag:_	pass		8	8	100.0	6	
+0x59250	__FBomb_checkAliveFlags_	pass		7	7	100.0	6	
+0x59264	__FBomb_getAliveCount_	pass		14	14	100.0	6	
+0x59284	__FBomb_clearAliveFlagsPair:_	pass		10	10	100.0	6	
+0x5929c	__FBomb_checkAliveFlagsPair:_	pass		12	12	100.0	6	
+0x592b8	__FBomb_getAliveCountPair:_	pass		21	21	100.0	6	
+0x592e8	__FBomb_isVisible_	pass		4	4	100.0	6	
+0x592f4	__FBomb_reset_	pass		12	12	100.0	6	
+0x5931c	__FBomb_initWithParameter:_	pass		36	36	100.0	6	
+0x59388	__FBomb_set:_	pass		120	120	100.0	6	
+0x594bc	__FBomb_update_	pass		378	20	5.3	12	594d8-597d6
+0x59858	__FBomb_checkCollisionWithBullet_Dmg:weaponType:damage:_	pass		305	24	7.9	7	5987a-59af0
+0x59b60	__FBomb_render_	pass		369	20	5.4	12	59b7c-59ea4
+0x59f0c	__FBomb_getNextPos::::_	pass		101	101	100.0	6	
+0x5a004	__RayWeapon_init_	pass		43	43	100.0	6	
+0x5a094	__RayWeapon_set::::_	pass		28	28	100.0	8	
+0x5a0e8	__RayWeapon_update_	pass		16	6	37.5	15	5a0f2-5a104
+0x5a114	__RayWeapon_isActive_	pass		4	4	100.0	7	
+0x5a120	__RayWeapon_end_	pass		8	8	100.0	8	
+0x5a138	__RayWeapon_set:::_	pass		12	12	100.0	8	
+0x5a158	__RayWeapon_render_	pass		420	20	4.8	15	5a174-5a51c
+0x5a5b4	___switchu8	no-state	V0	6	0	0.0	0	5a5b4-5a5c8
+0x5a5cc	___switch8	no-state	V0	6	0	0.0	0	5a5cc-5a5e0
+0x5a5e4	___switch16	no-state	V0	8	0	0.0	0	5a5e4-5a600
+0x5a604	___save_vfp_d8_d15_regs	pass		2	2	100.0	195	
+0x5a60c	___restore_vfp_d8_d15_regs	pass		2	2	100.0	195	

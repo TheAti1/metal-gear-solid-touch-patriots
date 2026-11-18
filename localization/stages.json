@@ -1,0 +1,314 @@
+{
+  "1": {
+    "title": "MIDDLE EAST: RED ZONE",
+    "area": "MIDDLE EAST",
+    "location": "RED ZONE",
+    "phases": 1,
+    "dataFiles": [
+      "shstage01_0.data"
+    ],
+    "apFiles": [
+      "shstage01_0_ap.data"
+    ],
+    "totalSpawnEntries": 7,
+    "multiPhase": false
+  },
+  "2": {
+    "title": "MIDDLE EAST: RED ZONE",
+    "area": "MIDDLE EAST",
+    "location": "RED ZONE",
+    "phases": 1,
+    "dataFiles": [
+      "shstage02_0.data"
+    ],
+    "apFiles": [
+      "shstage02_0_ap.data"
+    ],
+    "totalSpawnEntries": 24,
+    "multiPhase": false
+  },
+  "3": {
+    "title": "MIDDLE EAST: DOWNTOWN",
+    "area": "MIDDLE EAST",
+    "location": "DOWNTOWN",
+    "phases": 1,
+    "dataFiles": [
+      "shstage03_0.data"
+    ],
+    "apFiles": [
+      "shstage03_0_ap.data"
+    ],
+    "totalSpawnEntries": 24,
+    "multiPhase": false
+  },
+  "4": {
+    "title": "MIDDLE EAST: ADVENT PALACE",
+    "area": "MIDDLE EAST",
+    "location": "ADVENT PALACE",
+    "phases": 1,
+    "dataFiles": [
+      "shstage04_0.data"
+    ],
+    "apFiles": [
+      "shstage04_0_ap.data"
+    ],
+    "totalSpawnEntries": 22,
+    "multiPhase": false
+  },
+  "5": {
+    "title": "SOUTH AMERICA: CAVE VALLEY VILLAGE",
+    "area": "SOUTH AMERICA",
+    "location": "CAVE VALLEY VILLAGE",
+    "phases": 1,
+    "dataFiles": [
+      "shstage05_0.data"
+    ],
+    "apFiles": [
+      "shstage05_0_ap.data"
+    ],
+    "totalSpawnEntries": 22,
+    "multiPhase": false
+  },
+  "6": {
+    "title": "SOUTH AMERICA: POWER STATION",
+    "area": "SOUTH AMERICA",
+    "location": "POWER STATION",
+    "phases": 1,
+    "dataFiles": [
+      "shstage06_0.data"
+    ],
+    "apFiles": [
+      "shstage06_0_ap.data"
+    ],
+    "totalSpawnEntries": 28,
+    "multiPhase": false
+  },
+  "7": {
+    "title": "SOUTH AMERICA: VISTA MANSION",
+    "area": "SOUTH AMERICA",
+    "location": "VISTA MANSION",
+    "phases": 1,
+    "dataFiles": [
+      "shstage07_0.data"
+    ],
+    "apFiles": [
+      "shstage07_0_ap.data"
+    ],
+    "totalSpawnEntries": 32,
+    "multiPhase": false
+  },
+  "8": {
+    "title": "SOUTH AMERICA: RESEARCH LAB",
+    "area": "SOUTH AMERICA",
+    "location": "RESEARCH LAB",
+    "phases": 4,
+    "dataFiles": [
+      "shstage08_0.data",
+      "shstage08_1.data",
+      "shstage08_2.data",
+      "shstage08_3.data"
+    ],
+    "apFiles": [
+      "shstage08_0_ap.data",
+      "shstage08_1_ap.data",
+      "shstage08_2_ap.data",
+      "shstage08_3_ap.data"
+    ],
+    "totalSpawnEntries": 111,
+    "multiPhase": true
+  },
+  "9": {
+    "title": "EASTERN EUROPE: MIDTOWN S SECTOR",
+    "area": "EASTERN EUROPE",
+    "location": "MIDTOWN S SECTOR",
+    "phases": 1,
+    "dataFiles": [
+      "shstage09_0.data"
+    ],
+    "apFiles": [
+      "shstage09_0_ap.data"
+    ],
+    "totalSpawnEntries": 12,
+    "multiPhase": false
+  },
+  "10": {
+    "title": "EASTERN EUROPE: MIDTOWN NE SECTOR",
+    "area": "EASTERN EUROPE",
+    "location": "MIDTOWN NE SECTOR",
+    "phases": 1,
+    "dataFiles": [
+      "shstage10_0.data"
+    ],
+    "apFiles": [
+      "shstage10_0_ap.data"
+    ],
+    "totalSpawnEntries": 22,
+    "multiPhase": false
+  },
+  "11": {
+    "title": "EASTERN EUROPE: RIVERSIDE WEST",
+    "area": "EASTERN EUROPE",
+    "location": "RIVERSIDE WEST",
+    "phases": 1,
+    "dataFiles": [
+      "shstage11_0.data"
+    ],
+    "apFiles": [
+      "shstage11_0_ap.data"
+    ],
+    "totalSpawnEntries": 28,
+    "multiPhase": false
+  },
+  "12": {
+    "title": "EASTERN EUROPE: ECHO'S BEACON",
+    "area": "EASTERN EUROPE",
+    "location": "ECHO'S BEACON",
+    "phases": 3,
+    "dataFiles": [
+      "shstage12_0.data",
+      "shstage12_1.data",
+      "shstage12_2.data"
+    ],
+    "apFiles": [
+      "shstage12_0_ap.data",
+      "shstage12_1_ap.data",
+      "shstage12_2_ap.data"
+    ],
+    "totalSpawnEntries": 35,
+    "multiPhase": true
+  },
+  "13": {
+    "title": "SHADOW MOSES: HELIPORT",
+    "area": "SHADOW MOSES",
+    "location": "HELIPORT",
+    "phases": 1,
+    "dataFiles": [
+      "shstage13_0.data"
+    ],
+    "apFiles": [
+      "shstage13_0_ap.data"
+    ],
+    "totalSpawnEntries": 66,
+    "multiPhase": false
+  },
+  "14": {
+    "title": "SHADOW MOSES: SNOWFIELD",
+    "area": "SHADOW MOSES",
+    "location": "SNOWFIELD",
+    "phases": 4,
+    "dataFiles": [
+      "shstage14_0.data",
+      "shstage14_1.data",
+      "shstage14_2.data",
+      "shstage14_3.data"
+    ],
+    "apFiles": [
+      "shstage14_0_ap.data",
+      "shstage14_1_ap.data",
+      "shstage14_2_ap.data",
+      "shstage14_3_ap.data"
+    ],
+    "totalSpawnEntries": 140,
+    "multiPhase": true
+  },
+  "15": {
+    "title": "SHADOW MOSES: UNDERGROUND SUPPLY TUNNEL",
+    "area": "SHADOW MOSES",
+    "location": "UNDERGROUND SUPPLY TUNNEL",
+    "phases": 1,
+    "dataFiles": [
+      "shstage15_0.data"
+    ],
+    "apFiles": [
+      "shstage15_0_ap.data"
+    ],
+    "totalSpawnEntries": 10,
+    "multiPhase": false
+  },
+  "16": {
+    "title": "SHADOW MOSES: PORT AREA",
+    "area": "SHADOW MOSES",
+    "location": "PORT AREA",
+    "phases": 6,
+    "dataFiles": [
+      "shstage16_0.data",
+      "shstage16_1.data",
+      "shstage16_2.data",
+      "shstage16_3.data",
+      "shstage16_4.data",
+      "shstage16_5.data"
+    ],
+    "apFiles": [
+      "shstage16_0_ap.data",
+      "shstage16_1_ap.data",
+      "shstage16_2_ap.data",
+      "shstage16_3_ap.data",
+      "shstage16_4_ap.data",
+      "shstage16_5_ap.data"
+    ],
+    "totalSpawnEntries": 54,
+    "multiPhase": true
+  },
+  "17": {
+    "title": "OUTER HAVEN: SHIP BOW",
+    "area": "OUTER HAVEN",
+    "location": "SHIP BOW",
+    "phases": 1,
+    "dataFiles": [
+      "shstage17_0.data"
+    ],
+    "apFiles": [
+      "shstage17_0_ap.data"
+    ],
+    "totalSpawnEntries": 24,
+    "multiPhase": false
+  },
+  "18": {
+    "title": "OUTER HAVEN: COMMAND CENTER",
+    "area": "OUTER HAVEN",
+    "location": "COMMAND CENTER",
+    "phases": 4,
+    "dataFiles": [
+      "shstage18_0.data",
+      "shstage18_1.data",
+      "shstage18_2.data",
+      "shstage18_3.data"
+    ],
+    "apFiles": [
+      "shstage18_0_ap.data",
+      "shstage18_1_ap.data",
+      "shstage18_2_ap.data",
+      "shstage18_3_ap.data"
+    ],
+    "totalSpawnEntries": 136,
+    "multiPhase": true
+  },
+  "19": {
+    "title": "OUTER HAVEN: MISSILE HANGAR",
+    "area": "OUTER HAVEN",
+    "location": "MISSILE HANGAR",
+    "phases": 1,
+    "dataFiles": [
+      "shstage19_0.data"
+    ],
+    "apFiles": [
+      "shstage19_0_ap.data"
+    ],
+    "totalSpawnEntries": 26,
+    "multiPhase": false
+  },
+  "20": {
+    "title": "OUTER HAVEN: SAIL",
+    "area": "OUTER HAVEN",
+    "location": "SAIL",
+    "phases": 1,
+    "dataFiles": [
+      "shstage20_0.data"
+    ],
+    "apFiles": [
+      "shstage20_0_ap.data"
+    ],
+    "totalSpawnEntries": 9,
+    "multiPhase": false
+  }
+}
