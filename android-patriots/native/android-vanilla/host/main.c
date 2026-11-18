@@ -9,7 +9,7 @@
 #include <jni.h>
 #ifdef MGST_RETOUCHED
 #include "rtx_host.h"
-#define PKG "com.mgsport.retouched"
+#define PKG "com.patriots.mgstouch"
 #else
 #define PKG "com.mgsport.touch"
 #endif

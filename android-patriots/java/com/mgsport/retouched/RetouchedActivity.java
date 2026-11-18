@@ -20,7 +20,8 @@ public class RetouchedActivity extends NativeActivity implements Runnable {
      * (nativeResult) visible to Java; the second load returns the same library */
     static { System.loadLibrary("mgst"); }
 
-    public String getGameLanguage(){return com.patriots.shared.HomeActivity.locale(this);}
+    public String getGameLanguage(){String value=getIntent().getStringExtra("patriots_language");return "en".equals(value)||"tr".equals(value)?value:com.patriots.shared.HomeActivity.locale(this);}
+    @Override protected void onDestroy(){super.onDestroy();if(isFinishing())android.os.Process.killProcess(android.os.Process.myPid());}
     private volatile boolean immersive = true;
 
     @Override protected void onCreate(Bundle state) {
