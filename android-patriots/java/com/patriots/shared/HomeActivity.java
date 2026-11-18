@@ -34,7 +34,7 @@ public final class HomeActivity extends Activity {
     private LinearLayout content;
     private final int background=Color.rgb(12,18,16),panel=Color.rgb(24,34,28),accent=Color.rgb(174,209,113),ink=Color.rgb(235,240,230);
     protected void onCreate(Bundle state){super.onCreate(state);touch=getPackageName().endsWith("mgstouch");preferences=getSharedPreferences("patriots",MODE_PRIVATE);updater=new Updater(this);getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);build();if(preferences.getBoolean("updates",true))updater.check(false);}
-    protected void onResume(){super.onResume();if(updater!=null)updater.onResume();}
+    protected void onResume(){super.onResume();if(updater!=null&&!updater.onResume()&&preferences.getBoolean("updates",true))updater.check(false);}
     String repository(){return touch?"metal-gear-solid-touch-patriots":"metal-gear-solid-mobile-patriots";}
     String apkName(){return touch?"MGS_Touch_Patriots_Android.apk":"MGS_Mobile_Patriots_Android.apk";}
     int versionCode(){try{return (int)getPackageManager().getPackageInfo(getPackageName(),0).getLongVersionCode();}catch(Exception e){return 0;}}

@@ -26,7 +26,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public final class Updater {
     private final HomeActivity activity;
     private final AtomicBoolean busy=new AtomicBoolean();
-    private boolean pendingInstall;
+    private boolean pendingInstall,offerShowing;
+    private volatile long checkedAt;
     Updater(HomeActivity a){activity=a;}
     static HttpURLConnection connect(String value)throws Exception {return connect(value,null);}
     static HttpURLConnection connect(String value,String range)throws Exception {
@@ -37,7 +38,7 @@ public final class Updater {
         if(!"https".equals(c.getURL().getProtocol())){c.disconnect();throw new SecurityException("Unsafe redirect");}return c;
     }
     static byte[] bytes(String url,int limit)throws Exception {HttpURLConnection c=connect(url);try(InputStream in=c.getInputStream();ByteArrayOutputStream out=new ByteArrayOutputStream()){byte[] b=new byte[16384];int n;while((n=in.read(b))!=-1){if(out.size()+n>limit)throw new java.io.IOException("Response too large");out.write(b,0,n);}return out.toByteArray();}finally{c.disconnect();}}
-    void check(boolean manual){if(!busy.compareAndSet(false,true))return;new Thread(()->{
+    void check(boolean manual){long now=android.os.SystemClock.elapsedRealtime();if(!manual&&(pendingInstall||offerShowing||(checkedAt!=0&&now-checkedAt<60000)))return;if(!busy.compareAndSet(false,true))return;checkedAt=now;new Thread(()->{
         try{
             JSONArray releases=new JSONArray(new String(bytes("https://api.github.com/repos/TheAti1/"+activity.repository()+"/releases?per_page=100",4*1024*1024),"UTF-8"));
             JSONObject selected=null,asset=null;int version=activity.versionCode();
@@ -48,8 +49,8 @@ public final class Updater {
             }
             if(selected==null){if(manual)activity.runOnUiThread(()->activity.message(activity.t("Güncel sürümü kullanıyorsun.","You are up to date.")));return;}
             final JSONObject release=selected,download=asset;final int code=version;
-            activity.runOnUiThread(()->{if(activity.isFinishing())return;new AlertDialog.Builder(activity).setTitle(activity.t("Güncelleme hazır","Update available")).setMessage(release.optString("tag_name")+"\n\n"+activity.t("Oyun kayıtların ve ayarların korunur. İndirmek ister misin?","Your saves and settings will be kept. Download the update?"))
-                .setPositiveButton(activity.t("İndir","Download"),(d,w)->download(release,download,code)).setNegativeButton(activity.t("Daha sonra","Later"),null).show();});
+            activity.runOnUiThread(()->{if(activity.isFinishing()||activity.isDestroyed())return;offerShowing=true;new AlertDialog.Builder(activity).setTitle(activity.t("Güncelleme hazır","Update available")).setMessage(release.optString("tag_name")+"\n\n"+activity.t("Oyun kayıtların ve ayarların korunur. İndirmek ister misin?","Your saves and settings will be kept. Download the update?"))
+                .setPositiveButton(activity.t("İndir","Download"),(d,w)->download(release,download,code)).setNegativeButton(activity.t("Daha sonra","Later"),null).setOnDismissListener(d->offerShowing=false).show();});
         }catch(Exception e){android.util.Log.w("PatriotsUpdate","Update check: "+e);if(manual)activity.runOnUiThread(()->activity.message(activity.t("Güncelleme kontrol edilemedi. İnternet bağlantını kontrol edip tekrar dene.","Could not check for updates. Check your connection and try again.")));}
         finally{busy.set(false);}
     },"Patriots update check").start();}
@@ -108,11 +109,12 @@ public final class Updater {
         for(Signature signature:a){boolean found=false;for(Signature candidate:b)found|=Arrays.equals(signature.toByteArray(),candidate.toByteArray());if(!found)throw new SecurityException("Update signed by another key");}
     }
     private void install(){
+        checkedAt=android.os.SystemClock.elapsedRealtime();
         if(!activity.getPackageManager().canRequestPackageInstalls()){
             pendingInstall=true;new AlertDialog.Builder(activity).setTitle(activity.t("Kurulum izni","Installation permission")).setMessage(activity.t("Android, bu oyunun güncelleme kurabilmesi için bir kez izin istiyor. Açılan ekranda izin verip geri dön.","Android needs permission once to install updates from this app. Allow it on the next screen, then return."))
                 .setPositiveButton(activity.t("Ayarları aç","Open settings"),(d,w)->activity.startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,Uri.parse("package:"+activity.getPackageName())))).setNegativeButton(activity.t("İptal","Cancel"),(d,w)->pendingInstall=false).show();return;
         }
         pendingInstall=false;Uri uri=Uri.parse("content://"+activity.getPackageName()+".updates/update.apk");Intent intent=new Intent(Intent.ACTION_VIEW).setDataAndType(uri,"application/vnd.android.package-archive").addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);activity.startActivity(intent);
     }
-    void onResume(){if(pendingInstall&&activity.getPackageManager().canRequestPackageInstalls())install();}
+    boolean onResume(){if(pendingInstall){if(activity.getPackageManager().canRequestPackageInstalls()){install();return true;}pendingInstall=false;checkedAt=android.os.SystemClock.elapsedRealtime();}return false;}
 }
