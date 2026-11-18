@@ -1,5 +1,17 @@
 # Changelog / Sürüm notları
 
+## Android 1.0.2
+
+- Correct the Android system/installer application label.
+
+
+## Android 1.0.1 · 2026-11-18
+
+- Standalone Android 9+ universal APK for ARM64, ARMv7 and x86_64, with bundled game data and Turkish / English selection.
+- Startup/manual release checks, ranged downloads with retry, SHA256/package/signature checks and Android installer handoff.
+- Native game lifetime isolated from the launcher, with save data kept separate from immutable assets.
+
+
 ## 1.1.0 — 2026-11-18
 - Added generic community language IDs and independent launcher/game JSON or combined ZIP import, component coverage and template export.
 - Separated 161 launcher strings and 549 translatable game/runtime/HUD entries into stable contributor JSONs. Font names and other original technical records remain protected internally.

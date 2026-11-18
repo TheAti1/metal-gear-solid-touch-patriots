@@ -14,6 +14,14 @@ def cmake(src,build,abi,extra=()):
     run(['cmake','-S',src,'-B',build,'-G','Ninja',f'-DCMAKE_MAKE_PROGRAM={NINJA}',f'-DCMAKE_TOOLCHAIN_FILE={NDK}/build/cmake/android.toolchain.cmake',f'-DANDROID_ABI={abi}','-DANDROID_PLATFORM=android-28','-DANDROID_STL=c++_static','-DCMAKE_BUILD_TYPE=Release',*extra],build.name+'-configure')
 
 def mobile(abi):
+    # Windows users do not need symlink privileges for Unicorn's archive alias.
+    if os.name=='nt':
+        import shutil
+        bundle=DEPS/'unicorn-2.1.4/cmake/bundle_static.cmake'
+        if bundle.exists():
+            value=bundle.read_text(encoding='utf-8');bundle.write_text(value.replace('create_symlink','copy_if_different'),encoding='utf-8')
+        shims=BASE/'shims';shims.mkdir(parents=True,exist_ok=True)
+        if not (shims/'strings.exe').exists():shutil.copy2(NDK/'toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-strings.exe',shims/'strings.exe')
     uc=BASE/f'build-unicorn-{abi}'
     shims=BASE/'shims';shims.mkdir(exist_ok=True);(shims/'pkg-config').write_text('#!/bin/sh\nexit 1\n',encoding='ascii',newline='\n');ENV['PATH']=str(shims)+';'+ENV['PATH']
     if not (uc/'libunicorn.a').exists():

@@ -49,7 +49,7 @@ def java(build,game):
 
 def build(game,abi='arm64-v8a',code=1000000):
     folder=prepare(game);java(folder,game)
-    package='com.patriots.'+('mgstouch' if game=='touch' else 'mgsmobile');name='Metal Gear Solid '+('Touch' if game=='touch' else 'Mobile')+' Â· Patriots'
+    package='com.patriots.'+('mgstouch' if game=='touch' else 'mgsmobile');name='Metal Gear Solid '+('Touch' if game=='touch' else 'Mobile')+' - Patriots'
     activity='com.mgsport.retouched.RetouchedActivity' if game=='touch' else 'org.mgsmobile.port.MGSActivity';orientation='portrait' if game=='touch' else 'sensorLandscape'
     native='''<meta-data android:name="android.app.lib_name" android:value="mgst"/>''' if game=='touch' else ''
     version=f'{code//1000000}.{code//1000%1000}.{code%1000}'
