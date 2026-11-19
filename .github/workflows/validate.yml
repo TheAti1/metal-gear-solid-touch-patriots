@@ -16,6 +16,8 @@ jobs:
           python-version: '3.11'
       - run: python tools/check_repository.py
       - run: python tools/check_language_templates.py
+      - run: python -m pip install jsonschema==4.23.0
+      - run: python tools/test_recomplauncher.py
   launcher:
     runs-on: windows-latest
     steps:
@@ -29,9 +31,23 @@ jobs:
           if($test.ExitCode -ne 0){throw 'Launcher self-test failed'}
           $test=Start-Process './package/Metal Gear Solid Touch.exe' -ArgumentList '--test-language-packs' -Wait -PassThru -WindowStyle Hidden
           if($test.ExitCode -ne 0){throw 'Language-pack checks failed'}
+      - name: RecompLauncher real preferences and missing-package checks
+        shell: pwsh
+        run: |
+          $framework=Join-Path $env:WINDIR 'Microsoft.NET/Framework64/v4.0.30319'
+          $reference=(Resolve-Path 'package/Metal Gear Solid Touch.exe').Path
+          $source=(Resolve-Path 'tools/tests/RecompSettingsProbe.cs').Path
+          $output=Join-Path (Resolve-Path 'package').Path 'RecompSettingsProbe.exe'
+          & (Join-Path $framework 'csc.exe') @('/nologo','/target:exe','/r:System.Web.Extensions.dll',('/r:'+$reference),('/out:'+$output),$source)
+          if($LASTEXITCODE -ne 0){throw 'Settings probe build failed'}
+          & ./package/RecompSettingsProbe.exe ./recomplauncher.json
+          if($LASTEXITCODE -ne 0){throw 'Profile/Preferences contract failed'}
+          $test=Start-Process './package/Metal Gear Solid Touch.exe' -ArgumentList '--recomplauncher' -Wait -PassThru -WindowStyle Hidden
+          if($test.ExitCode -ne 20){throw 'Incomplete package did not report exit 20'}
       - uses: actions/upload-artifact@v4
         with:
           name: touch-launcher-build
           path: |
             package/Metal Gear Solid Touch.exe
+            package/recomplauncher.json
             package/Arayuz/

@@ -1,0 +1,594 @@
+{
+  "$schema": "https://recomplauncher.com/schema/recomplauncher.json",
+  "format": 1,
+  "name": "Metal Gear Solid Touch · Patriots PC",
+  "repo": "TheAti1/metal-gear-solid-touch-patriots",
+  "min": "0.90.0-beta.27",
+  "requires": [
+    "start",
+    "settings.json",
+    "settings.choices",
+    "settings.slider",
+    "settings.bindings",
+    "settings.groups",
+    "exit_codes"
+  ],
+  "start": {
+    "program": [
+      "Metal Gear Solid Touch.exe"
+    ],
+    "args": [
+      "--recomplauncher"
+    ]
+  },
+  "config": [
+    {
+      "id": "main",
+      "format": "json",
+      "file": [
+        {
+          "path": "{install}/settings.json"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "id": "game_language",
+      "label": "Game language",
+      "group": "Language",
+      "help": "Applies on the next launch; imported languages remain available in the Patriots launcher.",
+      "choices": [
+        {
+          "label": "English",
+          "set": {
+            "GameLanguage": "\"en\""
+          }
+        },
+        {
+          "label": "Türkçe",
+          "set": {
+            "GameLanguage": "\"tr\""
+          }
+        }
+      ],
+      "defaults": {
+        "GameLanguage": "\"en\""
+      }
+    },
+    {
+      "id": "launcher_language",
+      "label": "Patriots launcher language",
+      "group": "Language",
+      "help": "The language of the optional Patriots settings window; does not change RecompLauncher itself.",
+      "choices": [
+        {
+          "label": "English",
+          "set": {
+            "Language": "\"en\""
+          }
+        },
+        {
+          "label": "Türkçe",
+          "set": {
+            "Language": "\"tr\""
+          }
+        }
+      ],
+      "defaults": {
+        "Language": "\"tr\""
+      }
+    },
+    {
+      "id": "fullscreen",
+      "label": "Full screen",
+      "group": "Display",
+      "help": "F11 also switches the running game; an existing choice takes precedence over first-start launcher mode.",
+      "choices": [
+        {
+          "label": "On",
+          "set": {
+            "Fullscreen": "true"
+          }
+        },
+        {
+          "label": "Off",
+          "set": {
+            "Fullscreen": "false"
+          }
+        }
+      ],
+      "defaults": {
+        "Fullscreen": "true"
+      }
+    },
+    {
+      "id": "vsync",
+      "label": "V-Sync",
+      "group": "Display",
+      "help": "Waits for the display refresh to reduce tearing.",
+      "choices": [
+        {
+          "label": "On",
+          "set": {
+            "Vsync": "true"
+          }
+        },
+        {
+          "label": "Off",
+          "set": {
+            "Vsync": "false"
+          }
+        }
+      ],
+      "defaults": {
+        "Vsync": "true"
+      }
+    },
+    {
+      "id": "render_scale",
+      "label": "Render scale",
+      "group": "Display",
+      "help": "Scales the original 320 x 480 framebuffer; higher values need more GPU power.",
+      "choices": [
+        {
+          "label": "1x",
+          "set": {
+            "Scale": "1"
+          }
+        },
+        {
+          "label": "2x",
+          "set": {
+            "Scale": "2"
+          }
+        },
+        {
+          "label": "3x",
+          "set": {
+            "Scale": "3"
+          }
+        },
+        {
+          "label": "4x",
+          "set": {
+            "Scale": "4"
+          }
+        }
+      ],
+      "defaults": {
+        "Scale": "3"
+      }
+    },
+    {
+      "id": "borders",
+      "label": "Border fill",
+      "group": "Display",
+      "help": "Fills unused space while retaining the original image proportions; it does not add widescreen geometry.",
+      "choices": [
+        {
+          "label": "Black",
+          "set": {
+            "Fill": "0"
+          }
+        },
+        {
+          "label": "Blurred background",
+          "set": {
+            "Fill": "1"
+          }
+        },
+        {
+          "label": "Dark frame",
+          "set": {
+            "Fill": "2"
+          }
+        }
+      ],
+      "defaults": {
+        "Fill": "1"
+      }
+    },
+    {
+      "id": "pixel_filter",
+      "label": "Sharp pixel filtering",
+      "group": "Display",
+      "help": "On uses nearest sampling; off smooths the scaled image.",
+      "choices": [
+        {
+          "label": "On",
+          "set": {
+            "Crisp": "true"
+          }
+        },
+        {
+          "label": "Off",
+          "set": {
+            "Crisp": "false"
+          }
+        }
+      ],
+      "defaults": {
+        "Crisp": "false"
+      }
+    },
+    {
+      "id": "frame_limit",
+      "label": "Frame limit",
+      "group": "Display",
+      "help": "Caps the desktop rendering loop while the game retains its own logic timing.",
+      "choices": [
+        {
+          "label": "60",
+          "set": {
+            "FpsLimit": "60"
+          }
+        },
+        {
+          "label": "120",
+          "set": {
+            "FpsLimit": "120"
+          }
+        },
+        {
+          "label": "144",
+          "set": {
+            "FpsLimit": "144"
+          }
+        },
+        {
+          "label": "240",
+          "set": {
+            "FpsLimit": "240"
+          }
+        }
+      ],
+      "defaults": {
+        "FpsLimit": "120"
+      }
+    },
+    {
+      "id": "music",
+      "label": "Music volume",
+      "group": "Audio",
+      "help": "Volume of the music, from silent to full volume.",
+      "slider": {
+        "key": "Music",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "format": "%d"
+      },
+      "defaults": {
+        "Music": "80"
+      }
+    },
+    {
+      "id": "effects",
+      "label": "Effects volume",
+      "group": "Audio",
+      "help": "Volume of shots, voices and other sound effects.",
+      "slider": {
+        "key": "Effects",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "format": "%d"
+      },
+      "defaults": {
+        "Effects": "100"
+      }
+    },
+    {
+      "id": "resampling",
+      "label": "High-quality audio",
+      "group": "Audio",
+      "help": "Uses the existing high-quality resampling option.",
+      "choices": [
+        {
+          "label": "On",
+          "set": {
+            "HqAudio": "true"
+          }
+        },
+        {
+          "label": "Off",
+          "set": {
+            "HqAudio": "false"
+          }
+        }
+      ],
+      "defaults": {
+        "HqAudio": "true"
+      }
+    },
+    {
+      "id": "aim",
+      "label": "Aim sensitivity",
+      "group": "Controls",
+      "help": "The same percentage range offered by the Patriots launcher.",
+      "slider": {
+        "key": "Aim",
+        "min": 50,
+        "max": 200,
+        "step": 1,
+        "format": "%d"
+      },
+      "defaults": {
+        "Aim": "100"
+      }
+    },
+    {
+      "id": "deadzone",
+      "label": "Stick deadzone",
+      "group": "Controls",
+      "help": "Ignores small stick movements; increase if a worn stick drifts.",
+      "slider": {
+        "key": "Deadzone",
+        "min": 5,
+        "max": 60,
+        "step": 1,
+        "format": "%d"
+      },
+      "defaults": {
+        "Deadzone": "18"
+      }
+    },
+    {
+      "id": "vibration",
+      "label": "Controller vibration",
+      "group": "Controls",
+      "help": "Allows vibration on supported SDL controllers.",
+      "choices": [
+        {
+          "label": "On",
+          "set": {
+            "Vibration": "true"
+          }
+        },
+        {
+          "label": "Off",
+          "set": {
+            "Vibration": "false"
+          }
+        }
+      ],
+      "defaults": {
+        "Vibration": "true"
+      }
+    },
+    {
+      "id": "keyboard",
+      "label": "Keyboard bindings",
+      "group": "Controls",
+      "help": "One keyboard key per action, using the same SDL key names as the Patriots launcher.",
+      "bindings": {
+        "max": 1,
+        "actions": [
+          {
+            "label": "Fire / confirm",
+            "key": "Keys/press"
+          },
+          {
+            "label": "Pause / resume",
+            "key": "Keys/pause"
+          },
+          {
+            "label": "SVD / zoom in",
+            "key": "Keys/zoom_in"
+          },
+          {
+            "label": "M4 / zoom out",
+            "key": "Keys/zoom_out"
+          },
+          {
+            "label": "Shake / special action",
+            "key": "Keys/shake"
+          },
+          {
+            "label": "Take cover (hold)",
+            "key": "Keys/cover"
+          },
+          {
+            "label": "Aim up",
+            "key": "Keys/aim_up"
+          },
+          {
+            "label": "Aim down",
+            "key": "Keys/aim_down"
+          },
+          {
+            "label": "Aim left",
+            "key": "Keys/aim_left"
+          },
+          {
+            "label": "Aim right",
+            "key": "Keys/aim_right"
+          },
+          {
+            "label": "Full screen",
+            "key": "Keys/fullscreen"
+          },
+          {
+            "label": "Screenshot",
+            "key": "Keys/screenshot"
+          }
+        ],
+        "names": {
+          "Enter": "Return",
+          "ArrowUp": "Up",
+          "ArrowDown": "Down",
+          "ArrowLeft": "Left",
+          "ArrowRight": "Right"
+        }
+      },
+      "defaults": {
+        "Keys/press": "\"Return\"",
+        "Keys/pause": "\"Escape\"",
+        "Keys/zoom_in": "\"E\"",
+        "Keys/zoom_out": "\"Q\"",
+        "Keys/shake": "\"F\"",
+        "Keys/cover": "\"Space\"",
+        "Keys/aim_up": "\"W\"",
+        "Keys/aim_down": "\"S\"",
+        "Keys/aim_left": "\"A\"",
+        "Keys/aim_right": "\"D\"",
+        "Keys/fullscreen": "\"F11\"",
+        "Keys/screenshot": "\"F12\""
+      }
+    },
+    {
+      "id": "auto_pause",
+      "label": "Pause when unfocused",
+      "group": "Gameplay",
+      "help": "Pauses when the game loses focus.",
+      "choices": [
+        {
+          "label": "On",
+          "set": {
+            "AutoPause": "true"
+          }
+        },
+        {
+          "label": "Off",
+          "set": {
+            "AutoPause": "false"
+          }
+        }
+      ],
+      "defaults": {
+        "AutoPause": "true"
+      }
+    },
+    {
+      "id": "skip_intro",
+      "label": "Skip intro",
+      "group": "Gameplay",
+      "help": "Uses the existing skip-intro setting.",
+      "choices": [
+        {
+          "label": "On",
+          "set": {
+            "SkipIntro": "true"
+          }
+        },
+        {
+          "label": "Off",
+          "set": {
+            "SkipIntro": "false"
+          }
+        }
+      ],
+      "defaults": {
+        "SkipIntro": "false"
+      }
+    },
+    {
+      "id": "discord",
+      "label": "Discord activity",
+      "group": "Discord",
+      "help": "Keeps the existing desktop Discord session running without opening the Patriots window.",
+      "choices": [
+        {
+          "label": "On",
+          "set": {
+            "DiscordPresence": "true"
+          }
+        },
+        {
+          "label": "Off",
+          "set": {
+            "DiscordPresence": "false"
+          }
+        }
+      ],
+      "defaults": {
+        "DiscordPresence": "true"
+      }
+    },
+    {
+      "id": "discord_room",
+      "label": "Share mission on Discord",
+      "group": "Discord",
+      "help": "Includes mission and phase in the activity; turning it off keeps the session private.",
+      "choices": [
+        {
+          "label": "On",
+          "set": {
+            "DiscordRoom": "true"
+          }
+        },
+        {
+          "label": "Off",
+          "set": {
+            "DiscordRoom": "false"
+          }
+        }
+      ],
+      "defaults": {
+        "DiscordRoom": "true"
+      },
+      "when": {
+        "DiscordPresence": "true"
+      }
+    }
+  ],
+  "saves": [
+    "{install}/Saves/SAVE*.data",
+    "{install}/settings.json",
+    "{install}/Oyun/desktop.ini",
+    "{install}/Saves/retouched.cfg"
+  ],
+  "folders": {
+    "saves": [
+      {
+        "path": "{install}/Saves"
+      }
+    ],
+    "logs": [
+      {
+        "path": "{install}/Saves"
+      }
+    ],
+    "launcher": [
+      {
+        "path": "{install}"
+      }
+    ]
+  },
+  "actions": [
+    {
+      "id": "saves",
+      "label": "Save folder",
+      "help": "Progress and local backup saves.",
+      "open": "saves"
+    },
+    {
+      "id": "logs",
+      "label": "Logs",
+      "help": "runtime.log and launcher.log for troubleshooting.",
+      "open": "logs"
+    },
+    {
+      "id": "patriots",
+      "label": "Patriots launcher folder",
+      "help": "Open Metal Gear Solid Touch.exe here for community-language imports and controller remapping.",
+      "open": "launcher"
+    }
+  ],
+  "looks": {
+    "graphics": "opengl"
+  },
+  "exit_codes": {
+    "0": "ok",
+    "1": "SDL could not initialize. Check your display/audio drivers and Saves/launcher.log.",
+    "2": "The game window could not be created. Check your graphics driver and try windowed mode.",
+    "3": "An OpenGL context could not be created. Update the graphics driver and check Saves/runtime.log.",
+    "4": "The font files are missing or unreadable. Restore the full prepared Patriots PC package.",
+    "5": "The prepared game data could not boot. Restore the matching Touch 2.3.0 game data and check Saves/runtime.log.",
+    "6": "The game runtime stopped after a fault. Include Saves/runtime.log when reporting it.",
+    "20": "This is an incomplete Patriots PC installation. Apply the RecompLauncher support update over the complete Touch PC package; the update contains no game data.",
+    "21": "The launch arguments are not supported. Update the RecompLauncher profile and try again.",
+    "23": "Touch could not start or save its settings. Extract the complete package to a writable folder and check Saves/launcher.log."
+  }
+}

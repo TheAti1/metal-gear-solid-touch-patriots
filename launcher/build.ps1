@@ -2,6 +2,7 @@ param([string]$PackageRoot=(Join-Path $PSScriptRoot '..\package'))
 $ErrorActionPreference='Stop'
 $package=[IO.Path]::GetFullPath($PackageRoot)
 New-Item -ItemType Directory -Path (Join-Path $package 'Arayuz') -Force | Out-Null
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot '..\recomplauncher.json') -Destination (Join-Path $package 'recomplauncher.json') -Force
 foreach($name in @('game.ico','patriots.jpg','hero.png','touch_wordmark.png')){
   Copy-Item -LiteralPath (Join-Path $PSScriptRoot ('..\assets\'+$name)) -Destination (Join-Path $package ('Arayuz\'+$name)) -Force
 }

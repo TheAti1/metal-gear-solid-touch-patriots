@@ -4,6 +4,8 @@
 
 # Metal Gear Solid Touch · Patriots PC
 
+<a href="https://recomplauncher.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://recomplauncher.com/assets/press/launcher/badge-light.svg"><img alt="Get it on RecompLauncher" src="https://recomplauncher.com/assets/press/launcher/badge-dark.svg" height="48"></picture></a>
+
 **iOS sürümünden türetilmiş Windows x64 AOT portu.** Türkçe / İngilizce launcher ve oyun, fare / klavye / gamepad desteği ve Discord Rich Presence.
 
 **[English](README.md) · [İndir](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) · [Kontroller](docs/CONTROLS.md) · [Derleme](docs/BUILD.md) · [Sürüm notları](CHANGELOG.md)**

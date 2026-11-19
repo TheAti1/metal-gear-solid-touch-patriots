@@ -1,5 +1,12 @@
 # Changelog / Sürüm notları
 
+## RecompLauncher support update · 2026-11-19
+
+- Add a prepared-install Levels 1/2 profile with 19 settings, 12 keyboard bindings, exact save locations, log/folder actions, OpenGL detection and native exit messages.
+- Add the opt-in `--recomplauncher` mode using the existing preferences/native launch path and Discord session, with no WPF window and no launcher reopening after game exit. Normal entry points and native gameplay/graphics are unchanged.
+- Include the profile in launcher builds, CI artifacts and an asset/save-free support-update package; add the theme-aware README badge and an explicit standards audit.
+- Check the official schema, all settings through 72 actual C# preference/INI round trips, real native game lifetime, no-argument WPF startup and the existing lifecycle regression. Full RecompLauncher client UI, fresh player-owned-IPA setup and new standalone game distribution are outside this update.
+
 ## Android 1.0.2
 
 - Correct the Android system/installer application label.

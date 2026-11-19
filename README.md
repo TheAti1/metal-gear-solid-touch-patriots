@@ -4,6 +4,8 @@
 
 # Metal Gear Solid Touch · Patriots PC
 
+<a href="https://recomplauncher.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://recomplauncher.com/assets/press/launcher/badge-light.svg"><img alt="Get it on RecompLauncher" src="https://recomplauncher.com/assets/press/launcher/badge-dark.svg" height="48"></picture></a>
+
 A Windows x64 AOT port of the **iOS version**, with a multilingual launcher, mouse / keyboard / controller support and Discord Rich Presence.
 
 ![Windows](https://img.shields.io/badge/platform-Windows_10%2F11-0078D6)
@@ -34,6 +36,8 @@ No iPhone, iOS emulator, Python, Ghidra or compiler is required to play the prep
 Existing players can use **MGS_Touch_Patriots_PC_v1.1.0_Guncelleme.zip** over their existing installation. Back up `Saves/` first. The update contains no personal save or settings files. A full download starts with clean saves and cheats disabled.
 
 ## Features
+
+**RecompLauncher:** [Levels 1/2 support for a prepared Windows installation](docs/RECOMPLAUNCHER.md), including direct launch without the Patriots window, 19 settings, keyboard bindings, save paths and the existing Discord session. The support update is an add-on to the full PC package; it contains no game data and is not a standalone automatic-install build. [Developer report and remaining standards work](docs/RECOMPLAUNCHER-REPORT.md).
 
 | Area | Included |
 |---|---|
