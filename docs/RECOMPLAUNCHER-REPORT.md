@@ -13,6 +13,7 @@
 - Read the complete agent guide, both worked examples and its embedded schema before editing. The profile is validated against the published Draft 7 schema.
 - Built the actual WPF launcher with .NET Framework. The existing 161-launcher / 549-game catalogue coverage, protected metadata and tokens remain unchanged.
 - A real prepared Windows native game was launched through the new mode in an isolated test folder. The parent had no WPF window, stayed alive while the native process ran, returned its successful exit code and did not reopen the Patriots window.
+- A duplicate external session is rejected with exit 22 while the first game keeps running; it cannot appear to finish successfully and trigger external save tracking for an already-running session.
 - Started the executable **without arguments**: the original Patriots WPF interface still opened and closed normally. The existing `--test-lifecycle` native/WPF regression also passed.
 - The C# settings probe exercises all profile choices/defaults, slider endpoints and 12 bindings using the real `Preferences.Load/Save`, including both generated INIs and unchanged synthetic save bytes. The schema/packager test injects fake game and personal files and checks they are excluded from the update archive.
 - No `dumps` values were supplied. The project documents only the expected inner MGSTUS executable SHA256; it does not provide an independently verified full-IPA CRC32/size suitable for that SDK field.

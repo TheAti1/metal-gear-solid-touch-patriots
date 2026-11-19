@@ -589,6 +589,7 @@
     "6": "The game runtime stopped after a fault. Include Saves/runtime.log when reporting it.",
     "20": "This is an incomplete Patriots PC installation. Apply the RecompLauncher support update over the complete Touch PC package; the update contains no game data.",
     "21": "The launch arguments are not supported. Update the RecompLauncher profile and try again.",
-    "23": "Touch could not start or save its settings. Extract the complete package to a writable folder and check Saves/launcher.log."
+    "23": "Touch could not start or save its settings. Extract the complete package to a writable folder and check Saves/launcher.log.",
+    "22": "This Touch installation is already open in Patriots or another game session. Close that session, then press Play again."
   }
 }
