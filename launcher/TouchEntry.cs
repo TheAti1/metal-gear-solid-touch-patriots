@@ -40,7 +40,7 @@ internal static class TouchEntry {
             string id;using(var sha=SHA256.Create())id=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(Files.Root.ToLowerInvariant()))).Replace("-","").Substring(0,20);
             bool owner;
             using(var mutex=new Mutex(true,@"Local\PatriotsMGSTouch_"+id,out owner)){
-                if(!owner&&!args.Contains("--render-ui")){IntPtr other=FindWindow(null,"METAL GEAR SOLID TOUCH | Patriots");if(other==IntPtr.Zero)other=FindWindow(null,"METAL GEAR SOLID TOUCH · Patriots");if(other!=IntPtr.Zero){ShowWindow(other,9);SetForegroundWindow(other);}return 0;}
+                if(!owner&&!args.Contains("--render-ui")){if(args.Contains("--recomplauncher")){Files.Log("RECOMPLAUNCHER ERROR 22: another Patriots session owns this installation");return 22;}IntPtr other=FindWindow(null,"METAL GEAR SOLID TOUCH | Patriots");if(other==IntPtr.Zero)other=FindWindow(null,"METAL GEAR SOLID TOUCH · Patriots");if(other!=IntPtr.Zero){ShowWindow(other,9);SetForegroundWindow(other);}return 0;}
                 if(args.Contains("--recomplauncher"))return TouchRecompLauncher.Run(args);
                 var app=new Application();return app.Run(new TouchWindow(args));
             }
