@@ -3,7 +3,6 @@ from pathlib import Path
 import argparse
 import json
 import tempfile
-import urllib.request
 import zipfile
 from jsonschema import Draft7Validator
 
@@ -14,11 +13,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--schema', type=Path)
     args = parser.parse_args()
-    if args.schema:
-        schema = json.loads(args.schema.read_text(encoding='utf-8'))
-    else:
-        with urllib.request.urlopen('https://recomplauncher.com/schema/recomplauncher.json', timeout=30) as response:
-            schema = json.load(response)
+    # Exact 2026-11-19 SDK snapshot, compared with both the guide's embedded
+    # schema and the published URL. No website/bot-policy dependency in CI.
+    schema = json.loads((args.schema or ROOT / 'tools/recomplauncher.schema.json').read_text(encoding='utf-8'))
     profile = json.loads((ROOT / 'recomplauncher.json').read_text(encoding='utf-8'))
     Draft7Validator.check_schema(schema)
     Draft7Validator(schema).validate(profile)

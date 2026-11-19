@@ -47,3 +47,5 @@ The launcher build copies `recomplauncher.json` to the package root. The CI arti
 The full RecompLauncher client UI has not been exercised here; schema, real C# setting serialization, native process lifetime and ordinary launcher behavior are checked separately. Open the Developer tab for the final client-side review.
 
 Reference: [official agent/SDK guide](https://recomplauncher.com/sdk-files/recomplauncher-agent.md) and [JSON schema](https://recomplauncher.com/schema/recomplauncher.json).
+
+CI uses `tools/recomplauncher.schema.json`, the 2026-11-19 snapshot verified identical to both the guide's embedded schema and the published schema. This avoids a live website request being blocked by the site's bot policy. Pass `--schema <path>` to validate against a newer downloaded schema when updating the SDK.
