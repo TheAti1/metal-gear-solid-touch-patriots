@@ -34,14 +34,14 @@ internal static class TouchEntry {
             }
             if(args.Contains("--test-discord"))return DiscordProtocolTest.Run();
             if(args.Contains("--validate")){
-                foreach(string file in new[]{"Oyun/mgs_touch.exe","Oyun/SDL3.dll","Oyun/Assets/MGSTUS.app/Info.plist","Oyun/Assets/fonts/LiberationSans-Regular.ttf","Localization/metal_gear_solid_touch_english.json","Arayuz/TouchTheme.xaml"})
-                    if(!File.Exists(Path.Combine(Files.Root,file.Replace('/',Path.DirectorySeparatorChar))))throw new FileNotFoundException(file);
+                TouchGameProcess.Validate();
                 return 0;
             }
             string id;using(var sha=SHA256.Create())id=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(Files.Root.ToLowerInvariant()))).Replace("-","").Substring(0,20);
             bool owner;
             using(var mutex=new Mutex(true,@"Local\PatriotsMGSTouch_"+id,out owner)){
                 if(!owner&&!args.Contains("--render-ui")){IntPtr other=FindWindow(null,"METAL GEAR SOLID TOUCH | Patriots");if(other==IntPtr.Zero)other=FindWindow(null,"METAL GEAR SOLID TOUCH · Patriots");if(other!=IntPtr.Zero){ShowWindow(other,9);SetForegroundWindow(other);}return 0;}
+                if(args.Contains("--recomplauncher"))return TouchRecompLauncher.Run(args);
                 var app=new Application();return app.Run(new TouchWindow(args));
             }
         }catch(Exception e){Files.Log(e.ToString());if(args.Length==0)MessageBox.Show(e.Message,"Patriots · MGS Touch",MessageBoxButton.OK,MessageBoxImage.Error);return 1;}

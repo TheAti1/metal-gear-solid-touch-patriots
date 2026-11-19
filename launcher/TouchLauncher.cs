@@ -98,11 +98,7 @@ public sealed partial class TouchWindow:Window {
         bool test=args.Contains("--test-lifecycle");
         try{
             if(game!=null&&!game.HasExited){ShowWindow(game.MainWindowHandle,9);SetForegroundWindow(game.MainWindowHandle);return;}
-            string exe=Path.Combine(Files.Root,"Oyun","mgs_touch.exe");
-            if(!File.Exists(exe))throw new FileNotFoundException(L("Oyun çalıştırıcısı bulunamadı.","The game executable is missing."),exe);
-            settings.GameLanguage=TouchLanguagePacks.ResolveGame(settings.GameLanguage);
-            settings.Save();
-            var start=new ProcessStartInfo(exe){WorkingDirectory=Path.GetDirectoryName(exe),UseShellExecute=false,CreateNoWindow=true};
+            var start=TouchGameProcess.Create(settings);
             if(test){string qa=Path.Combine(Files.Root,"QA","LifecycleSaves");Directory.CreateDirectory(qa);start.Arguments="--windowed --test-seconds 9 --save-dir \""+qa+"\"";}
             game=Process.Start(start);
             discord=new DiscordPresence(game.Id,settings.GameLanguage);
