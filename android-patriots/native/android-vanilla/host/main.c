@@ -1,11 +1,12 @@
 /* Android shell: NativeActivity + EGL/GLES 1.1 + AAudio + touch + accelerometer + vibrator.
  * The original bundle is read in place from the APK (assets/MGSTUS.app); saves go to
- * the app's internal storage. Portrait-locked, like the iPhone: the game itself draws
- * its landscape scenes rotated, and the player turns the phone.
+ * the app's internal storage. The original portrait game view is fitted to the
+ * actual Android window, including upright landscape scenes on tablets.
  * Built with -DMGST_RETOUCHED (android-retouched/build_retouched.sh) it is METAL GEAR SOLID
  * RE-TOUCHED: + the Re-Touched overlay (android-retouched/host), Back key, game controllers,
  * gyroscope, full-screen mode (RetouchedActivity.java) and pause-on-leave. */
 #include "host.h"
+#include "android_presentation.h"
 #include <jni.h>
 #ifdef MGST_RETOUCHED
 #include "rtx_host.h"
@@ -28,6 +29,7 @@
 
 extern AAssetManager *g_assets;
 static ANativeActivity *g_activity;
+static int natural_landscape;
 /* JNI from the game thread (android_main's thread, attached once) */
 static JNIEnv *jni(void) {
     JNIEnv *env = NULL;
@@ -36,6 +38,12 @@ static JNIEnv *jni(void) {
     return env;
 }
 static void jni_clear(JNIEnv *env) { if ((*env)->ExceptionCheck(env)) { (*env)->ExceptionDescribe(env); (*env)->ExceptionClear(env); } }
+static void refresh_sensor_axes(void){
+    JNIEnv *env=jni();jclass clazz=(*env)->GetObjectClass(env,g_activity->clazz);
+    jmethodID method=(*env)->GetMethodID(env,clazz,"getSensorQuarterTurns","()I");
+    if(method)natural_landscape=(*env)->CallIntMethod(env,g_activity->clazz,method)!=0;
+    (*env)->DeleteLocalRef(env,clazz);jni_clear(env);
+}
 /* the original's vibration (AudioServicesPlaySystemSound(kSystemSoundID_Vibrate), sent by the game
  * when its own VIBRATION option is on): Context.getSystemService("vibrator").vibrate(ms) */
 static void android_vibrate(int ms) {
@@ -224,6 +232,22 @@ static void pick_language(struct android_app *app) {
     for (int i = 0; i < 5; i++) if (!strcmp(lang, map[i][0])) snprintf(g_cfg.lang, sizeof g_cfg.lang, "%s", map[i][1]);
 }
 
+static void update_presentation(void){
+    if(!started||host_is_crashed())return;
+    int w,h;gfx_window_size(&w,&h);
+    game_lock(&g_main_thread);
+    int state=(int)w2c_mgst_mgst_rtx_cmd(&g_inst,8,0);
+    int land=(int)w2c_mgst_mgst_pc_status(&g_inst,7);
+    game_unlock(&g_main_thread);
+    int rotation=patriots_window_rotation(w,h,state,land,g_cfg.rotate);
+    if(rotation!=g_cfg.rotate){
+        for(int i=0;i<8;i++)host_touch(4,i,0,0);
+        rtx_pad_button(0);rtx_pad_axis(0,0);
+        g_cfg.rotate=rotation;
+        hlog("Android presentation: %dx%d, rotation %d, state %d",w,h,rotation,state);
+    }
+}
+
 static void on_cmd(struct android_app *app, int32_t cmd) {
     switch (cmd) {
     case APP_CMD_INIT_WINDOW:
@@ -246,6 +270,7 @@ static void on_cmd(struct android_app *app, int32_t cmd) {
     case APP_CMD_TERM_WINDOW: have_window = 0; egl_surface_lost(); break;
     case APP_CMD_WINDOW_RESIZED: case APP_CMD_CONFIG_CHANGED:
         if (surf != EGL_NO_SURFACE) { EGLint w, h; eglQuerySurface(dpy, surf, EGL_WIDTH, &w); eglQuerySurface(dpy, surf, EGL_HEIGHT, &h); gfx_set_window(w, h); }
+        refresh_sensor_axes();
         break;
     case APP_CMD_GAINED_FOCUS: sensors_enable(1); break;
     case APP_CMD_LOST_FOCUS: sensors_enable(0); break;
@@ -271,8 +296,9 @@ void android_main(struct android_app *app) {
     JNIEnv *env=jni();
     jclass clazz=(*env)->GetObjectClass(env,g_activity->clazz);
     jmethodID method=(*env)->GetMethodID(env,clazz,"getGameLanguage","()Ljava/lang/String;");
-    if(method){jstring value=(jstring)(*env)->CallObjectMethod(env,g_activity->clazz,method);if(value){const char *locale=(*env)->GetStringUTFChars(env,value,NULL);if(!strcmp(locale,"tr")){snprintf(g_cfg.lang,sizeof g_cfg.lang,"Turkish");snprintf(g_cfg.overlay_dir,sizeof g_cfg.overlay_dir,"@app/languages/tr");}else{snprintf(g_cfg.lang,sizeof g_cfg.lang,"English");g_cfg.overlay_dir[0]=0;}(*env)->ReleaseStringUTFChars(env,value,locale);(*env)->DeleteLocalRef(env,value);}}
+    if(method){jstring value=(jstring)(*env)->CallObjectMethod(env,g_activity->clazz,method);if(value){const char *locale=(*env)->GetStringUTFChars(env,value,NULL);if(!strcmp(locale,"tr")){snprintf(g_cfg.lang,sizeof g_cfg.lang,"Turkish");snprintf(g_cfg.overlay_dir,sizeof g_cfg.overlay_dir,"@app/languages/tr");}else{snprintf(g_cfg.lang,sizeof g_cfg.lang,"English");if(!strcmp(locale,"pt-br"))snprintf(g_cfg.overlay_dir,sizeof g_cfg.overlay_dir,"@app/languages/pt-br");else g_cfg.overlay_dir[0]=0;}(*env)->ReleaseStringUTFChars(env,value,locale);(*env)->DeleteLocalRef(env,value);}}
     (*env)->DeleteLocalRef(env,clazz);jni_clear(env);
+    refresh_sensor_axes();
     extern void patriots_load_locale(void);patriots_load_locale();
     hlog("MGS Touch port: bundle in APK, saves in %s, language %s", g_cfg.docs_dir, g_cfg.lang);
 #ifdef MGST_RETOUCHED
@@ -298,12 +324,15 @@ void android_main(struct android_app *app) {
                 ASensorEvent se;
                 while (ASensorEventQueue_getEvents(sq, &se, 1) > 0) {
                     if (!started) continue;
-                    if (se.type == ASENSOR_TYPE_ACCELEROMETER)
-                        host_accel(-se.acceleration.x / 9.80665, -se.acceleration.y / 9.80665, -se.acceleration.z / 9.80665);
+                    if (se.type == ASENSOR_TYPE_ACCELEROMETER) {
+                        float x,y;patriots_sensor_to_portrait(natural_landscape,se.acceleration.x,se.acceleration.y,&x,&y);
+                        host_accel(-x / 9.80665, -y / 9.80665, -se.acceleration.z / 9.80665);
+                    }
 #ifdef MGST_RETOUCHED
                     else if (se.type == ASENSOR_TYPE_GYROSCOPE) {
                         double dt = gyro_ts ? (se.timestamp - gyro_ts) * 1e-9 : 0; gyro_ts = se.timestamp;
-                        if (dt > 0 && dt < 0.1) rtx_gyro(se.vector.x, se.vector.y, dt);
+                        float x,y;patriots_sensor_to_portrait(natural_landscape,se.vector.x,se.vector.y,&x,&y);
+                        if (dt > 0 && dt < 0.1) rtx_gyro(x,y,dt);
                     }
 #endif
                 }
@@ -312,6 +341,7 @@ void android_main(struct android_app *app) {
             timeout = 0;
         }
         if (started && resumed && have_window) {
+            update_presentation();
             host_frame(host_now());
 #ifdef MGST_RETOUCHED
             rtx_frame(host_now());

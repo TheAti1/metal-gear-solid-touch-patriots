@@ -9,8 +9,8 @@
 A Windows x64 AOT port of the **iOS version**, with a multilingual launcher, mouse / keyboard / controller support and Discord Rich Presence.
 
 ![Windows](https://img.shields.io/badge/platform-Windows_10%2F11-0078D6)
-![Release](https://img.shields.io/badge/release-1.1.0-637D38)
-![Languages](https://img.shields.io/badge/languages-English_%7C_Türkçe-637D38)
+![Release](https://img.shields.io/badge/release-1.2.0-637D38)
+![Languages](https://img.shields.io/badge/languages-English_%7C_Türkçe_%7C_Português_(Brasil)-637D38)
 
 **[Türkçe](README.tr.md) · [Download](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) · [Controls](docs/CONTROLS.md) · [Build](docs/BUILD.md) · [Changelog](CHANGELOG.md) · [Translate](docs/TRANSLATING.md)**
 
@@ -20,20 +20,22 @@ A Windows x64 AOT port of the **iOS version**, with a multilingual launcher, mou
 
 ## Android
 
-**[Download Android APK](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/tag/android-v1.0.2) · [Android build / update guide](android-patriots/README.md)**
+**[Download Android APK](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/tag/android-v1.1.0) · [Android build / update guide](android-patriots/README.md)**
 
-Android 9+, ARM64 / ARMv7 / x86_64; bundled game data, Turkish / English launcher and game, startup update checks and verified signed APK updates. Android releases use a separate channel from PC.
+Android 9+, ARM64 / ARMv7 / x86_64; bundled game data, Turkish / English / Brazilian Portuguese launcher and game, startup update checks and verified signed APK updates. Android releases use a separate channel from PC.
 
+
+PC-style Android launcher: matching artwork, colours and navigation, with a fixed PLAY button and responsive phone/tablet layouts. [Preview and checks](docs/ANDROID-LAYOUT.md).
 
 ## Play
 
-1. Download **MGS_Touch_Patriots_PC_v1.1.0.zip** from [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest).
+1. Download **MGS_Touch_Patriots_PC_v1.2.0.zip** from [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest).
 2. Extract the whole archive to a writable folder. Keep its folders together.
 3. Open **Metal Gear Solid Touch.exe**, select your language and settings, then click **PLAY / OYNA**.
 
 No iPhone, iOS emulator, Python, Ghidra or compiler is required to play the prepared Windows package. The game needs Windows x64, .NET Framework 4.x for the launcher and a working OpenGL driver. SDL3 is included. The local test system was Windows 10 Pro with Intel HD Graphics 620; this is not a performance guarantee for every PC.
 
-Existing players can use **MGS_Touch_Patriots_PC_v1.1.0_Guncelleme.zip** over their existing installation. Back up `Saves/` first. The update contains no personal save or settings files. A full download starts with clean saves and cheats disabled.
+Existing players can use **MGS_Touch_Patriots_PC_v1.2.0_Guncelleme.zip** over their existing installation. Back up `Saves/` first. The update contains no personal save or settings files. A full download starts with clean saves and cheats disabled.
 
 ## Features
 

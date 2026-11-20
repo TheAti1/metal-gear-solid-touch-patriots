@@ -1,5 +1,15 @@
 # Changelog / Sürüm notları
 
+## PC 1.2.0 / Android 1.1.0 · 2026-11-21
+
+- Rebuild the Android launcher with the PC artwork, palette, navigation and a fixed Play footer.
+- Remove the launcher portrait lock; support full-width landscape tablets, portrait tablets, narrow windows and larger fonts.
+- Add separate display, controls, audio, language/credit, save export and update pages, preserving native preferences and save storage.
+- Bundle reviewed Brazilian Portuguese as the third official PC/Android language: 161 launcher and 549 game/runtime/HUD texts, credited to [(Sanju Vinho e Fumaça)](https://steamcommunity.com/id/SanjiVinsmokeBRASIL/).
+- Keep submitted wording/tokens, generate VIDA in both atlas sizes, add missing reference-mark font coverage and include pt-br in the RecompLauncher language choices.
+- Present Touch landscape scenes upright in actual Android windows; transform touch coordinates and tablet sensor axes with the presentation.
+- Retain the Windows native executable, recovered game module, controls and Discord integration.
+
 ## RecompLauncher support update · 2026-11-19
 
 - Add a prepared-install Levels 1/2 profile with 19 settings, 12 keyboard bindings, exact save locations, log/folder actions, OpenGL detection and native exit messages.

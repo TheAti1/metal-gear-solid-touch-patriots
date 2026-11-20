@@ -4,6 +4,7 @@
  * rotated to landscape and letterboxed into the real window, then restores every bit
  * of GL state it touched (the game's state is shadowed as it is set). */
 #include "host.h"
+#include "android_presentation.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -219,9 +220,7 @@ static void screen_box(int *x, int *y, int *w, int *h) {
 }
 /* screen point (sx right, sy down, in screen units) shows view point (vx, vy) */
 static void land_to_view(float lx, float ly, float *vx, float *vy) {
-    if (g_cfg.rotate == 90) { *vx = 320 - ly; *vy = lx; }     /* view's top edge on the screen's left */
-    else if (g_cfg.rotate == 270) { *vx = ly; *vy = 480 - lx; } /* view's top edge on the screen's right */
-    else { *vx = lx; *vy = ly; }                              /* portrait, as held on the iPhone */
+    patriots_screen_to_view(g_cfg.rotate,lx,ly,vx,vy);
 }
 void gfx_window_to_view(float wx, float wy, float *vx, float *vy) {
     int x, y, w, h; screen_box(&x, &y, &w, &h);

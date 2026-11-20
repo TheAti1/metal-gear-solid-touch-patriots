@@ -42,11 +42,17 @@ internal static class RecompSettingsProbe {
     static int Main(string[] args){
         try{
             var profile=Map(Files.Json.DeserializeObject(File.ReadAllText(args[0])));
+            // Refuse a prepared installation: fixtures belong in a fresh test directory.
+            foreach(string path in new[]{"Saves/SAVE.data","Oyun/languages/tr/Turkish.lproj/Localizable.strings","Oyun/languages/pt-br/English.lproj/Localizable.strings"}){
+                string file=Path.Combine(Files.Root,path);Require(!File.Exists(file),"Run probe beside an isolated launcher copy, not a game installation: "+path);
+            }
             // Match the existing Turkish overlay's discovery contract without
             // copying original assets or a real user's save into this test.
             Directory.CreateDirectory(Path.Combine(Files.Root,"Localization"));
             File.WriteAllText(Path.Combine(Files.Root,"Localization","installed_turkish.json"),"{}");
             string table=Path.Combine(Files.Root,"Oyun/languages/tr/Turkish.lproj/Localizable.strings");Directory.CreateDirectory(Path.GetDirectoryName(table));File.WriteAllText(table,"");
+            string portuguese=Path.Combine(Files.Root,"Oyun/languages/pt-br/English.lproj/Localizable.strings");Directory.CreateDirectory(Path.GetDirectoryName(portuguese));File.WriteAllText(portuguese,"");
+            string metadata=Path.Combine(Files.Root,"Localization/Languages/pt-br/game.json");Directory.CreateDirectory(Path.GetDirectoryName(metadata));File.WriteAllText(metadata,"{}");
             Directory.CreateDirectory(Files.Engine);byte[] save=Enumerable.Range(0,1024).Select(i=>(byte)(i%251)).ToArray();string savedata=Path.Combine(Files.Engine,"SAVE.data");File.WriteAllBytes(savedata,save);
             int cases=0;
             foreach(var row in Rows(profile["settings"]).Select(Map)){

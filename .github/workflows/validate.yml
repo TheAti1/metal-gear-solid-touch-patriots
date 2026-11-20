@@ -16,6 +16,14 @@ jobs:
           python-version: '3.11'
       - run: python tools/check_repository.py
       - run: python tools/check_language_templates.py
+      - run: python tools/check_android_locales.py
+      - name: Android layout and presentation checks
+        run: |
+          mkdir -p /tmp/patriots-tests
+          javac -d /tmp/patriots-tests android-patriots/java/com/patriots/shared/AdaptiveLayout.java android-patriots/tests/AdaptiveLayoutTest.java
+          java -cp /tmp/patriots-tests com.patriots.shared.AdaptiveLayoutTest
+          cc android-patriots/tests/presentation_test.c -o /tmp/patriots-tests/presentation
+          /tmp/patriots-tests/presentation
       - run: python -m pip install jsonschema==4.23.0
       - run: python tools/test_recomplauncher.py
   launcher:

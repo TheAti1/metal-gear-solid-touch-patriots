@@ -50,6 +50,12 @@
           "set": {
             "GameLanguage": "\"tr\""
           }
+        },
+        {
+          "label": "Português (Brasil)",
+          "set": {
+            "GameLanguage": "\"pt-br\""
+          }
         }
       ],
       "defaults": {
@@ -72,6 +78,12 @@
           "label": "Türkçe",
           "set": {
             "Language": "\"tr\""
+          }
+        },
+        {
+          "label": "Português (Brasil)",
+          "set": {
+            "Language": "\"pt-br\""
           }
         }
       ],

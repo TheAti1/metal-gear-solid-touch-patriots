@@ -1,6 +1,6 @@
 # Touch için çeviri teslimi
 
-Çevirmene yalnızca şu iki dosyayı gönder:
+1.2 sürümünde İngilizce, Türkçe ve Brezilya Portekizcesi tamamlanmış resmî dillerdir. Portekizce 161/549 satırlık dosyalar çevirmenin tamamladığı metinlerdir. Yeni bir dil için İngilizce kaynak şablonlarını kullan veya launcher içinden yeni şablonları dışa aktar.
 
 - [Launcher JSON'u — 161 metin](../localization/launcher/pt-BR.launcher.json)
 - [Oyun JSON'u — 549 metin](../localization/game/pt-BR.game.json)

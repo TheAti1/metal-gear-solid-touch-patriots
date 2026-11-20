@@ -1,6 +1,6 @@
 # Add a language to MGS Touch
 
-Version 1.1 supports independent launcher and game language packs. English and Turkish remain the completed bundled languages. **The Brazilian Portuguese files are untranslated contributor templates**, ready to send to a translator. Portuguese becomes a bundled official language after the actual completed files and in-game layouts are reviewed.
+Version 1.2 bundles completed English, Turkish and Brazilian Portuguese. The 161/549-row Portuguese files are the reviewed completed translation by [(Sanju Vinho e Fumaça)](https://steamcommunity.com/id/SanjiVinsmokeBRASIL/). For a new language, use the blank English source templates or export a fresh language kit in the launcher.
 
 ## Send exactly two JSONs
 

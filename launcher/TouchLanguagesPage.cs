@@ -16,8 +16,9 @@ public sealed partial class TouchWindow {
         actions.Children.Add(Button(L("ÇEVİRİ KLASÖRÜ","TRANSLATION FOLDER"),()=>{string folder=Path.Combine(Files.Root,"Translations");Directory.CreateDirectory(folder);Files.Open(folder);}));body.Children.Add(actions);
         Note(L("İki JSON yeterli: launcher ve oyun. Yalnızca text alanlarını çevir; kimlikleri ve işaretleri koru. Boş metinlerde İngilizce kullanılır. Eski Türkçe JSON biçimi de desteklenir.","Two JSONs are enough: launcher and game. Translate only text fields; preserve IDs and tokens. Blank text falls back to English. The original Turkish JSON format is also supported."));
         foreach(var info in TouchLanguagePacks.Available()){
-            string details=(info.id=="en"||info.id=="tr"?L("Resmî","Official"):L("Topluluk","Community"))+" · "+L("Launcher","Launcher")+": "+(info.launcher?L("Kurulu","Installed"):L("İngilizce yedek dil","English fallback"))+" · "+L("Oyun","Game")+": "+(info.game?L("Kurulu","Installed"):L("İngilizce yedek dil","English fallback"));
+            string details=(info.id=="en"||info.id=="tr"||info.id=="pt-br"?L("Resmî","Official"):L("Topluluk","Community"))+" · "+L("Launcher","Launcher")+": "+(info.launcher?L("Kurulu","Installed"):L("İngilizce yedek dil","English fallback"))+" · "+L("Oyun","Game")+": "+(info.game?L("Kurulu","Installed"):L("İngilizce yedek dil","English fallback"));
             if(info.id!="en"&&info.id!="tr")details+=" · "+info.uiCount+" / "+TouchLanguagePacks.Template("launcher").entries.Count+" + "+info.gameCount+" / "+TouchLanguagePacks.Template("game").entries.Count;
+            if(!String.IsNullOrWhiteSpace(info.author))details+="\n"+info.author;
             Row(info.name+" ("+info.id+")",details,new TextBlock());
         }
     }

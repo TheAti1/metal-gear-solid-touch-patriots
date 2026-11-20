@@ -21,12 +21,18 @@ float ui_w(void) { return land ? 480.0f : 320.0f; }
 float ui_h(void) { return land ? 320.0f : 480.0f; }
 
 void ui_begin(int bx, int by, int bw, int bh, int l, int f) {
-    land = l; flip = f; ppu = bw / 320.0f;
+    land = l; flip = f; ppu = bw / (g_cfg.rotate?480.0f:320.0f);
     int ww, wh; gfx_window_size(&ww, &wh);
     glViewport(bx, wh - by - bh, bw, bh);
     glMatrixMode(GL_TEXTURE); glLoadIdentity();
     glMatrixMode(GL_PROJECTION); glLoadIdentity(); glOrtho_(0, 320, 480, 0, -1, 1);
     glMatrixMode(GL_MODELVIEW); glLoadIdentity();
+    if(g_cfg.rotate){
+        glMatrixMode(GL_PROJECTION);glLoadIdentity();glOrtho_(0,480,320,0,-1,1);
+        glMatrixMode(GL_MODELVIEW);
+        if(g_cfg.rotate==90){glTranslatef(0,320,0);glRotatef(-90,0,0,1);}
+        else{glTranslatef(480,0,0);glRotatef(90,0,0,1);}
+    }
     /* UI (lx, ly) -> view: flip 0: (320 - ly, lx); flip 1: (ly, 480 - lx) */
     if (land && !flip) { glTranslatef(320, 0, 0); glRotatef(90, 0, 0, 1); }
     else if (land) { glTranslatef(0, 480, 0); glRotatef(-90, 0, 0, 1); }

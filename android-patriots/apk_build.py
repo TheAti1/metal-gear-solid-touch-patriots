@@ -19,6 +19,7 @@ def prepare(game):
     build=BASE/('apk-'+game);assets=build/'assets';assets.mkdir(parents=True,exist_ok=True)
     repo=ROOT
     shutil.copy2(repo/'assets/patriots.jpg',assets/'patriots.jpg')
+    shutil.copy2(repo/('assets/hero.png' if game=='touch' else 'assets/hero.jpg'),assets/'hero')
     res=build/'res/mipmap-xxxhdpi';res.mkdir(parents=True,exist_ok=True)
     Image.open(repo/'assets/patriots.jpg').convert('RGBA').resize((192,192),Image.Resampling.LANCZOS).save(res/'ic_launcher.png')
     if game=='mobile':
@@ -29,13 +30,40 @@ def prepare(game):
                     if p.is_file() and 'savedata' not in p.name.lower() and not p.name.endswith(('.log','.tmp','.previous')):z.write(p,p.relative_to(source).as_posix())
     else:
         source=Path(os.environ.get('PATRIOTS_PC_PACKAGE',ROOT/'package'))/'Oyun'
-        for folder,dest in [('Assets/MGSTUS.app','MGSTUS.app'),('Assets/fonts','fonts'),('languages/tr','languages/tr')]:
+        for folder,dest in [('Assets/MGSTUS.app','MGSTUS.app'),('Assets/fonts','fonts'),('languages/tr','languages/tr'),('languages/pt-br','languages/pt-br')]:
+            if not (source/folder).is_dir():raise FileNotFoundError('Required bundled language/assets missing: '+folder)
             for p in (source/folder).rglob('*'):
                 if p.is_file() and not p.name.endswith(('.previous','.tmp')):
                     target=assets/dest/p.relative_to(source/folder);target.parent.mkdir(parents=True,exist_ok=True)
                     if not target.exists() or target.stat().st_size != p.stat().st_size or target.stat().st_mtime_ns != p.stat().st_mtime_ns:
-                        try:os.link(p,target)
-                        except OSError:shutil.copy2(p,target)
+                        temp=target.with_name(target.name+'.copy')
+                        try:os.link(p,temp)
+                        except OSError:shutil.copy2(p,temp)
+                        os.replace(temp,target)
+    if game=='touch':
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('pt_reference_glyph',repo/'tools/add_pt_reference_glyph.py')
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        module.patch(assets/'fonts/DroidSansFallbackFull.ttf',assets/'fonts/DroidSansFallbackFull.ttf')
+    ui=json.loads((repo/'localization/launcher/pt-BR.launcher.json').read_text(encoding='utf-8'))
+    strings=json.loads((repo/'localization/android/pt-BR.android.json').read_text(encoding='utf-8'))['strings']
+    # Reviewed contributor wording takes precedence over Android-only defaults.
+    strings.update({e['source']:e['text'] for e in ui['entries'] if e.get('text')})
+    locale=assets/'localization';locale.mkdir(exist_ok=True)
+    (locale/'pt-br.json').write_text(json.dumps({'language':'pt-br','author':ui['author'],'strings':strings},ensure_ascii=False),encoding='utf-8')
+    if game=='touch':
+        # Never rewrite a hard-linked PC runtime table. Merge Android-only labels
+        # into a freshly written APK asset; reviewed game text has final priority.
+        import struct
+        game_doc=json.loads((repo/'localization/game/pt-BR.game.json').read_text(encoding='utf-8'))
+        runtime=dict(strings)
+        runtime.update({e['source']:e['text'] for e in game_doc['entries'] if e.get('text') and e['category']!='hud'})
+        table=bytearray(b'PTXT0001'+struct.pack('>I',len(runtime)))
+        for key,value in runtime.items():
+            for part in (key,value):
+                b=part.encode('utf-8');table+=struct.pack('>I',len(b))+b
+        target=assets/'languages/pt-br/runtime_text.bin';temp=target.with_suffix('.new')
+        temp.write_bytes(table);os.replace(temp,target)
     return build
 
 def java(build,game):
@@ -50,16 +78,16 @@ def java(build,game):
 def build(game,abi='arm64-v8a',code=1000000):
     folder=prepare(game);java(folder,game)
     package='com.patriots.'+('mgstouch' if game=='touch' else 'mgsmobile');name='Metal Gear Solid '+('Touch' if game=='touch' else 'Mobile')+' - Patriots'
-    activity='com.mgsport.retouched.RetouchedActivity' if game=='touch' else 'org.mgsmobile.port.MGSActivity';orientation='portrait' if game=='touch' else 'sensorLandscape'
+    activity='com.mgsport.retouched.RetouchedActivity' if game=='touch' else 'org.mgsmobile.port.MGSActivity';orientation='unspecified' if game=='touch' else 'sensorLandscape'
     native='''<meta-data android:name="android.app.lib_name" android:value="mgst"/>''' if game=='touch' else ''
     version=f'{code//1000000}.{code//1000%1000}.{code%1000}'
     manifest=f'''<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="{package}" android:versionCode="{code}" android:versionName="{version}">
 <uses-sdk android:minSdkVersion="28" android:targetSdkVersion="34"/>
-<uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/><uses-permission android:name="android.permission.VIBRATE"/>
+<uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/><uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/><uses-permission android:name="android.permission.VIBRATE"/>
 <uses-feature android:glEsVersion="0x00020000" android:required="true"/><uses-feature android:name="android.hardware.gamepad" android:required="false"/><uses-feature android:name="android.hardware.sensor.gyroscope" android:required="false"/>
-<application android:label="{name}" android:icon="@mipmap/ic_launcher" android:allowBackup="false" android:isGame="true" android:appCategory="game" android:extractNativeLibs="false" android:usesCleartextTraffic="false" android:theme="@android:style/Theme.Material.NoActionBar">
-<activity android:name="com.patriots.shared.HomeActivity" android:exported="true" android:screenOrientation="portrait"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
-<activity android:name="{activity}" android:exported="false" android:process=":game" android:launchMode="singleTop" android:screenOrientation="{orientation}" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation|screenLayout|smallestScreenSize|density|uiMode">{native}</activity>
+<application android:label="{name}" android:icon="@mipmap/ic_launcher" android:allowBackup="false" android:isGame="true" android:appCategory="game" android:resizeableActivity="true" android:extractNativeLibs="false" android:usesCleartextTraffic="false" android:theme="@android:style/Theme.Material.NoActionBar">
+<activity android:name="com.patriots.shared.HomeActivity" android:exported="true" android:screenOrientation="unspecified" android:resizeableActivity="true" android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|density|fontScale|uiMode"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
+<activity android:name="{activity}" android:exported="false" android:process=":game" android:launchMode="singleTop" android:resizeableActivity="true" android:screenOrientation="{orientation}" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation|screenLayout|smallestScreenSize|density|uiMode">{native}</activity>
 <provider android:name="com.patriots.shared.ApkProvider" android:authorities="{package}.updates" android:exported="false" android:grantUriPermissions="true"/>
 </application></manifest>'''
     (folder/'AndroidManifest.xml').write_text(manifest,encoding='utf-8')

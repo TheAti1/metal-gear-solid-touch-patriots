@@ -6,7 +6,7 @@
 
 <a href="https://recomplauncher.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://recomplauncher.com/assets/press/launcher/badge-light.svg"><img alt="Get it on RecompLauncher" src="https://recomplauncher.com/assets/press/launcher/badge-dark.svg" height="48"></picture></a>
 
-**iOS sürümünden türetilmiş Windows x64 AOT portu.** Türkçe / İngilizce launcher ve oyun, fare / klavye / gamepad desteği ve Discord Rich Presence.
+**iOS sürümünden türetilmiş Windows x64 AOT portu.** Türkçe / İngilizce / Brezilya Portekizcesi launcher ve oyun, fare / klavye / gamepad desteği ve Discord Rich Presence.
 
 **[English](README.md) · [İndir](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) · [Kontroller](docs/CONTROLS.md) · [Derleme](docs/BUILD.md) · [Sürüm notları](CHANGELOG.md)**
 
@@ -16,20 +16,22 @@
 
 ## Android
 
-**[Download Android APK](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/tag/android-v1.0.2) · [Android build / update guide](android-patriots/README.md)**
+**[Download Android APK](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/tag/android-v1.1.0) · [Android build / update guide](android-patriots/README.md)**
 
-Android 9+, ARM64 / ARMv7 / x86_64; oyun dosyaları APK içinde, Türkçe / İngilizce seçimi ve açılışta güncelleme kontrolü. Android sürümleri PC sürümlerinden ayrı bir kanalda yayımlanır.
+Android 9+, ARM64 / ARMv7 / x86_64; oyun dosyaları APK içinde, Türkçe / İngilizce / Brezilya Portekizcesi seçimi ve açılışta güncelleme kontrolü. Android sürümleri PC sürümlerinden ayrı bir kanalda yayımlanır.
 
+
+Android başlatıcısı PC tasarımıyla yenilendi: aynı görseller ve renkler, sabit OYNA düğmesi, telefon/tablete uyarlanan sekmeler. [Görseller ve kontroller](docs/ANDROID-LAYOUT.md).
 
 ## Kurulum
 
-1. [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) bölümünden **MGS_Touch_Patriots_PC_v1.1.0.zip** dosyasını indir.
+1. [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) bölümünden **MGS_Touch_Patriots_PC_v1.2.0.zip** dosyasını indir.
 2. Arşivi yazılabilir bir klasöre tamamen çıkart. EXE ile yanındaki klasörler birlikte kalmalı.
 3. **Metal Gear Solid Touch.exe** dosyasını aç, dil ve ayarlarını seç, **OYNA** düğmesine bas.
 
 Hazır paketi oynamak için iPhone, iOS emülatörü, Python veya derleyici gerekmez. Launcher .NET Framework 4.x, oyun Windows x64 ve çalışan bir OpenGL sürücüsü kullanır. SDL3 pakettedir. Yerel denemeler Windows 10 Pro / Intel HD Graphics 620 üzerinde yapıldı; bütün bilgisayarlar için performans garantisi değildir.
 
-Mevcut kurulum için **MGS_Touch_Patriots_PC_v1.1.0_Guncelleme.zip** kullanılabilir. Önce `Saves/` klasörünü yedekle, sonra güncelleme dosyalarını mevcut oyun klasörünün üzerine çıkart. Güncelleme kişisel kayıt veya ayar dosyası içermez. Tam paket temiz kayıt klasörüyle ve hileler kapalı gelir.
+Mevcut kurulum için **MGS_Touch_Patriots_PC_v1.2.0_Guncelleme.zip** kullanılabilir. Önce `Saves/` klasörünü yedekle, sonra güncelleme dosyalarını mevcut oyun klasörünün üzerine çıkart. Güncelleme kişisel kayıt veya ayar dosyası içermez. Tam paket temiz kayıt klasörüyle ve hileler kapalı gelir.
 
 ## Neler var?
 

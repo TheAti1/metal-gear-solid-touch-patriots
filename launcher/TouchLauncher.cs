@@ -19,7 +19,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 
 [assembly:AssemblyTitle("Metal Gear Solid Touch · Patriots")]
-[assembly:AssemblyVersion("1.1.0.0")]
+[assembly:AssemblyVersion("1.2.0.0")]
 public static class Files {
     public static readonly string Root=Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     public static readonly string Engine=Path.Combine(Root,"Saves");
