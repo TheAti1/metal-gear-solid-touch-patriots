@@ -33,8 +33,8 @@ The builder writes the APK and SHA256 to `outputs/Android/`, verifies APK signat
 
 ## Publish an update
 
-1. Build a higher version, e.g. `python android-patriots/build.py 1.0.3` using the same private key.
-2. Create a non-draft, non-prerelease GitHub release tagged `android-v1.0.3` in this repository. It need not become the latest PC release.
+1. Choose a three-part version higher than the newest published Android release. Substitute that number for `<version>` in `python android-patriots/build.py <version>` and use the same private key.
+2. Create a non-draft, non-prerelease GitHub release tagged `android-v<version>` with exactly the APK's version number. It need not become the latest PC release.
 3. Upload `MGS_Touch_Patriots_Android.apk` plus its `.apk.sha256` sidecar. Keep the filename stable between updates.
 4. On next launcher startup, installed older versions offer the new APK. Game assets may be refreshed but personal save files/settings are not part of the update payload.
 
