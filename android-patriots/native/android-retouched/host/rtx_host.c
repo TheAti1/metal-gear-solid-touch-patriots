@@ -515,9 +515,8 @@ static void pad_step(double dt) {
     static const float speed[3] = { 160, 280, 440 };       /* view units per second at full tilt */
     /* the stick moves on the screen as the player sees it: rotate into view space in landscape scenes */
     float dx = pad_ax, dy = pad_ay;
-    if ((st & ST_MISSION) && screen == SCR_NONE) {
-        if (st & ST_INCLINATION) { float t = dx; dx = -dy; dy = t; } else { float t = dx; dx = dy; dy = -t; }
-    }
+    if (g_cfg.rotate==90) { float t=dx;dx=-dy;dy=t; }
+    else if (g_cfg.rotate==270) { float t=dx;dx=dy;dy=-t; }
     pad_x += dx * speed[S.pad_speed] * (float)dt; pad_y += dy * speed[S.pad_speed] * (float)dt;
     pad_x = pad_x < 0 ? 0 : pad_x > 319 ? 319 : pad_x; pad_y = pad_y < 0 ? 0 : pad_y > 479 ? 479 : pad_y;
     if (pad_down) host_touch(1, 0, pad_x, pad_y);
@@ -537,6 +536,10 @@ void rtx_gyro(float wx, float wy, double dt) {
 
 /* ================================================================== input entry (every touch sees this first) */
 static int ui_finger = -1, pb_down;
+void rtx_cancel_input(void){
+    pad_down=0;pad_ax=pad_ay=0;finger_down=0;gyro_dx=gyro_dy=0;
+    ui_finger=-1;pb_down=0;
+}
 static int on_touch(int phase, int id, float vx, float vy) {
     if (reentry) return 0;
     if (id == 0) {

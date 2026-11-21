@@ -16,12 +16,14 @@
 
 ## Android
 
-**[Download Android APK](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/tag/android-v1.1.0) · [Android build / update guide](android-patriots/README.md)**
+**[Download Android APK](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/tag/android-v1.1.1) · [Android build / update guide](android-patriots/README.md)**
 
 Android 9+, ARM64 / ARMv7 / x86_64; oyun dosyaları APK içinde, Türkçe / İngilizce / Brezilya Portekizcesi seçimi ve açılışta güncelleme kontrolü. Android sürümleri PC sürümlerinden ayrı bir kanalda yayımlanır.
 
 
 Android başlatıcısı PC tasarımıyla yenilendi: aynı görseller ve renkler, sabit OYNA düğmesi, telefon/tablete uyarlanan sekmeler. [Görseller ve kontroller](docs/ANDROID-LAYOUT.md).
+
+Android 1.1.1, oyun içinde ekran dönüşünden sonra kalan kırpılma/kayma sorununu; duraklatma görüntüsü ve dokunma durumuyla birlikte düzeltir. [Ayrıntılar ve dönüş testleri](docs/ANDROID-ROTATION.md).
 
 ## Kurulum
 

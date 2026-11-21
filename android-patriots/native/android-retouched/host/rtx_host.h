@@ -13,6 +13,7 @@ int rtx_start_button(void);             /* controller START: pause or options */
 void rtx_app_pause(void);               /* the app goes to the background (instead of host_lifecycle(0)) */
 void rtx_app_resume(void);              /* ... and comes back (instead of host_lifecycle(1)) */
 void rtx_pad_axis(float x, float y);    /* controller stick or d-pad, -1..1 */
+void rtx_cancel_input(void);           /* rotation/surface/focus loss: no synthetic button-up action */
 void rtx_pad_button(int down);          /* controller A (or a trigger): the virtual finger */
 void rtx_gyro(float wx, float wy, double dt);   /* rad/s about the device x and y axes */
 int rtx_gyro_wanted(void);              /* the gyroscope is only needed while aiming with gyro on */

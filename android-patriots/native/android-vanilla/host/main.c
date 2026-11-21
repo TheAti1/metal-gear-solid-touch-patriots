@@ -97,30 +97,70 @@ JNIEXPORT void JNICALL Java_com_mgsport_retouched_RetouchedActivity_nativeResult
 void hlog_platform(const char *line) { __android_log_write(ANDROID_LOG_INFO, "mgst", line); }
 void *gfx_getproc(const char *n) { return (void *)eglGetProcAddress(n); }
 
-static EGLDisplay dpy = EGL_NO_DISPLAY; static EGLSurface surf = EGL_NO_SURFACE; static EGLContext ctx = EGL_NO_CONTEXT;
+static int64_t gyro_ts;
+static EGLDisplay dpy = EGL_NO_DISPLAY;
+static EGLSurface surf = EGL_NO_SURFACE, game_surf = EGL_NO_SURFACE;
+static EGLContext ctx = EGL_NO_CONTEXT;
 static EGLConfig cfg;
-static int started, resumed, have_window;
-void platform_swap(void) { if (surf != EGL_NO_SURFACE) eglSwapBuffers(dpy, surf); }
-
-static int egl_init(ANativeWindow *win) {
-    if (dpy == EGL_NO_DISPLAY) {
-        dpy = eglGetDisplay(EGL_DEFAULT_DISPLAY); eglInitialize(dpy, 0, 0);
-        const EGLint ca[] = { EGL_RENDERABLE_TYPE, EGL_OPENGL_ES_BIT, EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-                              EGL_RED_SIZE, 8, EGL_GREEN_SIZE, 8, EGL_BLUE_SIZE, 8, EGL_NONE };
-        EGLint n; if (!eglChooseConfig(dpy, ca, &cfg, 1, &n) || n < 1) { hlog("EGL: no GLES 1.x config"); return 0; }
-        const EGLint xa[] = { EGL_CONTEXT_CLIENT_VERSION, 1, EGL_NONE };
-        ctx = eglCreateContext(dpy, cfg, EGL_NO_CONTEXT, xa);
-        if (ctx == EGL_NO_CONTEXT) { hlog("EGL: cannot create a GLES 1.1 context"); return 0; }
+static int started, resumed, have_window, geometry_dirty, trig_down, trig_rearm;
+static void cancel_input(void){
+    if(started){for(int i=0;i<8;i++)host_touch(4,i,0,0);}
+#ifdef MGST_RETOUCHED
+    rtx_cancel_input();
+#endif
+    gyro_ts=0;trig_down=0;trig_rearm=1;geometry_dirty=0;
+}
+/* Keep the GL context and game resources alive even when Android destroys
+ * the window surface. Game frames render only while the real window is bound. */
+static void sync_surface_size(void){
+    if(surf==EGL_NO_SURFACE)return;
+    EGLint w=0,h=0;int old_w,old_h;
+    if(!eglQuerySurface(dpy,surf,EGL_WIDTH,&w)||!eglQuerySurface(dpy,surf,EGL_HEIGHT,&h)||w<=0||h<=0)return;
+    gfx_window_size(&old_w,&old_h);
+    if(w!=old_w||h!=old_h){gfx_set_window(w,h);geometry_dirty=1;hlog("Android drawable resized: %dx%d",w,h);}
+}
+int platform_begin_present(void){
+    if(surf==EGL_NO_SURFACE||!have_window)return 0;
+    sync_surface_size();return 1;
+}
+void platform_end_present(void){}
+static void park_context(void){
+    if(game_surf!=EGL_NO_SURFACE&&!eglMakeCurrent(dpy,game_surf,game_surf,ctx))hlog("EGL parking bind failed: 0x%x",eglGetError());
+}
+void platform_swap(void){
+    if(surf==EGL_NO_SURFACE)return;
+    if(!eglSwapBuffers(dpy,surf))hlog("EGL swap failed: 0x%x",eglGetError());
+    /* EGL drivers can acknowledge a resize only at swap. Never cache the
+       dimensions from the configuration callback for the rest of the session. */
+    sync_surface_size();
+}
+static int egl_init(ANativeWindow *win){
+    if(dpy==EGL_NO_DISPLAY){
+        dpy=eglGetDisplay(EGL_DEFAULT_DISPLAY);
+        if(dpy==EGL_NO_DISPLAY||!eglInitialize(dpy,0,0))return 0;
+        const EGLint ca[]={EGL_RENDERABLE_TYPE,EGL_OPENGL_ES_BIT,EGL_SURFACE_TYPE,EGL_WINDOW_BIT|EGL_PBUFFER_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_DEPTH_SIZE,16,EGL_NONE};
+        EGLint n=0;
+        if(!eglChooseConfig(dpy,ca,&cfg,1,&n)||n<1){hlog("EGL: no window/pbuffer GLES1 config");return 0;}
+        const EGLint xa[]={EGL_CONTEXT_CLIENT_VERSION,1,EGL_NONE};
+        ctx=eglCreateContext(dpy,cfg,EGL_NO_CONTEXT,xa);
+        const EGLint pa[]={EGL_WIDTH,320,EGL_HEIGHT,480,EGL_NONE};
+        game_surf=eglCreatePbufferSurface(dpy,cfg,pa);
+        if(ctx==EGL_NO_CONTEXT||game_surf==EGL_NO_SURFACE){hlog("EGL: retained game drawable failed: 0x%x",eglGetError());return 0;}
+        hlog("EGL context parking surface: 320x480");
     }
-    surf = eglCreateWindowSurface(dpy, cfg, win, 0);
-    if (!eglMakeCurrent(dpy, surf, surf, ctx)) { hlog("EGL: makeCurrent failed"); return 0; }
-    EGLint w, h; eglQuerySurface(dpy, surf, EGL_WIDTH, &w); eglQuerySurface(dpy, surf, EGL_HEIGHT, &h);
-    gfx_set_window(w, h); hlog("surface %dx%d", w, h);
-    return 1;
+    if(surf!=EGL_NO_SURFACE){park_context();eglDestroySurface(dpy,surf);surf=EGL_NO_SURFACE;}
+    EGLint format=0;eglGetConfigAttrib(dpy,cfg,EGL_NATIVE_VISUAL_ID,&format);ANativeWindow_setBuffersGeometry(win,0,0,format);
+    surf=eglCreateWindowSurface(dpy,cfg,win,0);
+    if(surf==EGL_NO_SURFACE){hlog("EGL: window creation failed: 0x%x",eglGetError());return 0;}
+    if(!eglMakeCurrent(dpy,surf,surf,ctx)){hlog("EGL window bind failed: 0x%x",eglGetError());return 0;}
+    sync_surface_size();return 1;
 }
-static void egl_surface_lost(void) {
-    if (surf != EGL_NO_SURFACE) { eglMakeCurrent(dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, ctx); eglDestroySurface(dpy, surf); surf = EGL_NO_SURFACE; }
+static void egl_surface_lost(void){
+    /* Keep textures, framebuffers, matrices and the last clean game frame. */
+    park_context();
+    if(surf!=EGL_NO_SURFACE){eglDestroySurface(dpy,surf);surf=EGL_NO_SURFACE;}
 }
+
 
 /* ---- audio ---- */
 static AAudioStream *astream;
@@ -143,12 +183,13 @@ static void audio_pause(void) { if (astream) AAudioStream_requestPause(astream);
 
 /* ---- accelerometer ---- */
 static ASensorManager *sm; static const ASensor *accel, *gyro; static ASensorEventQueue *sq;
-static int focused, gyro_on; static int64_t gyro_ts;
+static int focused, gyro_on;
 static void sensors_enable(int on) {
     focused = on;
     if (!sq || !accel) return;
     if (on) { ASensorEventQueue_enableSensor(sq, accel); ASensorEventQueue_setEventRate(sq, accel, 16667); }
     else ASensorEventQueue_disableSensor(sq, accel);
+    if(!on&&gyro&&gyro_on){ASensorEventQueue_disableSensor(sq,gyro);gyro_on=0;gyro_ts=0;}
 }
 #ifdef MGST_RETOUCHED
 /* the gyroscope runs only while gyro aiming is switched on (battery) */
@@ -179,7 +220,8 @@ static int pad_key(int32_t code, int down) {
 /* ---- input: Android pointers -> UITouch ---- */
 static int32_t on_input(struct android_app *app, AInputEvent *ev) {
     (void)app;
-    if (!started) return 0;
+    if (!started||!have_window||surf==EGL_NO_SURFACE) return 0;
+    sync_surface_size();if(geometry_dirty)cancel_input();
 #ifdef MGST_RETOUCHED
     if (AInputEvent_getType(ev) == AINPUT_EVENT_TYPE_KEY) {
         int32_t code = AKeyEvent_getKeyCode(ev), down = AKeyEvent_getAction(ev) == AKEY_EVENT_ACTION_DOWN;
@@ -194,7 +236,8 @@ static int32_t on_input(struct android_app *app, AInputEvent *ev) {
         rtx_pad_axis(fabsf(hx) > fabsf(x) ? hx : x, fabsf(hy) > fabsf(y) ? hy : y);
         float trig = fmaxf(fmaxf(AMotionEvent_getAxisValue(ev, AMOTION_EVENT_AXIS_RTRIGGER, 0), AMotionEvent_getAxisValue(ev, AMOTION_EVENT_AXIS_LTRIGGER, 0)),
                            fmaxf(AMotionEvent_getAxisValue(ev, AMOTION_EVENT_AXIS_GAS, 0), AMotionEvent_getAxisValue(ev, AMOTION_EVENT_AXIS_BRAKE, 0)));
-        static int trig_down; int td = trig > 0.5f;
+        int td = trig > 0.5f;
+        if(trig_rearm){if(!td)trig_rearm=0;return 1;}
         if (td != trig_down) { trig_down = td; rtx_pad_button(td); }
         return 1;
     }
@@ -241,8 +284,7 @@ static void update_presentation(void){
     game_unlock(&g_main_thread);
     int rotation=patriots_window_rotation(w,h,state,land,g_cfg.rotate);
     if(rotation!=g_cfg.rotate){
-        for(int i=0;i<8;i++)host_touch(4,i,0,0);
-        rtx_pad_button(0);rtx_pad_axis(0,0);
+        cancel_input();
         g_cfg.rotate=rotation;
         hlog("Android presentation: %dx%d, rotation %d, state %d",w,h,rotation,state);
     }
@@ -267,19 +309,24 @@ static void on_cmd(struct android_app *app, int32_t cmd) {
             if (!started) hlog("boot failed");
         }
         break;
-    case APP_CMD_TERM_WINDOW: have_window = 0; egl_surface_lost(); break;
-    case APP_CMD_WINDOW_RESIZED: case APP_CMD_CONFIG_CHANGED:
-        if (surf != EGL_NO_SURFACE) { EGLint w, h; eglQuerySurface(dpy, surf, EGL_WIDTH, &w); eglQuerySurface(dpy, surf, EGL_HEIGHT, &h); gfx_set_window(w, h); }
-        refresh_sensor_axes();
+    case APP_CMD_TERM_WINDOW: cancel_input();have_window=0;egl_surface_lost();break;
+    case APP_CMD_WINDOW_RESIZED: case APP_CMD_CONFIG_CHANGED: case APP_CMD_CONTENT_RECT_CHANGED:
+        cancel_input();sync_surface_size();refresh_sensor_axes();break;
+    case APP_CMD_WINDOW_REDRAW_NEEDED:
+        cancel_input();sync_surface_size();
+        if(started&&have_window){
+            update_presentation();gfx_redraw();
+            if(geometry_dirty){cancel_input();update_presentation();gfx_redraw();}
+        }
         break;
-    case APP_CMD_GAINED_FOCUS: sensors_enable(1); break;
-    case APP_CMD_LOST_FOCUS: sensors_enable(0); break;
+    case APP_CMD_GAINED_FOCUS: cancel_input();refresh_sensor_axes();sensors_enable(1);break;
+    case APP_CMD_LOST_FOCUS: cancel_input();sensors_enable(0);break;
 #ifdef MGST_RETOUCHED
     case APP_CMD_RESUME: resumed = 1; if (started) { audio_start(); rtx_app_resume(); } break;
-    case APP_CMD_PAUSE: resumed = 0; if (started) { rtx_app_pause(); audio_pause(); } break;
+    case APP_CMD_PAUSE: cancel_input();resumed = 0; if (started) { rtx_app_pause(); audio_pause(); } break;
 #else
     case APP_CMD_RESUME: resumed = 1; if (started) { audio_start(); host_lifecycle(1); } break;
-    case APP_CMD_PAUSE: resumed = 0; if (started) { host_lifecycle(0); audio_pause(); } break;
+    case APP_CMD_PAUSE: cancel_input();resumed = 0; if (started) { host_lifecycle(0); audio_pause(); } break;
 #endif
     case APP_CMD_DESTROY: if (started) host_lifecycle(2); break;
     }
@@ -341,8 +388,9 @@ void android_main(struct android_app *app) {
             timeout = 0;
         }
         if (started && resumed && have_window) {
+            sync_surface_size();if(geometry_dirty)cancel_input();
             update_presentation();
-            host_frame(host_now());
+            gfx_prepare_frame();host_frame(host_now());
 #ifdef MGST_RETOUCHED
             rtx_frame(host_now());
             gyro_update();

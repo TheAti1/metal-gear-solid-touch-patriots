@@ -20,12 +20,14 @@ A Windows x64 AOT port of the **iOS version**, with a multilingual launcher, mou
 
 ## Android
 
-**[Download Android APK](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/tag/android-v1.1.0) · [Android build / update guide](android-patriots/README.md)**
+**[Download Android APK](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/tag/android-v1.1.1) · [Android build / update guide](android-patriots/README.md)**
 
 Android 9+, ARM64 / ARMv7 / x86_64; bundled game data, Turkish / English / Brazilian Portuguese launcher and game, startup update checks and verified signed APK updates. Android releases use a separate channel from PC.
 
 
 PC-style Android launcher: matching artwork, colours and navigation, with a fixed PLAY button and responsive phone/tablet layouts. [Preview and checks](docs/ANDROID-LAYOUT.md).
+
+Android 1.1.1 fixes native-game clipping/stuck presentation after rotation, including paused redraw and touch recovery. [Details and regression checks](docs/ANDROID-ROTATION.md).
 
 ## Play
 

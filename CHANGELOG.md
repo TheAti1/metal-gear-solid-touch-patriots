@@ -1,5 +1,13 @@
 # Changelog / Sürüm notları
 
+## Android 1.1.1 · 2026-11-21
+
+- Fix persistent clipping/displacement after rotating the native game: refresh real EGL drawable dimensions during presentation and after swaps, and service surface redraw callbacks.
+- Keep GL resources across surface loss, preserve upright scene axes independently of window shape, and use stable natural sensor axes.
+- Reconstruct the legacy renderer's clean game canvas before updates; paused redraws never re-capture the already composited screen. Fit small fallback drawables.
+- Cancel touch/overlay/controller/gyro state on rotation and focus/surface loss; align controller cursor axes with the current view in menus as well as missions.
+- Reproduce the old failure, test 20 actual OS rotations across both rendering paths, and exercise paused mission/resume/aiming round trips. Add C cancellation regression and a real-device rotation script. [Validation scope](docs/ANDROID-ROTATION.md).
+
 ## PC 1.2.0 / Android 1.1.0 · 2026-11-21
 
 - Rebuild the Android launcher with the PC artwork, palette, navigation and a fixed Play footer.

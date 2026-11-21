@@ -18,6 +18,15 @@ typedef struct { int down, sliding; float sx, sy, lx, ly; } TouchState;
 static TouchState tstate[8];
 void host_touch(int phase, int id, float vx, float vy) {
     if (id < 0 || id >= 8) return;
+    if (phase == 4) {
+        /* An overlay opened during rotation must not swallow cancellation of
+           a finger that the game/filter already owns. Clear every owner. */
+        if (g_ext.touch) g_ext.touch(phase,id,vx,vy);
+        TouchState *t=&tstate[id];int down=t->down;
+        *t=(TouchState){0};
+        if (down||g_cfg.raw_touch) host_touch_deliver(4,id,vx,vy);
+        return;
+    }
     if (g_ext.touch && g_ext.touch(phase, id, vx, vy)) return;              /* an overlay took it */
     if (g_cfg.raw_touch) { host_touch_deliver(phase, id, vx, vy); return; }   /* diagnostics: unfiltered */
     TouchState *t = &tstate[id];

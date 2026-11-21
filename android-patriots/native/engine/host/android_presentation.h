@@ -2,7 +2,8 @@
 #ifndef PATRIOTS_ANDROID_PRESENTATION_H
 #define PATRIOTS_ANDROID_PRESENTATION_H
 static inline int patriots_window_rotation(int w,int h,int state,int scene_landscape,int previous){
-    if(w<=h||w<=0||h<=0)return 0;
+    /* Scene orientation belongs to the virtual phone, not the Android window. */
+    if(w<=0||h<=0)return previous;
     if((state&1)||scene_landscape)return (state&4)?90:270;
     return (state&2)?previous:0;
 }

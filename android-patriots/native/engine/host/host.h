@@ -40,6 +40,7 @@ typedef struct {
     void (*pre_boot)(void); /* after the module is instantiated, before the game starts (lock held) */
 } HostExt;
 extern HostExt g_ext;
+void gfx_prepare_frame(void); /* reconstruct a retained canvas on the no-FBO path */
 void gfx_redraw(void);      /* show the last game frame again (paused game: the overlay changes, the game doesn't) */
 void gfx_window_size(int *w, int *h);
 void gfx_capture_window(const char *path);   /* save the next presented window (game + overlay) as PPM */

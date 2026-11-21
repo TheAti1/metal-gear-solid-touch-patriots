@@ -12,6 +12,9 @@
 #define GL_GLEXT_PROTOTYPES 1
 #include <GLES/gl.h>
 #include <GLES/glext.h>
+#ifdef __ANDROID__
+#include <sys/system_properties.h>
+#endif
 #define GL_FRAMEBUFFER_ GL_FRAMEBUFFER_OES
 #define GL_COLOR_ATTACHMENT0_ GL_COLOR_ATTACHMENT0_OES
 #define GL_RENDERBUFFER_ GL_RENDERBUFFER_OES
@@ -28,6 +31,8 @@
 #define GL_RGBA8_X GL_RGBA8
 #endif
 int pc_write_png(const char *path,int w,int h,const uint8_t *rgba);
+int platform_begin_present(void);
+void platform_end_present(void);
 void *gfx_getproc(const char *name);   /* per platform */
 
 /* framebuffer-object entry points (OES on GLES 1.1, core/ARB on desktop) */
@@ -56,6 +61,10 @@ static int cap_index(GLenum c) { for (int i = 0; i < NCAPS; i++) if (caps[i] == 
  * The game has a single drawable: render it into the window back buffer, copy
  * that rectangle before presentation, then apply the normal aspect/rotation. */
 static int copy_drawable, copy_w, copy_h;
+static int copy_content_w=320,copy_content_h=480;
+static float copy_scale(void){
+    float k=1;if(win_w<fb_w)k=(float)win_w/fb_w;if(win_h<fb_h&&((float)win_h/fb_h)<k)k=(float)win_h/fb_h;return k>0?k:1;
+}
 static GLuint virtual_object = 1;
 static void soft_gen(GLsizei n, GLuint *v) { while (n-- > 0) *v++ = virtual_object++; }
 static void soft_delete(GLsizei n, GLuint *v) { (void)n; (void)v; }
@@ -93,6 +102,13 @@ void gfx_init(int w, int h) {
     #ifdef HOST_GLES
     const char *extensions=(const char *)glGetString(GL_EXTENSIONS);
     copy_drawable=!extensions || !strstr(extensions,"GL_OES_framebuffer_object");
+#ifdef __ANDROID__
+    /* Developer regression override: exercise the legacy path even on a GPU
+       advertising FBO. Unset by default; not a player-facing setting. */
+    char renderer[PROP_VALUE_MAX]={0};
+    __system_property_get("debug.patriots.touch_renderer",renderer);
+    if(!strcmp(renderer,"copy"))copy_drawable=1;
+#endif
     if(copy_drawable) {
         genFB=genRB=soft_gen; delFB=delRB=soft_delete; bindFB=bindRB=soft_bind;
         rbStorage=soft_store; fbRB=soft_attach; fbTex=soft_texture; checkFB=soft_check; getRB=soft_get;
@@ -107,7 +123,7 @@ int gfx_frame_presented(void) { int p = presented; presented = 0; return p; }
 /* the game's viewport and scissor are in 320x480 units; rendering into the window framebuffer at a
  * higher resolution (render_scale) multiplies them, so the game sees nothing different */
 static void apply_viewport_scissor(void) {
-    int k = cur_fb && cur_fb == game_fb ? tex_scale : 1;
+    float k = cur_fb && cur_fb == game_fb ? (copy_drawable?copy_scale():(float)tex_scale) : 1;
     glViewport(viewport[0] * k, viewport[1] * k, viewport[2] * k, viewport[3] * k);
     glScissor(scissor[0] * k, scissor[1] * k, scissor[2] * k, scissor[3] * k);
 }
@@ -115,7 +131,7 @@ static void apply_viewport_scissor(void) {
 #define E struct w2c_env *e
 void w2c_env_host_glBindFramebufferOES(E, u32 t, u32 f) {
     (void)e; (void)t; int was = cur_fb == game_fb && game_fb; cur_fb = f; bindFB(GL_FRAMEBUFFER_, f);
-    if (tex_scale != 1 && was != (f == game_fb && game_fb)) apply_viewport_scissor();
+    if ((copy_drawable||tex_scale != 1) && was != (f == game_fb && game_fb)) apply_viewport_scissor();
 }
 void w2c_env_host_glBindRenderbufferOES(E, u32 t, u32 r) { (void)e; (void)t; cur_rb = r; bindRB(GL_RENDERBUFFER_, r); }
 void w2c_env_host_glGenFramebuffersOES(E, u32 n, u32 p) { (void)e; genFB((GLsizei)n, MEM(p)); }
@@ -194,7 +210,7 @@ void w2c_env_host_glMatrixMode(E, u32 m) { (void)e; mat_mode = m; glMatrixMode(m
 void w2c_env_host_glOrthof(E, f32 l, f32 r, f32 b, f32 t, f32 n, f32 f) { (void)e; glOrtho_(l, r, b, t, n, f); }
 void w2c_env_host_glScissor(E, u32 x, u32 y, u32 w, u32 h) {
     (void)e; scissor[0] = (GLint)x; scissor[1] = (GLint)y; scissor[2] = (GLint)w; scissor[3] = (GLint)h;
-    if (tex_scale != 1) apply_viewport_scissor(); else glScissor((GLint)x, (GLint)y, (GLsizei)w, (GLsizei)h);
+    if (copy_drawable||tex_scale != 1) apply_viewport_scissor(); else glScissor((GLint)x, (GLint)y, (GLsizei)w, (GLsizei)h);
 }
 void w2c_env_host_glTexCoordPointer(E, u32 s, u32 t, u32 st, u32 p) { (void)e; tp.size = (GLint)s; tp.type = t; tp.stride = (GLint)st; tp.p = MEM(p); glTexCoordPointer((GLint)s, t, (GLsizei)st, tp.p); }
 void w2c_env_host_glVertexPointer(E, u32 s, u32 t, u32 st, u32 p) { (void)e; vp.size = (GLint)s; vp.type = t; vp.stride = (GLint)st; vp.p = MEM(p); glVertexPointer((GLint)s, t, (GLsizei)st, vp.p); }
@@ -206,7 +222,7 @@ void w2c_env_host_glTexImage2D(E, u32 t, u32 l, u32 i, u32 w, u32 h, u32 b, u32 
 void w2c_env_host_glTexParameteri(E, u32 t, u32 pn, u32 v) { (void)e; glTexParameteri(t, pn, (GLint)v); }
 void w2c_env_host_glViewport(E, u32 x, u32 y, u32 w, u32 h) {
     (void)e; viewport[0] = (GLint)x; viewport[1] = (GLint)y; viewport[2] = (GLint)w; viewport[3] = (GLint)h;
-    if (tex_scale != 1) apply_viewport_scissor(); else glViewport((GLint)x, (GLint)y, (GLsizei)w, (GLsizei)h);
+    if (copy_drawable||tex_scale != 1) apply_viewport_scissor(); else glViewport((GLint)x, (GLint)y, (GLsizei)w, (GLsizei)h);
 }
 
 /* ---- present: portrait framebuffer -> landscape window ---- */
@@ -224,6 +240,7 @@ static void land_to_view(float lx, float ly, float *vx, float *vy) {
 }
 void gfx_window_to_view(float wx, float wy, float *vx, float *vy) {
     int x, y, w, h; screen_box(&x, &y, &w, &h);
+    if(w<=0||h<=0){*vx=*vy=0;return;}
     land_to_view((wx - x) * (float)scr_w() / w, (wy - y) * (float)scr_h() / h, vx, vy);
 }
 static void restore_state(void) {
@@ -239,7 +256,7 @@ static void restore_state(void) {
     if (cl_color) glEnableClientState(GL_COLOR_ARRAY); else glDisableClientState(GL_COLOR_ARRAY);
     if (vp.p) glVertexPointer(vp.size, vp.type, vp.stride, vp.p);
     if (tp.p) glTexCoordPointer(tp.size, tp.type, tp.stride, tp.p);
-    glMatrixMode(GL_TEXTURE); glPopMatrix(); glMatrixMode(GL_MODELVIEW); glPopMatrix(); glMatrixMode(GL_PROJECTION); glPopMatrix();
+    glMatrixMode(GL_TEXTURE);glPopMatrix();glMatrixMode(GL_MODELVIEW);glPopMatrix();glMatrixMode(GL_PROJECTION);glPopMatrix();
     glMatrixMode(mat_mode);
 }
 /* render_scale changed: reallocate the window texture (the framebuffer keeps it attached) */
@@ -294,16 +311,18 @@ static void draw_blur_fill(void) {
 static int present_count;
 static char capture_path[512];
 void gfx_capture_window(const char *path) { snprintf(capture_path, sizeof capture_path, "%s", path); }
-static void present_frame(void) {
+static void present_frame(int fresh_game_frame) {
     if (!copy_drawable && g_ext.render_scale != tex_scale) apply_render_scale();
-    if(copy_drawable) {
+    if(copy_drawable&&fresh_game_frame) {
         glBindTexture(GL_TEXTURE_2D,drawable_tex);
-        glCopyTexSubImage2D(GL_TEXTURE_2D,0,0,0,0,0,fb_w,fb_h);
+        copy_content_w=(int)(fb_w*copy_scale());copy_content_h=(int)(fb_h*copy_scale());
+        glCopyTexSubImage2D(GL_TEXTURE_2D,0,0,0,0,0,copy_content_w,copy_content_h);
         glBindTexture(GL_TEXTURE_2D,bound_tex);
     }
-    glMatrixMode(GL_PROJECTION); glPushMatrix(); glLoadIdentity(); glOrtho_(0, scr_w(), scr_h(), 0, -1, 1);
-    glMatrixMode(GL_MODELVIEW); glPushMatrix(); glLoadIdentity();
-    glMatrixMode(GL_TEXTURE); glPushMatrix(); glLoadIdentity();
+    if(!platform_begin_present())return;
+    glMatrixMode(GL_PROJECTION);glPushMatrix();glLoadIdentity();glOrtho_(0,scr_w(),scr_h(),0,-1,1);
+    glMatrixMode(GL_MODELVIEW);glPushMatrix();glLoadIdentity();
+    glMatrixMode(GL_TEXTURE);glPushMatrix();glLoadIdentity();
     bindFB(GL_FRAMEBUFFER_, 0);
     glViewport(0, 0, win_w, win_h);
     for (int i = 0; i < NCAPS; i++) glDisable(caps[i]);
@@ -325,7 +344,7 @@ static void present_frame(void) {
         float vx, vy; land_to_view(corners[i][0], corners[i][1], &vx, &vy);
         v[2 * i] = corners[i][0]; v[2 * i + 1] = corners[i][1];
         t[2 * i] = vx / 320.0f; t[2 * i + 1] = 1.0f - vy / 480.0f;
-        if(copy_drawable) { t[2*i]*=(float)fb_w/copy_w; t[2*i+1]*=(float)fb_h/copy_h; }
+        if(copy_drawable) { t[2*i]*=(float)copy_content_w/copy_w; t[2*i+1]*=(float)copy_content_h/copy_h; }
     }
     glVertexPointer(2, GL_FLOAT, 0, v); glTexCoordPointer(2, GL_FLOAT, 0, t);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -345,16 +364,34 @@ static void present_frame(void) {
     }
     present_count++;
     platform_swap();
+    platform_end_present();
     restore_state();
 }
 void w2c_env_host_present(E) {
     (void)e;
     if (!drawable_tex) return;
     if (present_count == 0) hlog("first present: game framebuffer status 0x%x", checkFB(GL_FRAMEBUFFER_));
-    present_frame();
+    present_frame(1);
     presented = 1;
 }
-void gfx_redraw(void) { if (drawable_tex) present_frame(); }
+void gfx_redraw(void) { if (drawable_tex) present_frame(0); }
+/* Drivers without FBO render the virtual canvas into the window. Reconstruct
+ * its clean retained contents before game updates; never use the composite
+ * Android picture (borders, rotation, pause menu) as the next game's backing. */
+void gfx_prepare_frame(void){
+    if(!copy_drawable||!drawable_tex||!present_count)return;
+    glMatrixMode(GL_PROJECTION);glPushMatrix();glLoadIdentity();glOrtho_(0,fb_w,0,fb_h,-1,1);
+    glMatrixMode(GL_MODELVIEW);glPushMatrix();glLoadIdentity();
+    glMatrixMode(GL_TEXTURE);glPushMatrix();glLoadIdentity();
+    for(int i=0;i<NCAPS;i++)glDisable(caps[i]);
+    glViewport(0,0,(int)(fb_w*copy_scale()),(int)(fb_h*copy_scale()));
+    glEnable(GL_TEXTURE_2D);glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE);glColor4f(1,1,1,1);
+    glDisableClientState(GL_COLOR_ARRAY);glEnableClientState(GL_VERTEX_ARRAY);glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glBindTexture(GL_TEXTURE_2D,drawable_tex);
+    quad(0,0,fb_w,fb_h,0,0,(float)copy_content_w/copy_w,(float)copy_content_h/copy_h);
+    restore_state();
+}
+
 void gfx_window_size(int *w, int *h) { *w = win_w; *h = win_h; }
 /* PPM of the game's own framebuffer, upright in view orientation (portrait) */
 int gfx_screenshot(const char *path) {

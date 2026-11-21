@@ -4,13 +4,22 @@
 #include "../native/engine/host/android_presentation.h"
 
 int main(void){
-    assert(patriots_window_rotation(800,1280,1,1,270)==0);
+    assert(patriots_window_rotation(800,1280,1,1,270)==270);
     assert(patriots_window_rotation(1280,800,0,0,270)==0);
     assert(patriots_window_rotation(1280,800,1,0,0)==270);
     assert(patriots_window_rotation(1280,800,5,0,0)==90);
     assert(patriots_window_rotation(1280,800,0,1,0)==270);
     assert(patriots_window_rotation(1280,800,2,0,90)==90);
-    assert(patriots_window_rotation(0,800,1,1,90)==0);
+    assert(patriots_window_rotation(0,800,1,1,90)==90);
+    /* OS rotation/resizing cannot change the virtual phone's scene axes. */
+    const int windows[][2]={{720,1280},{1280,720},{720,1280},{1280,720},{600,800},{1280,800},{800,1280}};
+    for(int i=0;i<7;i++){
+        int w=windows[i][0],h=windows[i][1];
+        assert(patriots_window_rotation(w,h,1,1,270)==270);
+        assert(patriots_window_rotation(w,h,5,1,90)==90);
+        assert(patriots_window_rotation(w,h,2,0,90)==90);
+        assert(patriots_window_rotation(w,h,8,0,270)==0);
+    }
     for(int r=0;r<3;r++)for(int y=0;y<=480;y+=24)for(int x=0;x<=320;x+=16){
         int rotation=r==0?0:r==1?90:270;float sx,sy,vx,vy;
         patriots_view_to_screen(rotation,x,y,&sx,&sy);

@@ -1,6 +1,8 @@
 # Patriots Android · Touch
 
-Android APK v1.1.0, Android 9/API 28 or newer. The distributed universal APK includes arm64-v8a, armeabi-v7a and an x86_64 build for emulators/compatible devices. Actual performance depends on the device and OpenGL driver.
+Android APK v1.1.1, Android 9/API 28 or newer. The distributed universal APK includes arm64-v8a, armeabi-v7a and an x86_64 build for emulators/compatible devices. Actual performance depends on the device and OpenGL driver.
+
+Rotation recovery in 1.1.1: live drawable measurements, retained-frame redraw, preserved GL context and synchronized touch/controller cancellation. [Cause, device regression test and validation scope](../docs/ANDROID-ROTATION.md).
 
 ## Play
 
@@ -26,7 +28,7 @@ $env:ANDROID_HOME='D:\Patriots_Android\sdk'
 $env:PATRIOTS_ANDROID_WORK='D:\Patriots_Android'
 $env:PATRIOTS_PC_PACKAGE='C:\Games\MGS Touch'
 $env:PATRIOTS_ANDROID_ABIS='arm64-v8a,armeabi-v7a,x86_64'
-python android-patriots/build.py 1.1.0
+python android-patriots/build.py 1.1.1
 ```
 
 The builder writes the APK and SHA256 to `outputs/Android/`, verifies APK signatures and 16 KB native-library alignment, and uses the stable private key in the work folder's `signing/`. **Back up that folder privately. Do not upload it.** The Android launcher/updater is MIT-licensed; native runtime component licenses remain as documented in the repository.

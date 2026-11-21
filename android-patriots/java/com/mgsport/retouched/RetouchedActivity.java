@@ -22,11 +22,10 @@ public class RetouchedActivity extends NativeActivity implements Runnable {
 
     public String getGameLanguage(){String value=getIntent().getStringExtra("patriots_language");return "en".equals(value)||"tr".equals(value)||"pt-br".equals(value)?value:com.patriots.shared.HomeActivity.locale(this);}
     @SuppressWarnings("deprecation") public int getSensorQuarterTurns(){
-        android.util.DisplayMetrics metrics=new android.util.DisplayMetrics();
-        android.view.Display display=getWindowManager().getDefaultDisplay();display.getRealMetrics(metrics);
-        int rotation=display.getRotation();
-        boolean sideways=rotation==android.view.Surface.ROTATION_90||rotation==android.view.Surface.ROTATION_270;
-        return (sideways?metrics.heightPixels>metrics.widthPixels:metrics.widthPixels>metrics.heightPixels)?1:0;
+        // Logical dimensions and a separately queried rotation can race while
+        // resizing. Physical mode dimensions keep sensor axes device-relative.
+        android.view.Display.Mode mode=getWindowManager().getDefaultDisplay().getMode();
+        return mode.getPhysicalWidth()>mode.getPhysicalHeight()?1:0;
     }
     @Override protected void onDestroy(){super.onDestroy();if(isFinishing())android.os.Process.killProcess(android.os.Process.myPid());}
     private volatile boolean immersive = true;

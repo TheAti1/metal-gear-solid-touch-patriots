@@ -24,6 +24,8 @@ jobs:
           java -cp /tmp/patriots-tests com.patriots.shared.AdaptiveLayoutTest
           cc android-patriots/tests/presentation_test.c -o /tmp/patriots-tests/presentation
           /tmp/patriots-tests/presentation
+          cc android-patriots/tests/touch_cancel_test.c -lm -o /tmp/patriots-tests/touch-cancel
+          /tmp/patriots-tests/touch-cancel
       - run: python -m pip install jsonschema==4.23.0
       - run: python tools/test_recomplauncher.py
   launcher:
