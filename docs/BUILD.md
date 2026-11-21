@@ -2,7 +2,7 @@
 
 ## Launcher only (no game input required)
 
-On Windows with .NET Framework 4.x:
+On Windows with **.NET SDK 9.0.320** and the **.NET Framework 4.8 Developer Pack**. Only the build needs the SDK; players use the installed .NET Framework runtime. The script uses the pinned SDK's Roslyn compiler with explicit reference assemblies, deterministic output and a mapped source path:
 
 ```powershell
 ./launcher/build.ps1
@@ -11,6 +11,12 @@ if ($test.ExitCode -ne 0) { throw 'Self-test failed' }
 ```
 
 This compiles the launcher and copies its UI assets. It does not build the game or create a complete playable package. The same check runs in GitHub Actions. Native game files and language assets are needed for normal PLAY / `--validate`.
+
+## Verified PC release packaging
+
+The manually dispatched [Verified Windows release workflow](../.github/workflows/release-pc.yml) runs two launcher builds, actual importer/Unicode/Discord IPC/settings tests and safe-path packaging tests, then produces full/update ZIPs, source, checksums and GitHub artifact attestations. It uploads a draft for final native-game verification before publication.
+
+`tools/package_pc_release.py` verifies the exact PC 1.2.0 base ZIP and unchanged native EXE/SDL3 hashes before replacing the launcher. It carries forward native/game/language inputs, not a full game-source rebuild. No original game files or generated game module are added to Git. See [scope and independent verification](WINDOWS-RELEASE-SECURITY.md).
 
 ## Original input and upstream revisions
 

@@ -1,5 +1,12 @@
 # Changelog / Sürüm notları
 
+## PC 1.2.1 · 2026-11-21
+
+- Build the launcher deterministically using pinned Roslyn/.NET SDK, with product/publisher/version metadata and explicit normal-user privileges.
+- Package full/update/source archives on a fresh GitHub Actions Windows runner, preserving hash-pinned native binaries, languages and gameplay. Put the prepared RecompLauncher profile at the ZIP root.
+- Add per-file hashes, a provenance receipt, GitHub artifact attestations and regression tests for unsafe ZIP paths, user data exclusion and repeatable packaging.
+- Document the reported VBA32 detection and the limits of the available scan/build evidence. This update does not claim vendor clearance, Authenticode signing or RecompLauncher listing approval. [Details](docs/WINDOWS-RELEASE-SECURITY.md).
+
 ## Android 1.1.1 · 2026-11-21
 
 - Fix persistent clipping/displacement after rotating the native game: refresh real EGL drawable dimensions during presentation and after swaps, and service surface redraw callbacks.

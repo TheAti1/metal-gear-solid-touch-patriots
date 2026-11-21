@@ -27,13 +27,13 @@ Android 1.1.1, oyun içinde ekran dönüşünden sonra kalan kırpılma/kayma so
 
 ## Kurulum
 
-1. [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) bölümünden **MGS_Touch_Patriots_PC_v1.2.0.zip** dosyasını indir.
+1. [Releases](https://github.com/TheAti1/metal-gear-solid-touch-patriots/releases/latest) bölümünden **MGS_Touch_Patriots_PC_v1.2.1.zip** dosyasını indir.
 2. Arşivi yazılabilir bir klasöre tamamen çıkart. EXE ile yanındaki klasörler birlikte kalmalı.
 3. **Metal Gear Solid Touch.exe** dosyasını aç, dil ve ayarlarını seç, **OYNA** düğmesine bas.
 
 Hazır paketi oynamak için iPhone, iOS emülatörü, Python veya derleyici gerekmez. Launcher .NET Framework 4.x, oyun Windows x64 ve çalışan bir OpenGL sürücüsü kullanır. SDL3 pakettedir. Yerel denemeler Windows 10 Pro / Intel HD Graphics 620 üzerinde yapıldı; bütün bilgisayarlar için performans garantisi değildir.
 
-Mevcut kurulum için **MGS_Touch_Patriots_PC_v1.2.0_Guncelleme.zip** kullanılabilir. Önce `Saves/` klasörünü yedekle, sonra güncelleme dosyalarını mevcut oyun klasörünün üzerine çıkart. Güncelleme kişisel kayıt veya ayar dosyası içermez. Tam paket temiz kayıt klasörüyle ve hileler kapalı gelir.
+Mevcut kurulum için **MGS_Touch_Patriots_PC_v1.2.1_Guncelleme.zip** kullanılabilir. Önce `Saves/` klasörünü yedekle, sonra güncelleme dosyalarını mevcut oyun klasörünün üzerine çıkart. Güncelleme kişisel kayıt veya ayar dosyası içermez. Tam paket temiz kayıt klasörüyle ve hileler kapalı gelir.
 
 ## Neler var?
 
